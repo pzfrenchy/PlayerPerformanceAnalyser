@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True" SettingsObjectName="Analyser.Properties.Settings" SettingsPropertyName="DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TimeLine" Member="TimeLines">
+    <Type Name="TimeLine">
+      <Column Name="TimeLineID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReadingTime" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GPSDeviceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LineupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Lineup_TimeLine" Member="Lineup" ThisKey="LineupID" OtherKey="LineupID" Type="Lineup" IsForeignKey="true" />
+      <Association Name="GPSDevice_TimeLine" Member="GPSDevice" ThisKey="GPSDeviceID" OtherKey="GPSDeviceID" Type="GPSDevice" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Position" Member="Positions">
+    <Type Name="Position">
+      <Column Name="PositionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Position" Member="Position1" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Association Name="Position_Lineup" Member="Lineups" ThisKey="PositionID" OtherKey="PositionID" Type="Lineup" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlayerPerformance" Member="PlayerPerformances">
+    <Type Name="PlayerPerformance">
+      <Column Name="PlayerPerformanceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Shots" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Goals" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Assists" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Passes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Interceptions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Tackles" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Crosses" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Corners" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Saves" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LineupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Lineup_PlayerPerformance" Member="Lineup" ThisKey="LineupID" OtherKey="LineupID" Type="Lineup" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Player" Member="Players">
+    <Type Name="Player">
+      <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Forename" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="Dob" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Player_Lineup" Member="Lineups" ThisKey="PlayerID" OtherKey="PlayerID" Type="Lineup" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pitch" Member="Pitches">
+    <Type Name="Pitch">
+      <Column Name="PitchID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PitchName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NPointLat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NPointLon" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EPointLat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EPointLon" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SPoingLat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SPointLon" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="WPointLat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="WPointLon" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Pitch_Game" Member="Games" ThisKey="PitchID" OtherKey="PitchID" Type="Game" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Opponent" Member="Opponents">
+    <Type Name="Opponent">
+      <Column Name="OpponentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OpponentName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Opponent_Game" Member="Games" ThisKey="OpponentID" OtherKey="OpponentID" Type="Game" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lineup" Member="Lineups">
+    <Type Name="Lineup">
+      <Column Name="LineupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PositionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PlayerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GameID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Lineup_TimeLine" Member="TimeLines" ThisKey="LineupID" OtherKey="LineupID" Type="TimeLine" />
+      <Association Name="Lineup_PlayerPerformance" Member="PlayerPerformances" ThisKey="LineupID" OtherKey="LineupID" Type="PlayerPerformance" />
+      <Association Name="Player_Lineup" Member="Player" ThisKey="PlayerID" OtherKey="PlayerID" Type="Player" IsForeignKey="true" />
+      <Association Name="Position_Lineup" Member="Position" ThisKey="PositionID" OtherKey="PositionID" Type="Position" IsForeignKey="true" />
+      <Association Name="Game_Lineup" Member="Game" ThisKey="GameID" OtherKey="GameID" Type="Game" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GPSDevice" Member="GPSDevices">
+    <Type Name="GPSDevice">
+      <Column Name="GPSDeviceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GPSDeviceName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="GPSDevice_TimeLine" Member="TimeLines" ThisKey="GPSDeviceID" OtherKey="GPSDeviceID" Type="TimeLine" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Game" Member="Games">
+    <Type Name="Game">
+      <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GameDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="OpponentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PitchID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Game_Lineup" Member="Lineups" ThisKey="GameID" OtherKey="GameID" Type="Lineup" />
+      <Association Name="Opponent_Game" Member="Opponent" ThisKey="OpponentID" OtherKey="OpponentID" Type="Opponent" IsForeignKey="true" />
+      <Association Name="Pitch_Game" Member="Pitch" ThisKey="PitchID" OtherKey="PitchID" Type="Pitch" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
