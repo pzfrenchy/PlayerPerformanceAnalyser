@@ -30,9 +30,6 @@ namespace Analyser
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertTimeLine(TimeLine instance);
-    partial void UpdateTimeLine(TimeLine instance);
-    partial void DeleteTimeLine(TimeLine instance);
     partial void InsertPosition(Position instance);
     partial void UpdatePosition(Position instance);
     partial void DeletePosition(Position instance);
@@ -57,6 +54,9 @@ namespace Analyser
     partial void InsertGame(Game instance);
     partial void UpdateGame(Game instance);
     partial void DeleteGame(Game instance);
+    partial void InsertTimeLine(TimeLine instance);
+    partial void UpdateTimeLine(TimeLine instance);
+    partial void DeleteTimeLine(TimeLine instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -87,14 +87,6 @@ namespace Analyser
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<TimeLine> TimeLines
-		{
-			get
-			{
-				return this.GetTable<TimeLine>();
-			}
 		}
 		
 		public System.Data.Linq.Table<Position> Positions
@@ -160,268 +152,12 @@ namespace Analyser
 				return this.GetTable<Game>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TimeLine")]
-	public partial class TimeLine : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _TimeLineID;
-		
-		private System.Nullable<System.TimeSpan> _ReadingTime;
-		
-		private System.Nullable<double> _Longitude;
-		
-		private System.Nullable<double> _Latitude;
-		
-		private System.Nullable<int> _GPSDeviceID;
-		
-		private System.Nullable<int> _LineupID;
-		
-		private EntityRef<Lineup> _Lineup;
-		
-		private EntityRef<GPSDevice> _GPSDevice;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnTimeLineIDChanging(int value);
-    partial void OnTimeLineIDChanged();
-    partial void OnReadingTimeChanging(System.Nullable<System.TimeSpan> value);
-    partial void OnReadingTimeChanged();
-    partial void OnLongitudeChanging(System.Nullable<double> value);
-    partial void OnLongitudeChanged();
-    partial void OnLatitudeChanging(System.Nullable<double> value);
-    partial void OnLatitudeChanged();
-    partial void OnGPSDeviceIDChanging(System.Nullable<int> value);
-    partial void OnGPSDeviceIDChanged();
-    partial void OnLineupIDChanging(System.Nullable<int> value);
-    partial void OnLineupIDChanged();
-    #endregion
-		
-		public TimeLine()
-		{
-			this._Lineup = default(EntityRef<Lineup>);
-			this._GPSDevice = default(EntityRef<GPSDevice>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeLineID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int TimeLineID
+		public System.Data.Linq.Table<TimeLine> TimeLines
 		{
 			get
 			{
-				return this._TimeLineID;
-			}
-			set
-			{
-				if ((this._TimeLineID != value))
-				{
-					this.OnTimeLineIDChanging(value);
-					this.SendPropertyChanging();
-					this._TimeLineID = value;
-					this.SendPropertyChanged("TimeLineID");
-					this.OnTimeLineIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReadingTime", DbType="Time")]
-		public System.Nullable<System.TimeSpan> ReadingTime
-		{
-			get
-			{
-				return this._ReadingTime;
-			}
-			set
-			{
-				if ((this._ReadingTime != value))
-				{
-					this.OnReadingTimeChanging(value);
-					this.SendPropertyChanging();
-					this._ReadingTime = value;
-					this.SendPropertyChanged("ReadingTime");
-					this.OnReadingTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Longitude", DbType="Float")]
-		public System.Nullable<double> Longitude
-		{
-			get
-			{
-				return this._Longitude;
-			}
-			set
-			{
-				if ((this._Longitude != value))
-				{
-					this.OnLongitudeChanging(value);
-					this.SendPropertyChanging();
-					this._Longitude = value;
-					this.SendPropertyChanged("Longitude");
-					this.OnLongitudeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Latitude", DbType="Float")]
-		public System.Nullable<double> Latitude
-		{
-			get
-			{
-				return this._Latitude;
-			}
-			set
-			{
-				if ((this._Latitude != value))
-				{
-					this.OnLatitudeChanging(value);
-					this.SendPropertyChanging();
-					this._Latitude = value;
-					this.SendPropertyChanged("Latitude");
-					this.OnLatitudeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GPSDeviceID", DbType="Int")]
-		public System.Nullable<int> GPSDeviceID
-		{
-			get
-			{
-				return this._GPSDeviceID;
-			}
-			set
-			{
-				if ((this._GPSDeviceID != value))
-				{
-					if (this._GPSDevice.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnGPSDeviceIDChanging(value);
-					this.SendPropertyChanging();
-					this._GPSDeviceID = value;
-					this.SendPropertyChanged("GPSDeviceID");
-					this.OnGPSDeviceIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupID", DbType="Int")]
-		public System.Nullable<int> LineupID
-		{
-			get
-			{
-				return this._LineupID;
-			}
-			set
-			{
-				if ((this._LineupID != value))
-				{
-					if (this._Lineup.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnLineupIDChanging(value);
-					this.SendPropertyChanging();
-					this._LineupID = value;
-					this.SendPropertyChanged("LineupID");
-					this.OnLineupIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lineup_TimeLine", Storage="_Lineup", ThisKey="LineupID", OtherKey="LineupID", IsForeignKey=true)]
-		public Lineup Lineup
-		{
-			get
-			{
-				return this._Lineup.Entity;
-			}
-			set
-			{
-				Lineup previousValue = this._Lineup.Entity;
-				if (((previousValue != value) 
-							|| (this._Lineup.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Lineup.Entity = null;
-						previousValue.TimeLines.Remove(this);
-					}
-					this._Lineup.Entity = value;
-					if ((value != null))
-					{
-						value.TimeLines.Add(this);
-						this._LineupID = value.LineupID;
-					}
-					else
-					{
-						this._LineupID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Lineup");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GPSDevice_TimeLine", Storage="_GPSDevice", ThisKey="GPSDeviceID", OtherKey="GPSDeviceID", IsForeignKey=true)]
-		public GPSDevice GPSDevice
-		{
-			get
-			{
-				return this._GPSDevice.Entity;
-			}
-			set
-			{
-				GPSDevice previousValue = this._GPSDevice.Entity;
-				if (((previousValue != value) 
-							|| (this._GPSDevice.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GPSDevice.Entity = null;
-						previousValue.TimeLines.Remove(this);
-					}
-					this._GPSDevice.Entity = value;
-					if ((value != null))
-					{
-						value.TimeLines.Add(this);
-						this._GPSDeviceID = value.GPSDeviceID;
-					}
-					else
-					{
-						this._GPSDeviceID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("GPSDevice");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<TimeLine>();
 			}
 		}
 	}
@@ -1503,9 +1239,9 @@ namespace Analyser
 		
 		private System.Nullable<int> _GameID;
 		
-		private EntitySet<TimeLine> _TimeLines;
-		
 		private EntitySet<PlayerPerformance> _PlayerPerformances;
+		
+		private EntitySet<TimeLine> _TimeLines;
 		
 		private EntityRef<Player> _Player;
 		
@@ -1529,8 +1265,8 @@ namespace Analyser
 		
 		public Lineup()
 		{
-			this._TimeLines = new EntitySet<TimeLine>(new Action<TimeLine>(this.attach_TimeLines), new Action<TimeLine>(this.detach_TimeLines));
 			this._PlayerPerformances = new EntitySet<PlayerPerformance>(new Action<PlayerPerformance>(this.attach_PlayerPerformances), new Action<PlayerPerformance>(this.detach_PlayerPerformances));
+			this._TimeLines = new EntitySet<TimeLine>(new Action<TimeLine>(this.attach_TimeLines), new Action<TimeLine>(this.detach_TimeLines));
 			this._Player = default(EntityRef<Player>);
 			this._Position = default(EntityRef<Position>);
 			this._Game = default(EntityRef<Game>);
@@ -1629,19 +1365,6 @@ namespace Analyser
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lineup_TimeLine", Storage="_TimeLines", ThisKey="LineupID", OtherKey="LineupID")]
-		public EntitySet<TimeLine> TimeLines
-		{
-			get
-			{
-				return this._TimeLines;
-			}
-			set
-			{
-				this._TimeLines.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lineup_PlayerPerformance", Storage="_PlayerPerformances", ThisKey="LineupID", OtherKey="LineupID")]
 		public EntitySet<PlayerPerformance> PlayerPerformances
 		{
@@ -1652,6 +1375,19 @@ namespace Analyser
 			set
 			{
 				this._PlayerPerformances.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lineup_TimeLine", Storage="_TimeLines", ThisKey="LineupID", OtherKey="LineupID")]
+		public EntitySet<TimeLine> TimeLines
+		{
+			get
+			{
+				return this._TimeLines;
+			}
+			set
+			{
+				this._TimeLines.Assign(value);
 			}
 		}
 		
@@ -1777,18 +1513,6 @@ namespace Analyser
 			}
 		}
 		
-		private void attach_TimeLines(TimeLine entity)
-		{
-			this.SendPropertyChanging();
-			entity.Lineup = this;
-		}
-		
-		private void detach_TimeLines(TimeLine entity)
-		{
-			this.SendPropertyChanging();
-			entity.Lineup = null;
-		}
-		
 		private void attach_PlayerPerformances(PlayerPerformance entity)
 		{
 			this.SendPropertyChanging();
@@ -1796,6 +1520,18 @@ namespace Analyser
 		}
 		
 		private void detach_PlayerPerformances(PlayerPerformance entity)
+		{
+			this.SendPropertyChanging();
+			entity.Lineup = null;
+		}
+		
+		private void attach_TimeLines(TimeLine entity)
+		{
+			this.SendPropertyChanging();
+			entity.Lineup = this;
+		}
+		
+		private void detach_TimeLines(TimeLine entity)
 		{
 			this.SendPropertyChanging();
 			entity.Lineup = null;
@@ -2157,6 +1893,270 @@ namespace Analyser
 		{
 			this.SendPropertyChanging();
 			entity.Game = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TimeLine")]
+	public partial class TimeLine : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _TimeLineID;
+		
+		private System.Nullable<System.DateTime> _ReadingTime;
+		
+		private System.Nullable<double> _Longitude;
+		
+		private System.Nullable<double> _Latitude;
+		
+		private System.Nullable<int> _GPSDeviceID;
+		
+		private System.Nullable<int> _LineupID;
+		
+		private EntityRef<GPSDevice> _GPSDevice;
+		
+		private EntityRef<Lineup> _Lineup;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTimeLineIDChanging(int value);
+    partial void OnTimeLineIDChanged();
+    partial void OnReadingTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnReadingTimeChanged();
+    partial void OnLongitudeChanging(System.Nullable<double> value);
+    partial void OnLongitudeChanged();
+    partial void OnLatitudeChanging(System.Nullable<double> value);
+    partial void OnLatitudeChanged();
+    partial void OnGPSDeviceIDChanging(System.Nullable<int> value);
+    partial void OnGPSDeviceIDChanged();
+    partial void OnLineupIDChanging(System.Nullable<int> value);
+    partial void OnLineupIDChanged();
+    #endregion
+		
+		public TimeLine()
+		{
+			this._GPSDevice = default(EntityRef<GPSDevice>);
+			this._Lineup = default(EntityRef<Lineup>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeLineID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int TimeLineID
+		{
+			get
+			{
+				return this._TimeLineID;
+			}
+			set
+			{
+				if ((this._TimeLineID != value))
+				{
+					this.OnTimeLineIDChanging(value);
+					this.SendPropertyChanging();
+					this._TimeLineID = value;
+					this.SendPropertyChanged("TimeLineID");
+					this.OnTimeLineIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReadingTime", DbType="DateTime2")]
+		public System.Nullable<System.DateTime> ReadingTime
+		{
+			get
+			{
+				return this._ReadingTime;
+			}
+			set
+			{
+				if ((this._ReadingTime != value))
+				{
+					this.OnReadingTimeChanging(value);
+					this.SendPropertyChanging();
+					this._ReadingTime = value;
+					this.SendPropertyChanged("ReadingTime");
+					this.OnReadingTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Longitude", DbType="Float")]
+		public System.Nullable<double> Longitude
+		{
+			get
+			{
+				return this._Longitude;
+			}
+			set
+			{
+				if ((this._Longitude != value))
+				{
+					this.OnLongitudeChanging(value);
+					this.SendPropertyChanging();
+					this._Longitude = value;
+					this.SendPropertyChanged("Longitude");
+					this.OnLongitudeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Latitude", DbType="Float")]
+		public System.Nullable<double> Latitude
+		{
+			get
+			{
+				return this._Latitude;
+			}
+			set
+			{
+				if ((this._Latitude != value))
+				{
+					this.OnLatitudeChanging(value);
+					this.SendPropertyChanging();
+					this._Latitude = value;
+					this.SendPropertyChanged("Latitude");
+					this.OnLatitudeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GPSDeviceID", DbType="Int")]
+		public System.Nullable<int> GPSDeviceID
+		{
+			get
+			{
+				return this._GPSDeviceID;
+			}
+			set
+			{
+				if ((this._GPSDeviceID != value))
+				{
+					if (this._GPSDevice.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGPSDeviceIDChanging(value);
+					this.SendPropertyChanging();
+					this._GPSDeviceID = value;
+					this.SendPropertyChanged("GPSDeviceID");
+					this.OnGPSDeviceIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupID", DbType="Int")]
+		public System.Nullable<int> LineupID
+		{
+			get
+			{
+				return this._LineupID;
+			}
+			set
+			{
+				if ((this._LineupID != value))
+				{
+					if (this._Lineup.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnLineupIDChanging(value);
+					this.SendPropertyChanging();
+					this._LineupID = value;
+					this.SendPropertyChanged("LineupID");
+					this.OnLineupIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GPSDevice_TimeLine", Storage="_GPSDevice", ThisKey="GPSDeviceID", OtherKey="GPSDeviceID", IsForeignKey=true)]
+		public GPSDevice GPSDevice
+		{
+			get
+			{
+				return this._GPSDevice.Entity;
+			}
+			set
+			{
+				GPSDevice previousValue = this._GPSDevice.Entity;
+				if (((previousValue != value) 
+							|| (this._GPSDevice.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GPSDevice.Entity = null;
+						previousValue.TimeLines.Remove(this);
+					}
+					this._GPSDevice.Entity = value;
+					if ((value != null))
+					{
+						value.TimeLines.Add(this);
+						this._GPSDeviceID = value.GPSDeviceID;
+					}
+					else
+					{
+						this._GPSDeviceID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("GPSDevice");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lineup_TimeLine", Storage="_Lineup", ThisKey="LineupID", OtherKey="LineupID", IsForeignKey=true)]
+		public Lineup Lineup
+		{
+			get
+			{
+				return this._Lineup.Entity;
+			}
+			set
+			{
+				Lineup previousValue = this._Lineup.Entity;
+				if (((previousValue != value) 
+							|| (this._Lineup.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Lineup.Entity = null;
+						previousValue.TimeLines.Remove(this);
+					}
+					this._Lineup.Entity = value;
+					if ((value != null))
+					{
+						value.TimeLines.Add(this);
+						this._LineupID = value.LineupID;
+					}
+					else
+					{
+						this._LineupID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Lineup");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
