@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Analyser
@@ -52,7 +47,27 @@ namespace Analyser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            test();
+            //test();
+            Thread thread = new Thread(new ThreadStart(threadtest));
+            thread.Start();
+        }
+
+        private void threadtest()
+        {
+            DirSearch gds = new DirSearch();
+            gds.PrintQueryResults(".gpx", "XmlDocuments");
+
+            var filelist = gds.GetFiles(".gpx", "XmlDocuments");
+
+            GpxFile gpxFile = new GpxFile();
+            foreach (var file in filelist)
+            {
+                var list = gpxFile.GPXTracksList(Convert.ToString(file.FullName));
+                foreach (var item in list)
+                {
+                    Console.WriteLine(item);
+                }
+            }
         }
     }
 }
