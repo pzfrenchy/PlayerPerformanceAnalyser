@@ -81,7 +81,7 @@
             this.matchDtp = new System.Windows.Forms.DateTimePicker();
             this.lineupTab = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.removeLineupItemBtn = new System.Windows.Forms.Button();
             this.lineupPlayersLstBox = new System.Windows.Forms.ListBox();
             this.selectPositionCombo = new System.Windows.Forms.ComboBox();
             this.selectPlayerCombo = new System.Windows.Forms.ComboBox();
@@ -94,8 +94,14 @@
             this.matchSearchTxt = new System.Windows.Forms.TextBox();
             this.matchSearchResultsLstBox = new System.Windows.Forms.ListBox();
             this.uploadTab = new System.Windows.Forms.TabPage();
-            this.label19 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.uploadSearchCombo = new System.Windows.Forms.ComboBox();
+            this.uploadSearchTxt = new System.Windows.Forms.TextBox();
+            this.uploadSearchResultsLstBox = new System.Windows.Forms.ListBox();
+            this.uploadLineupLstBox = new System.Windows.Forms.ListBox();
+            this.uploadBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.playerTab.SuspendLayout();
@@ -106,6 +112,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.uploadTab.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -159,7 +166,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1114, 762);
+            this.tabControl1.Size = new System.Drawing.Size(1114, 845);
             this.tabControl1.TabIndex = 9;
             // 
             // playerTab
@@ -177,7 +184,7 @@
             this.playerTab.Location = new System.Drawing.Point(8, 39);
             this.playerTab.Name = "playerTab";
             this.playerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.playerTab.Size = new System.Drawing.Size(1098, 715);
+            this.playerTab.Size = new System.Drawing.Size(1098, 798);
             this.playerTab.TabIndex = 0;
             this.playerTab.Text = "Player Details";
             // 
@@ -282,7 +289,7 @@
             this.pitchTab.Controls.Add(this.createPitchBtn);
             this.pitchTab.Location = new System.Drawing.Point(8, 39);
             this.pitchTab.Name = "pitchTab";
-            this.pitchTab.Size = new System.Drawing.Size(1098, 715);
+            this.pitchTab.Size = new System.Drawing.Size(1098, 798);
             this.pitchTab.TabIndex = 2;
             this.pitchTab.Text = "Create Pitch";
             // 
@@ -459,7 +466,7 @@
             this.opponentTab.Location = new System.Drawing.Point(8, 39);
             this.opponentTab.Name = "opponentTab";
             this.opponentTab.Padding = new System.Windows.Forms.Padding(3);
-            this.opponentTab.Size = new System.Drawing.Size(1098, 715);
+            this.opponentTab.Size = new System.Drawing.Size(1098, 798);
             this.opponentTab.TabIndex = 1;
             this.opponentTab.Text = "Create Opponents";
             // 
@@ -511,7 +518,7 @@
             this.matchTab.Controls.Add(this.matchDtp);
             this.matchTab.Location = new System.Drawing.Point(8, 39);
             this.matchTab.Name = "matchTab";
-            this.matchTab.Size = new System.Drawing.Size(1098, 715);
+            this.matchTab.Size = new System.Drawing.Size(1098, 798);
             this.matchTab.TabIndex = 3;
             this.matchTab.Text = "Create Match";
             // 
@@ -593,13 +600,13 @@
             this.lineupTab.Controls.Add(this.groupBox1);
             this.lineupTab.Location = new System.Drawing.Point(8, 39);
             this.lineupTab.Name = "lineupTab";
-            this.lineupTab.Size = new System.Drawing.Size(1098, 715);
+            this.lineupTab.Size = new System.Drawing.Size(1098, 798);
             this.lineupTab.TabIndex = 5;
             this.lineupTab.Text = "Create Lineup";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.removeLineupItemBtn);
             this.groupBox2.Controls.Add(this.lineupPlayersLstBox);
             this.groupBox2.Controls.Add(this.selectPositionCombo);
             this.groupBox2.Controls.Add(this.selectPlayerCombo);
@@ -613,14 +620,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Add Players";
             // 
-            // button3
+            // removeLineupItemBtn
             // 
-            this.button3.Location = new System.Drawing.Point(818, 200);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(109, 60);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Remove";
-            this.button3.UseVisualStyleBackColor = true;
+            this.removeLineupItemBtn.Location = new System.Drawing.Point(82, 284);
+            this.removeLineupItemBtn.Name = "removeLineupItemBtn";
+            this.removeLineupItemBtn.Size = new System.Drawing.Size(123, 60);
+            this.removeLineupItemBtn.TabIndex = 6;
+            this.removeLineupItemBtn.Text = "Remove";
+            this.removeLineupItemBtn.UseVisualStyleBackColor = true;
+            this.removeLineupItemBtn.Click += new System.EventHandler(this.removeLineupItemBtn_Click);
             // 
             // lineupPlayersLstBox
             // 
@@ -628,7 +636,7 @@
             this.lineupPlayersLstBox.ItemHeight = 25;
             this.lineupPlayersLstBox.Location = new System.Drawing.Point(315, 31);
             this.lineupPlayersLstBox.Name = "lineupPlayersLstBox";
-            this.lineupPlayersLstBox.Size = new System.Drawing.Size(496, 354);
+            this.lineupPlayersLstBox.Size = new System.Drawing.Size(652, 354);
             this.lineupPlayersLstBox.TabIndex = 5;
             // 
             // selectPositionCombo
@@ -651,9 +659,9 @@
             // 
             // addPlayerToLineupBtn
             // 
-            this.addPlayerToLineupBtn.Location = new System.Drawing.Point(96, 221);
+            this.addPlayerToLineupBtn.Location = new System.Drawing.Point(82, 221);
             this.addPlayerToLineupBtn.Name = "addPlayerToLineupBtn";
-            this.addPlayerToLineupBtn.Size = new System.Drawing.Size(109, 48);
+            this.addPlayerToLineupBtn.Size = new System.Drawing.Size(123, 48);
             this.addPlayerToLineupBtn.TabIndex = 2;
             this.addPlayerToLineupBtn.Text = "Add";
             this.addPlayerToLineupBtn.UseVisualStyleBackColor = true;
@@ -683,9 +691,9 @@
             this.groupBox1.Controls.Add(this.matchSearchCombo);
             this.groupBox1.Controls.Add(this.matchSearchTxt);
             this.groupBox1.Controls.Add(this.matchSearchResultsLstBox);
-            this.groupBox1.Location = new System.Drawing.Point(24, 34);
+            this.groupBox1.Location = new System.Drawing.Point(24, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(832, 252);
+            this.groupBox1.Size = new System.Drawing.Size(983, 252);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Match Search";
@@ -725,38 +733,102 @@
             this.matchSearchResultsLstBox.ItemHeight = 25;
             this.matchSearchResultsLstBox.Location = new System.Drawing.Point(315, 55);
             this.matchSearchResultsLstBox.Name = "matchSearchResultsLstBox";
-            this.matchSearchResultsLstBox.Size = new System.Drawing.Size(496, 179);
+            this.matchSearchResultsLstBox.Size = new System.Drawing.Size(652, 179);
             this.matchSearchResultsLstBox.TabIndex = 0;
             this.matchSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.matchSearchLstBoxIndexChanged);
             // 
             // uploadTab
             // 
             this.uploadTab.BackColor = System.Drawing.Color.Transparent;
-            this.uploadTab.Controls.Add(this.label19);
-            this.uploadTab.Controls.Add(this.label18);
+            this.uploadTab.Controls.Add(this.uploadBtn);
+            this.uploadTab.Controls.Add(this.uploadLineupLstBox);
+            this.uploadTab.Controls.Add(this.groupBox3);
+            this.uploadTab.Controls.Add(this.label23);
             this.uploadTab.Location = new System.Drawing.Point(8, 39);
             this.uploadTab.Name = "uploadTab";
-            this.uploadTab.Size = new System.Drawing.Size(1098, 715);
+            this.uploadTab.Size = new System.Drawing.Size(1098, 798);
             this.uploadTab.TabIndex = 4;
             this.uploadTab.Text = "Upload Data";
             // 
-            // label19
+            // label23
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(55, 131);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(194, 25);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "Select GPS Device";
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(39, 310);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(139, 25);
+            this.label23.TabIndex = 2;
+            this.label23.Text = "Select Player";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label18);
+            this.groupBox3.Controls.Add(this.uploadSearchCombo);
+            this.groupBox3.Controls.Add(this.uploadSearchTxt);
+            this.groupBox3.Controls.Add(this.uploadSearchResultsLstBox);
+            this.groupBox3.Location = new System.Drawing.Point(15, 20);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(983, 252);
+            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Match Search";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(50, 52);
+            this.label18.Location = new System.Drawing.Point(24, 55);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(137, 25);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "Select Match";
+            this.label18.Size = new System.Drawing.Size(155, 25);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "Search Criteria";
+            // 
+            // uploadSearchCombo
+            // 
+            this.uploadSearchCombo.FormattingEnabled = true;
+            this.uploadSearchCombo.Items.AddRange(new object[] {
+            "ID",
+            "Date",
+            "Opposition"});
+            this.uploadSearchCombo.Location = new System.Drawing.Point(23, 95);
+            this.uploadSearchCombo.Name = "uploadSearchCombo";
+            this.uploadSearchCombo.Size = new System.Drawing.Size(225, 33);
+            this.uploadSearchCombo.TabIndex = 2;
+            // 
+            // uploadSearchTxt
+            // 
+            this.uploadSearchTxt.Location = new System.Drawing.Point(23, 134);
+            this.uploadSearchTxt.Name = "uploadSearchTxt";
+            this.uploadSearchTxt.Size = new System.Drawing.Size(225, 31);
+            this.uploadSearchTxt.TabIndex = 1;
+            this.uploadSearchTxt.TextChanged += new System.EventHandler(this.uploadSearchTxtChanged);
+            // 
+            // uploadSearchResultsLstBox
+            // 
+            this.uploadSearchResultsLstBox.FormattingEnabled = true;
+            this.uploadSearchResultsLstBox.ItemHeight = 25;
+            this.uploadSearchResultsLstBox.Location = new System.Drawing.Point(315, 55);
+            this.uploadSearchResultsLstBox.Name = "uploadSearchResultsLstBox";
+            this.uploadSearchResultsLstBox.Size = new System.Drawing.Size(652, 179);
+            this.uploadSearchResultsLstBox.TabIndex = 0;
+            this.uploadSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.uploadSeachIndexChanged);
+            // 
+            // uploadLineupLstBox
+            // 
+            this.uploadLineupLstBox.FormattingEnabled = true;
+            this.uploadLineupLstBox.ItemHeight = 25;
+            this.uploadLineupLstBox.Location = new System.Drawing.Point(44, 338);
+            this.uploadLineupLstBox.Name = "uploadLineupLstBox";
+            this.uploadLineupLstBox.Size = new System.Drawing.Size(386, 304);
+            this.uploadLineupLstBox.TabIndex = 4;
+            // 
+            // uploadBtn
+            // 
+            this.uploadBtn.Location = new System.Drawing.Point(552, 434);
+            this.uploadBtn.Name = "uploadBtn";
+            this.uploadBtn.Size = new System.Drawing.Size(136, 64);
+            this.uploadBtn.TabIndex = 5;
+            this.uploadBtn.Text = "Upload";
+            this.uploadBtn.UseVisualStyleBackColor = true;
+            this.uploadBtn.Click += new System.EventHandler(this.uploadBtn_Click);
             // 
             // HomeScreen
             // 
@@ -786,6 +858,8 @@
             this.groupBox1.PerformLayout();
             this.uploadTab.ResumeLayout(false);
             this.uploadTab.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -844,8 +918,6 @@
         private System.Windows.Forms.DateTimePicker matchDtp;
         private System.Windows.Forms.ListBox matchLstBox;
         private System.Windows.Forms.Button createMatchBtn;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TabPage lineupTab;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label20;
@@ -853,13 +925,21 @@
         private System.Windows.Forms.TextBox matchSearchTxt;
         private System.Windows.Forms.ListBox matchSearchResultsLstBox;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button removeLineupItemBtn;
         private System.Windows.Forms.ListBox lineupPlayersLstBox;
         private System.Windows.Forms.ComboBox selectPositionCombo;
         private System.Windows.Forms.ComboBox selectPlayerCombo;
         private System.Windows.Forms.Button addPlayerToLineupBtn;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ComboBox uploadSearchCombo;
+        private System.Windows.Forms.TextBox uploadSearchTxt;
+        private System.Windows.Forms.ListBox uploadSearchResultsLstBox;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ListBox uploadLineupLstBox;
+        private System.Windows.Forms.Button uploadBtn;
     }
 }
 
