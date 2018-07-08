@@ -727,6 +727,7 @@
             this.matchSearchResultsLstBox.Name = "matchSearchResultsLstBox";
             this.matchSearchResultsLstBox.Size = new System.Drawing.Size(496, 179);
             this.matchSearchResultsLstBox.TabIndex = 0;
+            this.matchSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.matchSearchLstBoxIndexChanged);
             // 
             // uploadTab
             // 

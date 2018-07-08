@@ -192,6 +192,14 @@ namespace Analyser
             }
         }
 
+        private void matchSearchLstBoxIndexChanged(object sender, EventArgs e)
+        {
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                PopulateLineupLstBox();
+            }
+        }
+
         private void selectPlayerComboClick(object sender, EventArgs e)
         {
             PopulateLineupPlayerCombo();
@@ -199,15 +207,36 @@ namespace Analyser
 
         private void addPlayerToLineupBtn_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string[] selectedMatch = matchSearchResultsLstBox.Text.Split(' ');
+                int matchID = Convert.ToInt16(selectedMatch[1]);
 
-            //using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            //{
-            //    lineupPlayersLstBox.Items.Clear();
-            //    foreach (var lineup in dbContext.Lineups)
-            //    {
-            //        lineupPlayersLstBox.Items.Add(string.Format("{0} {1}: {2}", lineup.Player.Forename, lineup.Player.Surname, lineup.Position.Position1));
-            //    }
-            //}
+                string[] selectedPlayer = selectPlayerCombo.Text.Split(' ');
+                int playerID = Convert.ToInt16(selectedPlayer[1]);
+
+                string[] selectedPosition = selectPositionCombo.Text.Split(' ');
+                int positionID = Convert.ToInt16(selectedPosition[1]);
+
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                {
+                    Lineup lineup = new Lineup
+                    {
+                        GameID = matchID,
+                        PlayerID = playerID,
+                        PositionID = positionID
+                    };
+                    dbContext.Lineups.InsertOnSubmit(lineup);
+                    dbContext.SubmitChanges();
+                }
+                PopulateLineupLstBox();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                MessageBox.Show("Please enter all details");
+            }
+
         }
 
         private void selectPositionComboClick(object sender, EventArgs e)
@@ -309,6 +338,25 @@ namespace Analyser
                 foreach (var position in dbContext.Positions)
                 {
                     selectPositionCombo.Items.Add(string.Format("ID: {0} - {1}", position.PositionID, position.Position1));
+                }
+            }
+        }
+
+        private void PopulateLineupLstBox()
+        {
+            lineupPlayersLstBox.Items.Clear();
+
+            string[] selectedMatch = matchSearchResultsLstBox.Text.Split(' ');
+            int matchID = Convert.ToInt16(selectedMatch[1]);
+
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                foreach (var lineup in dbContext.Lineups)
+                {
+                    if (lineup.GameID == matchID)
+                    {
+                        lineupPlayersLstBox.Items.Add(string.Format("{0} {1}: {2}", lineup.Player.Forename, lineup.Player.Surname, lineup.Position.Position1));
+                    }
                 }
             }
         }
