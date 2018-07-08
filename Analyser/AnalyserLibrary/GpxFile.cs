@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Analyser
+namespace AnalyserLibrary
 {
     /// <summary>
     /// Represents a GPX file (Used in GPS). Provides methods to parse GPX data.
     /// </summary>
-    class GpxFile
+    public class GpxFile
     {
         /// <summary> 
         /// Load the Xml document for parsing 
@@ -23,7 +23,7 @@ namespace Analyser
         /// <summary> 
         /// Load the namespace for a standard GPX document 
         /// </summary> 
-        /// <returns></returns> 
+        /// <returns>GPX XNamespace</returns> 
         private XNamespace GetGpxNameSpace()
         {
             XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/1");

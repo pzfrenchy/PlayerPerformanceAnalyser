@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Analyser
+namespace AnalyserLibrary
 {
     /// <summary>
     /// Exposes methods for searching a local directory for files by file type and returning listings
     /// </summary>
-    class DirSearch
+    public class DirSearch
     {
         /// <summary>
         /// Load the directory info into memory
@@ -17,8 +17,8 @@ namespace Analyser
         /// <param name="d">Directory to be searched</param>
         private DirectoryInfo GetDirectory(string d)
         {
-            var dir = new DirectoryInfo(d);
-            return dir;
+                var dir = new DirectoryInfo(d);
+                return dir;
         }
 
         /// <summary>
@@ -36,16 +36,16 @@ namespace Analyser
         /// Filter files based on extension type
         /// </summary>
         /// <returns>IEnumerable</returns>
-        /// <param name="d">Direcroty to be searched</param>
+        /// <param name="d">Directory to be searched</param>
         /// <param name="fe">Target file extension type</param>
-        public IEnumerable<FileInfo> GetFiles(string fe, string d)
+        public List<FileInfo> GetFiles(string fe, string d)
         {
             IEnumerable<FileInfo> fileQuery =
                 from file in CreateFileList(d)
                 where file.Extension == fe
                 orderby file.Name
                 select file;
-            return fileQuery;
+            return fileQuery.ToList();
         }
 
         /// <summary>
