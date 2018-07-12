@@ -11,9 +11,9 @@ using AnalyserLibrary;
 
 namespace Analyser
 {
-    public partial class Options : Form
+    public partial class OptionsForm : Form
     {
-        public Options()
+        public OptionsForm()
         {
             InitializeComponent();
         }

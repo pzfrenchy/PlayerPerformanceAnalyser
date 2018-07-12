@@ -6,11 +6,13 @@ using AnalyserLibrary;
 
 namespace Analyser
 {
-    public partial class HomeScreen : Form
+    public partial class AdminForm : Form
     {
-        public HomeScreen()
+        public AdminForm()
         {
             InitializeComponent();
+
+            //Pre-populate all list and combo boxes with db data.
             PopulatePlayersLstBox();
             PopulatePitchLstBox();
             PopulateOppLstBox();
@@ -23,7 +25,7 @@ namespace Analyser
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Options options = new Options();
+            OptionsForm options = new OptionsForm();
             options.Show();
         }
 
@@ -52,6 +54,7 @@ namespace Analyser
 
         private void createPitchBtn_Click(object sender, EventArgs e)
         {
+            //Data entry validation carried out in separate method.
             if (ArePitchDetailsValid() == false)
             {
                 MessageBox.Show("Please enter the correct details");
@@ -118,11 +121,11 @@ namespace Analyser
             }
             else
             {
-                //Get pitch ID
+                //Get pitch ID from pitch combo box.
                 string[] selectedPitch = selectPitchCombo.Text.Split(' ');
                 int pitchID = Convert.ToInt16(selectedPitch[1]);
 
-                //Get opponent ID
+                //Get opponent ID from opponent combo box.
                 string[] selectedOpponent = selectOppCombo.Text.Split(' ');
                 int opponentID = Convert.ToInt16(selectedOpponent[1]);
 
@@ -141,7 +144,7 @@ namespace Analyser
             }
         }
 
-        private void searchTextChanged(object sender, EventArgs e)
+        private void lineupSearchTxtChanged(object sender, EventArgs e)
         {
             if (matchSearchCombo.Text == "ID")
             {
@@ -255,136 +258,6 @@ namespace Analyser
             }
         }
 
-        private void uploadSearchTxtChanged(object sender, EventArgs e)
-        {
-            if (uploadSearchCombo.Text == "ID")
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    uploadSearchResultsLstBox.Items.Clear();
-                    foreach (var game in dbContext.Games)
-                    {
-                        if (game.GameID.ToString().Contains(uploadSearchTxt.Text) && uploadSearchTxt.Text != "")
-                        {
-                            uploadSearchResultsLstBox.Items.Add(string.Format("ID: {0} - Date: {1} Opposition: {2}", game.GameID, game.GameDate, game.Opponent.OpponentName));
-                        }
-                    }
-                }
-            }
-            else if (uploadSearchCombo.Text == "Date")
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    uploadSearchResultsLstBox.Items.Clear();
-                    foreach (var game in dbContext.Games)
-                    {
-                        if (game.GameDate.ToString().Contains(uploadSearchTxt.Text) && uploadSearchTxt.Text != "")
-                        {
-                            uploadSearchResultsLstBox.Items.Add(string.Format("ID: {0} - Date: {1} Opposition: {2}", game.GameID, game.GameDate, game.Opponent.OpponentName));
-                        }
-                    }
-                }
-            }
-            else if (uploadSearchCombo.Text == "Opposition")
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    uploadSearchResultsLstBox.Items.Clear();
-                    foreach (var game in dbContext.Games)
-                    {
-                        string oppName = game.Opponent.OpponentName.ToUpper();
-                        if (oppName.Contains(uploadSearchTxt.Text.ToUpper()) && uploadSearchTxt.Text != "")
-                        {
-                            uploadSearchResultsLstBox.Items.Add(string.Format("ID: {0} - Date: {1} Opposition: {2}", game.GameID, game.GameDate, game.Opponent.OpponentName));
-                        }
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select your search type");
-            }
-        }
-
-        private void uploadSeachIndexChanged(object sender, EventArgs e)
-        {
-            uploadLineupLstBox.Items.Clear();
-
-            string[] selectedMatch = uploadSearchResultsLstBox.Text.Split(' ');
-            int matchID = Convert.ToInt16(selectedMatch[1]);
-
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                foreach (var lineupItem in dbContext.Lineups)
-                {
-                    if (lineupItem.GameID == matchID)
-                    {
-                        uploadLineupLstBox.Items.Add(string.Format("ID: {0} {1} {2}", lineupItem.PlayerID, lineupItem.Player.Forename, lineupItem.Player.Surname));
-                    }
-                }
-            }
-        }
-
-        private void uploadBtn_Click(object sender, EventArgs e)
-        {
-            string selectedFile = "";
-            OpenFileDialog op = new OpenFileDialog();
-            op.InitialDirectory = "C:\\";
-            op.Title = "Select file";
-            if (op.ShowDialog() == DialogResult.OK)
-            {
-                selectedFile = op.FileName;
-            }
-
-            string[] selectedMatch = uploadSearchResultsLstBox.Text.Split(' ');
-            int matchID = Convert.ToInt16(selectedMatch[1]);
-
-            string[] selectedPlayer = uploadLineupLstBox.Text.Split(' ');
-            int playerID = Convert.ToInt16(selectedPlayer[1]);
-
-            try
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    int lineupID = 0;
-
-                    //get lineupID from match and player data
-                    foreach (var lineupItem in dbContext.Lineups)
-                    {
-                        if (lineupItem.PlayerID == playerID && lineupItem.GameID == matchID)
-                        {
-                            lineupID = lineupItem.LineupID;
-                        }
-                    }
-
-                    GpxFile reader = new GpxFile();
-
-                    List<string> list = reader.GPXTracksList(selectedFile);
-                    for (int i = 0; i < list.Count; i++)
-                    {
-                        string[] elements = list[i].Split(',');
-
-                        TimeLine timeLines = new TimeLine
-                        {
-                            Longitude = Convert.ToDouble(elements[1]),
-                            Latitude = Convert.ToDouble(elements[2]),
-                            ReadingTime = Convert.ToDateTime(elements[3]),
-                            LineupID = lineupID,
-                            GPSDeviceID = null
-                        };
-
-                        dbContext.TimeLines.InsertOnSubmit(timeLines);
-                        dbContext.SubmitChanges();
-                    }
-                }
-                MessageBox.Show("Upload Complete");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
-
         //The following methods are for populating form controls with data.
 
         private void PopulatePlayersLstBox()
@@ -394,7 +267,7 @@ namespace Analyser
                 playersLstBox.Items.Clear();
                 foreach (var player in dbContext.Players)
                 {
-                    playersLstBox.Items.Add(string.Format("{0} {1} DOB: {2}", player.Forename, player.Surname, player.Dob.Value.ToShortDateString()));
+                    playersLstBox.Items.Add(string.Format("{0} {1} DOB: {2}", player.Forename, player.Surname, player.Dob.ToShortDateString()));
                 }
             }
         }

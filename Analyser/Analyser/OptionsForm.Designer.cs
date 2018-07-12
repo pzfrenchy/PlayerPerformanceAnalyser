@@ -1,6 +1,6 @@
 ﻿namespace Analyser
 {
-    partial class Options
+    partial class OptionsForm
     {
         /// <summary>
         /// Required designer variable.
