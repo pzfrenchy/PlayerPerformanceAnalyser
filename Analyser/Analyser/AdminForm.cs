@@ -13,14 +13,13 @@ namespace Analyser
             InitializeComponent();
 
             //Pre-populate all list and combo boxes with db data.
-            PopulatePlayersLstBox();
-            PopulatePitchLstBox();
-            PopulateOppLstBox();
-            PopulateMatchOppCombo();
-            PopulateMatchPitchCombo();
-            PopulateMatchLstBox();
-            PopulateLineupPlayerCombo();
-            PopulateLineupPositionCombo();
+            playersLstBox.DataSource = DataLists.Instance.PlayerData();
+            pitchLstBox.DataSource = DataLists.Instance.PitchData();
+            oppLstBox.DataSource = DataLists.Instance.OppositionData();
+            selectOppCombo.DataSource = DataLists.Instance.OppositionData();
+            selectPitchCombo.DataSource = DataLists.Instance.PitchData();
+            selectPlayerCombo.DataSource = DataLists.Instance.PlayerData();
+            selectPositionCombo.DataSource = DataLists.Instance.PositionData();
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -48,7 +47,7 @@ namespace Analyser
                     dbContext.Players.InsertOnSubmit(player);
                     dbContext.SubmitChanges();
                 }
-                PopulatePlayersLstBox();
+                playersLstBox.DataSource = DataLists.Instance.PlayerData();
             }
         }
 
@@ -78,7 +77,7 @@ namespace Analyser
                     dbContext.Pitches.InsertOnSubmit(pitch);
                     dbContext.SubmitChanges();
                 }
-                PopulatePitchLstBox();
+                pitchLstBox.DataSource = DataLists.Instance.PitchData();
             }
         }
 
@@ -99,18 +98,18 @@ namespace Analyser
                     dbContext.Opponents.InsertOnSubmit(opponent);
                     dbContext.SubmitChanges();
                 }
-                PopulateOppLstBox();
+                oppLstBox.DataSource = DataLists.Instance.OppositionData();
             }
         }
 
         private void selectOppComboClick(object sender, EventArgs e)
         {
-            PopulateMatchOppCombo();
+            selectOppCombo.DataSource = DataLists.Instance.OppositionData();
         }
 
         private void selectPitchComboClick(object sender, EventArgs e)
         {
-            PopulateMatchPitchCombo();
+            pitchLstBox.DataSource = DataLists.Instance.PitchData();
         }
 
         private void createMatchBtn_Click(object sender, EventArgs e)
@@ -140,7 +139,7 @@ namespace Analyser
                     dbContext.Games.InsertOnSubmit(game);
                     dbContext.SubmitChanges();
                 }
-                PopulateMatchLstBox();
+                matchLstBox.DataSource = DataLists.Instance.MatchData();
             }
         }
 
@@ -199,18 +198,23 @@ namespace Analyser
         {
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
             {
-                PopulateLineupLstBox();
+                lineupPlayersLstBox.DataSource = DataLists.Instance.LineupData(matchSearchResultsLstBox.Text);
             }
         }
 
         private void selectPlayerComboClick(object sender, EventArgs e)
         {
-            PopulateLineupPlayerCombo();
+            selectPlayerCombo.DataSource = DataLists.Instance.PlayerData();
         }
 
         private void selectPositionComboClick(object sender, EventArgs e)
         {
-            PopulateLineupPositionCombo();
+            selectPositionCombo.DataSource = DataLists.Instance.PositionData();
+        }
+
+        private void SelectPitchComboIndexChanged(object sender, EventArgs e)
+        {
+            selectPitchCombo.DataSource = DataLists.Instance.PitchData();
         }
 
         private void addPlayerToLineupBtn_Click(object sender, EventArgs e)
@@ -237,7 +241,7 @@ namespace Analyser
                     dbContext.Lineups.InsertOnSubmit(lineup);
                     dbContext.SubmitChanges();
                 }
-                PopulateLineupLstBox();
+                lineupPlayersLstBox.DataSource = DataLists.Instance.LineupData(matchSearchResultsLstBox.Text);
             }
             catch (Exception ex)
             {
@@ -254,124 +258,7 @@ namespace Analyser
             }
             else
             {
-                //string[] selectedLineupPlayerID = 
-            }
-        }
-
-        //The following methods are for populating form controls with data.
-
-        private void PopulatePlayersLstBox()
-        {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                playersLstBox.Items.Clear();
-                foreach (var player in dbContext.Players)
-                {
-                    playersLstBox.Items.Add(string.Format("{0} {1} DOB: {2}", player.Forename, player.Surname, player.Dob.ToShortDateString()));
-                }
-            }
-        }
-
-        private void PopulatePitchLstBox()
-        {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                pitchLstBox.Items.Clear();
-                foreach (var pitch in dbContext.Pitches)
-                {
-                    pitchLstBox.Items.Add(pitch.PitchName);
-                }
-            }
-        }
-
-        private void PopulateOppLstBox()
-        {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                oppLstBox.Items.Clear();
-                foreach (var opponents in dbContext.Opponents)
-                {
-                    oppLstBox.Items.Add(string.Format("ID: {0} - {1}", opponents.OpponentID, opponents.OpponentName));
-                }
-            }
-        }
-
-        private void PopulateMatchOppCombo()
-        {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                selectOppCombo.Items.Clear();
-                foreach (var opponents in dbContext.Opponents)
-                {
-                    selectOppCombo.Items.Add(string.Format("ID: {0} - {1}", opponents.OpponentID, opponents.OpponentName));
-                }
-            }
-        }
-
-        private void PopulateMatchPitchCombo()
-        {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                selectPitchCombo.Items.Clear();
-                foreach (var pitch in dbContext.Pitches)
-                {
-                    selectPitchCombo.Items.Add(string.Format("ID: {0} - {1}", pitch.PitchID, pitch.PitchName));
-                }
-            }
-        }
-
-        private void PopulateMatchLstBox()
-        {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                matchLstBox.Items.Clear();
-                foreach (var game in dbContext.Games)
-                {
-                    matchLstBox.Items.Add(string.Format("{0} {1} {2}", game.GameDate.Value.ToShortDateString(), game.Opponent.OpponentName, game.Pitch.PitchName));
-                }
-            }
-        }
-
-        private void PopulateLineupPlayerCombo()
-        {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                selectPlayerCombo.Items.Clear();
-                foreach (var player in dbContext.Players)
-                {
-                    selectPlayerCombo.Items.Add(string.Format("ID: {0} - {1} {2}", player.PlayerID, player.Forename, player.Surname));
-                }
-            }
-        }
-
-        private void PopulateLineupPositionCombo()
-        {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                selectPositionCombo.Items.Clear();
-                foreach (var position in dbContext.Positions)
-                {
-                    selectPositionCombo.Items.Add(string.Format("ID: {0} - {1}", position.PositionID, position.Position1));
-                }
-            }
-        }
-
-        private void PopulateLineupLstBox()
-        {
-            lineupPlayersLstBox.Items.Clear();
-
-            string[] selectedMatch = matchSearchResultsLstBox.Text.Split(' ');
-            int matchID = Convert.ToInt16(selectedMatch[1]);
-
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                foreach (var lineup in dbContext.Lineups)
-                {
-                    if (lineup.GameID == matchID)
-                    {
-                        lineupPlayersLstBox.Items.Add(string.Format("{0} {1} {2}: {3}", lineup.Game.GameID, lineup.Player.Forename, lineup.Player.Surname, lineup.Position.Position1));
-                    }
-                }
+                //To do!!!!!!
             }
         }
 

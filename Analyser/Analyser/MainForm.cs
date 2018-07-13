@@ -33,5 +33,11 @@ namespace Analyser
             UploadForm manualUpload = new UploadForm();
             manualUpload.Show();
         }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OptionsForm optionsForm = new OptionsForm();
+            optionsForm.Show();
+        }
     }
 }

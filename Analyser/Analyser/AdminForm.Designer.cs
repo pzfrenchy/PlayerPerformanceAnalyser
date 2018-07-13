@@ -490,6 +490,7 @@
             this.selectPitchCombo.Name = "selectPitchCombo";
             this.selectPitchCombo.Size = new System.Drawing.Size(200, 33);
             this.selectPitchCombo.TabIndex = 5;
+            this.selectPitchCombo.SelectedIndexChanged += new System.EventHandler(this.SelectPitchComboIndexChanged);
             this.selectPitchCombo.Click += new System.EventHandler(this.selectPitchComboClick);
             // 
             // selectOppCombo
@@ -680,7 +681,7 @@
             this.matchSearchResultsLstBox.TabIndex = 0;
             this.matchSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.matchSearchLstBoxIndexChanged);
             // 
-            // AdminScreen
+            // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -689,7 +690,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AdminScreen";
+            this.Name = "AdminForm";
             this.Text = "Admin Screen";
             this.tabControl1.ResumeLayout(false);
             this.playerTab.ResumeLayout(false);
