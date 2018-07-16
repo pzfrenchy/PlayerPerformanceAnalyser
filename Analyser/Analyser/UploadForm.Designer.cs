@@ -61,6 +61,7 @@
             this.uploadLineupLstBox.Size = new System.Drawing.Size(622, 329);
             this.uploadLineupLstBox.TabIndex = 4;
             this.uploadLineupLstBox.SelectedIndexChanged += new System.EventHandler(this.uploadLineupLstBoxIndexChanged);
+            this.uploadLineupLstBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatLineupString);
             // 
             // uploadBtn
             // 
@@ -111,14 +112,13 @@
             // 
             this.uploadSearchCombo.FormattingEnabled = true;
             this.uploadSearchCombo.Items.AddRange(new object[] {
-            "ID",
             "Date",
             "Opposition"});
             this.uploadSearchCombo.Location = new System.Drawing.Point(23, 88);
             this.uploadSearchCombo.Name = "uploadSearchCombo";
             this.uploadSearchCombo.Size = new System.Drawing.Size(225, 33);
             this.uploadSearchCombo.TabIndex = 0;
-            this.uploadSearchCombo.Text = "ID";
+            this.uploadSearchCombo.Text = "Date";
             // 
             // uploadSearchTxt
             // 
@@ -137,6 +137,7 @@
             this.uploadSearchResultsLstBox.Size = new System.Drawing.Size(618, 204);
             this.uploadSearchResultsLstBox.TabIndex = 3;
             this.uploadSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.uploadSeachIndexChanged);
+            this.uploadSearchResultsLstBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatResultsString);
             // 
             // UploadForm
             // 

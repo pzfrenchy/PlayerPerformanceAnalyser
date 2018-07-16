@@ -203,8 +203,10 @@ namespace AnalyserLibrary
 			this._Pitch = default(EntityRef<Pitch>);
 			OnCreated();
 		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+
+        public string FullDetails => $"{GameDate.Value.ToShortDateString()} - {Opponent.OpponentName} at {Pitch.PitchName}";
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int GameID
 		{
 			get
@@ -1640,8 +1642,10 @@ namespace AnalyserLibrary
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dob", DbType="Date NOT NULL")]
+
+        public string FullDetails => $"{Forename} {Surname} - DOB: {Dob.ToShortDateString()}";
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dob", DbType="Date NOT NULL")]
 		public System.DateTime Dob
 		{
 			get
