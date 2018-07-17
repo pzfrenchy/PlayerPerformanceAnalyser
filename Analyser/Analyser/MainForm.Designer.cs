@@ -39,6 +39,8 @@ namespace Analyser
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.playerStatsBtn = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,12 +94,12 @@ namespace Analyser
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(274, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(358, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(277, 38);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(361, 38);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -110,19 +112,42 @@ namespace Analyser
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // playerStatsBtn
+            // 
+            this.playerStatsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.playerStatsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.playerStatsBtn.Location = new System.Drawing.Point(368, 164);
+            this.playerStatsBtn.Name = "playerStatsBtn";
+            this.playerStatsBtn.Size = new System.Drawing.Size(295, 123);
+            this.playerStatsBtn.TabIndex = 3;
+            this.playerStatsBtn.Text = "Player Stats";
+            this.playerStatsBtn.UseVisualStyleBackColor = false;
+            this.playerStatsBtn.Click += new System.EventHandler(this.playerStatsBtn_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.Location = new System.Drawing.Point(368, 322);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(295, 123);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Team Stats";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1080, 798);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.playerStatsBtn);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "MainScreen";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AdminFormKeyDown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UploadFormKeyDown);
+            this.Text = "TrackFit";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SettingsFormKeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -141,5 +166,7 @@ namespace Analyser
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem manualUploadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private Button playerStatsBtn;
+        private Button button2;
     }
 }

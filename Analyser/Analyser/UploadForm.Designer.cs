@@ -150,7 +150,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UploadForm";
-            this.Text = "Manual Upload";
+            this.Text = "TrackFit - Upload";
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();

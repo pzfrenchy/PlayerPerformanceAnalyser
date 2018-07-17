@@ -699,12 +699,12 @@
             this.lineupGameSearchTxt.TabIndex = 1;
             this.lineupGameSearchTxt.TextChanged += new System.EventHandler(this.lineupSearchTxtChanged);
             // 
-            // lineupGameSearchResultsLstBox
+            // lineupSearchResultsLstBox
             // 
             this.lineupSearchResultsLstBox.FormattingEnabled = true;
             this.lineupSearchResultsLstBox.ItemHeight = 25;
             this.lineupSearchResultsLstBox.Location = new System.Drawing.Point(315, 44);
-            this.lineupSearchResultsLstBox.Name = "lineupGameSearchResultsLstBox";
+            this.lineupSearchResultsLstBox.Name = "lineupSearchResultsLstBox";
             this.lineupSearchResultsLstBox.Size = new System.Drawing.Size(652, 179);
             this.lineupSearchResultsLstBox.TabIndex = 0;
             this.lineupSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.gameSearchLstBoxIndexChanged);
@@ -720,7 +720,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AdminForm";
-            this.Text = "Admin Screen";
+            this.Text = "TrackFit - Admin";
             this.tabControl1.ResumeLayout(false);
             this.playerTab.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);

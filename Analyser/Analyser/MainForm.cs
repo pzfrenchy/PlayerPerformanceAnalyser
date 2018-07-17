@@ -93,5 +93,11 @@ namespace Analyser
                 }
             }
         }
+
+        private void playerStatsBtn_Click(object sender, EventArgs e)
+        {
+            PlayerStatsForm form = new PlayerStatsForm();
+            form.Show();
+        }
     }
 }
