@@ -17,6 +17,9 @@ namespace Analyser
         int trainingOppositionID = 1; //reference training opposition ID in database.
         int trainingPositionID = 9; //reference training position ID in database.
 
+        int gpsDeviceID = 1; //reference "other" device ID in database.
+        int trainingPitchID = 1; //reference the home training pitch in database.
+
         public UploadForm()
         {
             InitializeComponent();
@@ -53,7 +56,6 @@ namespace Analyser
             {
                 using (DataClassesDataContext dbContext = new DataClassesDataContext())
                 {
-                    int playerID = Convert.ToInt16(uploadLineupLstBox.SelectedValue.ToString());
                     int lineupID = 0;
 
                     //check if training item is being uploaded as position and game ID's not required.
@@ -65,7 +67,7 @@ namespace Analyser
                             //temp date, real training date is pulled from GPX file
                             GameDate = DateTime.Now,
                             OpponentID = trainingOppositionID,
-                            PitchID = OptionSettings.Instance.TrainingPitchID,
+                            PitchID = trainingPitchID,
                             GameTypeID = trainingGameTypeID
                         };
                         dbContext.Games.InsertOnSubmit(game);
@@ -75,7 +77,7 @@ namespace Analyser
                         Lineup lineup = new Lineup
                         {
                             PositionID = trainingPositionID,
-                            PlayerID = playerID,
+                            PlayerID = Convert.ToInt16(uploadLineupLstBox.SelectedValue.ToString()),
                             GameID = game.GameID //gameID direct from new game record
                         };
                         //write object to database
@@ -91,7 +93,7 @@ namespace Analyser
                         int gameID = Convert.ToInt16(uploadSearchResultsLstBox.SelectedValue.ToString());
 
                         //get lineupID from match and player ID's
-                        lineupID = Convert.ToInt16((dbContext.Lineups.Where(l => l.PlayerID == playerID && l.GameID == gameID).Single().LineupID.ToString()));
+                        lineupID = Convert.ToInt16(uploadLineupLstBox.SelectedValue.ToString());
                     }
 
                     GpxFile reader = new GpxFile();
@@ -110,7 +112,7 @@ namespace Analyser
                             Latitude = Convert.ToDouble(elements[2]),
                             ReadingTime = Convert.ToDateTime(elements[3]),
                             LineupID = lineupID,
-                            GPSDeviceID = 1
+                            GPSDeviceID = gpsDeviceID
                         };
                         //Write to database
                         dbContext.TimeLines.InsertOnSubmit(timeLines);

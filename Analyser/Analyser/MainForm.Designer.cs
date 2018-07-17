@@ -40,7 +40,7 @@ namespace Analyser
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.playerStatsBtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.teamStatsBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,8 +114,7 @@ namespace Analyser
             // 
             // playerStatsBtn
             // 
-            this.playerStatsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.playerStatsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.playerStatsBtn.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.playerStatsBtn.Location = new System.Drawing.Point(368, 164);
             this.playerStatsBtn.Name = "playerStatsBtn";
             this.playerStatsBtn.Size = new System.Drawing.Size(295, 123);
@@ -124,31 +123,31 @@ namespace Analyser
             this.playerStatsBtn.UseVisualStyleBackColor = false;
             this.playerStatsBtn.Click += new System.EventHandler(this.playerStatsBtn_Click);
             // 
-            // button2
+            // teamStatsBtn
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Location = new System.Drawing.Point(368, 322);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(295, 123);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Team Stats";
-            this.button2.UseVisualStyleBackColor = false;
+            this.teamStatsBtn.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.teamStatsBtn.Location = new System.Drawing.Point(368, 322);
+            this.teamStatsBtn.Name = "teamStatsBtn";
+            this.teamStatsBtn.Size = new System.Drawing.Size(295, 123);
+            this.teamStatsBtn.TabIndex = 4;
+            this.teamStatsBtn.Text = "Team Stats";
+            this.teamStatsBtn.UseVisualStyleBackColor = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1080, 798);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.teamStatsBtn);
             this.Controls.Add(this.playerStatsBtn);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "TrackFit";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SettingsFormKeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDownEvent);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -167,6 +166,6 @@ namespace Analyser
         private System.Windows.Forms.ToolStripMenuItem manualUploadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private Button playerStatsBtn;
-        private Button button2;
+        private Button teamStatsBtn;
     }
 }

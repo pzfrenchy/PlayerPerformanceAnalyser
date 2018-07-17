@@ -463,37 +463,58 @@ namespace Analyser
 
         private void FormatPlayersString(object sender, ListControlConvertEventArgs e)
         {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            try
             {
-                string forename = ((Player)e.ListItem).Forename;
-                string surname = ((Player)e.ListItem).Surname;
-                e.Value = string.Format("{0} {1}", forename, surname);
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                {
+                    string forename = ((Player)e.ListItem).Forename;
+                    string surname = ((Player)e.ListItem).Surname;
+                    e.Value = string.Format("{0} {1}", forename, surname);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
 
         private void FormatLineupPlayersString(object sender, ListControlConvertEventArgs e)
         {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            try
             {
-                string forename = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Forename;
-                string surname = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Surname;
-                string position = (dbContext.Positions.Where(p => p.PositionID == ((Lineup)e.ListItem).PositionID)).Single().Position1;
-                e.Value = string.Format("{0} {1} - {2}", forename, surname, position);
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                {
+                    string forename = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Forename;
+                    string surname = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Surname;
+                    string position = (dbContext.Positions.Where(p => p.PositionID == ((Lineup)e.ListItem).PositionID)).Single().Position1;
+                    e.Value = string.Format("{0} {1} - {2}", forename, surname, position);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
 
         private void FormatLineupSearchResultsString(object sender, ListControlConvertEventArgs e)
         {
-            //using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            //{
-            //    string date = ((Game)e.ListItem).GameDate.ToShortDateString();
-            //    int oppID = (int)((Game)e.ListItem).OpponentID;
+            try
+            {
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                {
+                    string date = ((Game)e.ListItem).GameDate.ToShortDateString();
+                    int oppID = (int)((Game)e.ListItem).OpponentID;
 
-            //    //use opponentID to access opponent fields and get opponentName
-            //    string oppName = (dbContext.Opponents.Where(o => o.OpponentID == oppID)).Single().OpponentName;
+                    //use opponentID to access opponent fields and get opponentName
+                    string oppName = (dbContext.Opponents.Where(o => o.OpponentID == oppID)).Single().OpponentName;
 
-            //    e.Value = string.Format("Date: {0} - Opponent: {1}", date, oppName);
-            //}
+                    e.Value = string.Format("Date: {0} - Opponent: {1}", date, oppName);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

@@ -49,40 +49,16 @@ namespace Analyser
             optionsForm.Show();
         }
 
-        /// <summary>
-        /// Event handler to create a new admin form on shortcut keypress (ctrl+a)
-        /// </summary>
-        private void AdminFormKeyDown(object sender, KeyEventArgs e)
+        private void playerStatsBtn_Click(object sender, EventArgs e)
         {
-            if (ModifierKeys.HasFlag(Keys.Control))
-            {
-                if (e.KeyCode == Keys.A)
-                {
-                    AdminForm adminForm = new AdminForm();
-                    adminForm.Show();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Event handler to create a new options form on shortcut keypress (ctrl+s)
-        /// </summary>
-        private void SettingsFormKeyDown(object sender, KeyEventArgs e)
-        {
-            if (ModifierKeys.HasFlag(Keys.Control))
-            {
-                if (e.KeyCode == Keys.S)
-                {
-                    OptionsForm optionsForm = new OptionsForm();
-                    optionsForm.Show();
-                }
-            }
+            PlayerStatsForm form = new PlayerStatsForm();
+            form.Show();
         }
 
         /// <summary>
         /// Event handler to create a new upload form on shortcut keypress (ctrl+u)
         /// </summary>
-        private void UploadFormKeyDown(object sender, KeyEventArgs e)
+        private void KeyDownEvent(object sender, KeyEventArgs e)
         {
             if (ModifierKeys.HasFlag(Keys.Control))
             {
@@ -91,13 +67,17 @@ namespace Analyser
                     UploadForm uploadForm = new UploadForm();
                     uploadForm.Show();
                 }
+                else if (e.KeyCode == Keys.A)
+                {
+                    AdminForm adminForm = new AdminForm();
+                    adminForm.Show();
+                }
+                else if (e.KeyCode == Keys.S)
+                {
+                    OptionsForm optionsForm = new OptionsForm();
+                    optionsForm.Show();
+                }
             }
-        }
-
-        private void playerStatsBtn_Click(object sender, EventArgs e)
-        {
-            PlayerStatsForm form = new PlayerStatsForm();
-            form.Show();
         }
     }
 }
