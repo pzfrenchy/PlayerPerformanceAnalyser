@@ -13,6 +13,10 @@ namespace Analyser
 {
     public partial class UploadForm : Form
     {
+        int trainingGameTypeID = 2; //reference training gametype ID in database.
+        int trainingOppositionID = 1; //reference training opposition ID in database.
+        int trainingPositionID = 9; //reference training position ID in database.
+
         public UploadForm()
         {
             InitializeComponent();
@@ -55,13 +59,24 @@ namespace Analyser
                     //check if training item is being uploaded as position and game ID's not required.
                     if (trainingCBox.Checked == true)
                     {
+                        //training, so no previous game would be set, need to make new game object
+                        Game game = new Game
+                        {
+                            //temp date, real training date is pulled from GPX file
+                            GameDate = DateTime.Now,
+                            OpponentID = trainingOppositionID,
+                            PitchID = OptionSettings.Instance.TrainingPitchID,
+                            GameTypeID = trainingGameTypeID
+                        };
+                        dbContext.Games.InsertOnSubmit(game);
+                        dbContext.SubmitChanges();
+
                         //create new lineup object
                         Lineup lineup = new Lineup
                         {
-                            PositionID = null,
+                            PositionID = trainingPositionID,
                             PlayerID = playerID,
-                            GameID = null,
-                            Training = true
+                            GameID = game.GameID //gameID direct from new game record
                         };
                         //write object to database
                         dbContext.Lineups.InsertOnSubmit(lineup);
@@ -95,7 +110,7 @@ namespace Analyser
                             Latitude = Convert.ToDouble(elements[2]),
                             ReadingTime = Convert.ToDateTime(elements[3]),
                             LineupID = lineupID,
-                            GPSDeviceID = null
+                            GPSDeviceID = 1
                         };
                         //Write to database
                         dbContext.TimeLines.InsertOnSubmit(timeLines);
@@ -197,7 +212,7 @@ namespace Analyser
         {
             //set variables from associated list box 
             string opponentName = "";
-            string gameDate = ((Game)e.ListItem).GameDate.Value.ToShortDateString();
+            string gameDate = ((Game)e.ListItem).GameDate.ToShortDateString();
             int opponentID = Convert.ToInt16(((Game)e.ListItem).OpponentID.ToString());
 
             //select opponent name from opponents table

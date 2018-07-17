@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AnalyserLibrary;
 
 namespace Analyser
 {
@@ -43,7 +44,7 @@ namespace Analyser
                 {
                     if (lineup.PlayerID == playerID)
                     {
-                        int gameID = lineup.GameID.Value;
+                        int gameID = lineup.GameID;
                         foreach(var game in dbContext.Games)
                         {
                             if (game.GameID == gameID)
@@ -56,7 +57,7 @@ namespace Analyser
             }
             dateCombo.ValueMember = "GameID";
             dateCombo.DisplayMember = "GameDate";
-            dateCombo.DataSource = "gameList";
+            dateCombo.DataSource = gameList;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace Analyser
 {
     public partial class AdminForm : Form
     {
+        int matchGameType = 1; //references the match game type in database
+
         public AdminForm()
         {
             InitializeComponent();
@@ -146,7 +148,8 @@ namespace Analyser
                     {
                         GameDate = gameDtp.Value,
                         PitchID = pitchID,
-                        OpponentID = opponentID
+                        OpponentID = opponentID,
+                        GameTypeID = matchGameType
                     };
                     dbContext.Games.InsertOnSubmit(game);
                     dbContext.SubmitChanges();
@@ -450,41 +453,40 @@ namespace Analyser
 
         private void FormatGameString(object sender, ListControlConvertEventArgs e)
         {
-            //using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            //{
-            //    string date = ((Game)e.ListItem).GameDate.Value.ToShortDateString();
-            //    string oppName = (dbContext.Opponents.Where(o => o.OpponentID == ((Game)e.ListItem).OpponentID)).Single().OpponentName;
-            //    e.Value = string.Format("Date: {0} - Opponent: {1}",  date, oppName);
-            //}
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                string date = ((Game)e.ListItem).GameDate.ToShortDateString();
+                string oppName = (dbContext.Opponents.Where(o => o.OpponentID == ((Game)e.ListItem).OpponentID)).Single().OpponentName;
+                e.Value = string.Format("Date: {0} - Opponent: {1}", date, oppName);
+            }
         }
 
         private void FormatPlayersString(object sender, ListControlConvertEventArgs e)
         {
-            //using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            //{
-            //    string dob = ((Player)e.ListItem).Dob.ToShortDateString();
-            //    string forename = ((Player)e.ListItem).Forename;
-            //    string surname = ((Player)e.ListItem).Surname;
-            //    e.Value = string.Format("{0} {1} - DOB: {2}", forename, surname, dob);
-            //}
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                string forename = ((Player)e.ListItem).Forename;
+                string surname = ((Player)e.ListItem).Surname;
+                e.Value = string.Format("{0} {1}", forename, surname);
+            }
         }
 
         private void FormatLineupPlayersString(object sender, ListControlConvertEventArgs e)
         {
-            //using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            //{
-            //    string forename = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Forename;
-            //    string surname = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Surname;
-            //    string position = (dbContext.Positions.Where(p => p.PositionID == ((Lineup)e.ListItem).PositionID)).Single().Position1;
-            //    e.Value = string.Format("{0} {1} - {2}", forename, surname, position);
-            //}
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                string forename = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Forename;
+                string surname = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Surname;
+                string position = (dbContext.Positions.Where(p => p.PositionID == ((Lineup)e.ListItem).PositionID)).Single().Position1;
+                e.Value = string.Format("{0} {1} - {2}", forename, surname, position);
+            }
         }
 
         private void FormatLineupSearchResultsString(object sender, ListControlConvertEventArgs e)
         {
             //using (DataClassesDataContext dbContext = new DataClassesDataContext())
             //{
-            //    string date = ((Game)e.ListItem).GameDate.Value.ToShortDateString();
+            //    string date = ((Game)e.ListItem).GameDate.ToShortDateString();
             //    int oppID = (int)((Game)e.ListItem).OpponentID;
 
             //    //use opponentID to access opponent fields and get opponentName

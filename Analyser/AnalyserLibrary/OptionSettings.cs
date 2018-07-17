@@ -29,5 +29,6 @@ namespace AnalyserLibrary
 
         public string FileExtension { get; set; }
         public string Directory { get; set; }
+        public int TrainingPitchID { get; set; }
     }
 }

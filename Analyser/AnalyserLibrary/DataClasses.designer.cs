@@ -36,6 +36,9 @@ namespace AnalyserLibrary
     partial void InsertTimeLine(TimeLine instance);
     partial void UpdateTimeLine(TimeLine instance);
     partial void DeleteTimeLine(TimeLine instance);
+    partial void InsertGameType(GameType instance);
+    partial void UpdateGameType(GameType instance);
+    partial void DeleteGameType(GameType instance);
     partial void InsertGPSDevice(GPSDevice instance);
     partial void UpdateGPSDevice(GPSDevice instance);
     partial void DeleteGPSDevice(GPSDevice instance);
@@ -105,6 +108,14 @@ namespace AnalyserLibrary
 			}
 		}
 		
+		public System.Data.Linq.Table<GameType> GameTypes
+		{
+			get
+			{
+				return this.GetTable<GameType>();
+			}
+		}
+		
 		public System.Data.Linq.Table<GPSDevice> GPSDevices
 		{
 			get
@@ -170,13 +181,17 @@ namespace AnalyserLibrary
 		
 		private int _GameID;
 		
-		private System.Nullable<System.DateTime> _GameDate;
+		private System.DateTime _GameDate;
 		
-		private System.Nullable<int> _OpponentID;
+		private int _OpponentID;
 		
-		private System.Nullable<int> _PitchID;
+		private int _PitchID;
+		
+		private int _GameTypeID;
 		
 		private EntitySet<Lineup> _Lineups;
+		
+		private EntityRef<GameType> _GameType;
 		
 		private EntityRef<Opponent> _Opponent;
 		
@@ -188,25 +203,26 @@ namespace AnalyserLibrary
     partial void OnCreated();
     partial void OnGameIDChanging(int value);
     partial void OnGameIDChanged();
-    partial void OnGameDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnGameDateChanging(System.DateTime value);
     partial void OnGameDateChanged();
-    partial void OnOpponentIDChanging(System.Nullable<int> value);
+    partial void OnOpponentIDChanging(int value);
     partial void OnOpponentIDChanged();
-    partial void OnPitchIDChanging(System.Nullable<int> value);
+    partial void OnPitchIDChanging(int value);
     partial void OnPitchIDChanged();
+    partial void OnGameTypeIDChanging(int value);
+    partial void OnGameTypeIDChanged();
     #endregion
 		
 		public Game()
 		{
 			this._Lineups = new EntitySet<Lineup>(new Action<Lineup>(this.attach_Lineups), new Action<Lineup>(this.detach_Lineups));
+			this._GameType = default(EntityRef<GameType>);
 			this._Opponent = default(EntityRef<Opponent>);
 			this._Pitch = default(EntityRef<Pitch>);
 			OnCreated();
 		}
-
-        public string FullDetails => $"{GameDate.Value.ToShortDateString()} - {Opponent.OpponentName} at {Pitch.PitchName}";
-
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int GameID
 		{
 			get
@@ -226,8 +242,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameDate", DbType="Date")]
-		public System.Nullable<System.DateTime> GameDate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameDate", DbType="Date NOT NULL")]
+		public System.DateTime GameDate
 		{
 			get
 			{
@@ -246,8 +262,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpponentID", DbType="Int")]
-		public System.Nullable<int> OpponentID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpponentID", DbType="Int NOT NULL")]
+		public int OpponentID
 		{
 			get
 			{
@@ -270,8 +286,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PitchID", DbType="Int")]
-		public System.Nullable<int> PitchID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PitchID", DbType="Int NOT NULL")]
+		public int PitchID
 		{
 			get
 			{
@@ -294,6 +310,30 @@ namespace AnalyserLibrary
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameTypeID", DbType="Int NOT NULL")]
+		public int GameTypeID
+		{
+			get
+			{
+				return this._GameTypeID;
+			}
+			set
+			{
+				if ((this._GameTypeID != value))
+				{
+					if (this._GameType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGameTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._GameTypeID = value;
+					this.SendPropertyChanged("GameTypeID");
+					this.OnGameTypeIDChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Game_Lineup", Storage="_Lineups", ThisKey="GameID", OtherKey="GameID")]
 		public EntitySet<Lineup> Lineups
 		{
@@ -304,6 +344,40 @@ namespace AnalyserLibrary
 			set
 			{
 				this._Lineups.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GameType_Game", Storage="_GameType", ThisKey="GameTypeID", OtherKey="GameTypeID", IsForeignKey=true)]
+		public GameType GameType
+		{
+			get
+			{
+				return this._GameType.Entity;
+			}
+			set
+			{
+				GameType previousValue = this._GameType.Entity;
+				if (((previousValue != value) 
+							|| (this._GameType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GameType.Entity = null;
+						previousValue.Games.Remove(this);
+					}
+					this._GameType.Entity = value;
+					if ((value != null))
+					{
+						value.Games.Add(this);
+						this._GameTypeID = value.GameTypeID;
+					}
+					else
+					{
+						this._GameTypeID = default(int);
+					}
+					this.SendPropertyChanged("GameType");
+				}
 			}
 		}
 		
@@ -334,7 +408,7 @@ namespace AnalyserLibrary
 					}
 					else
 					{
-						this._OpponentID = default(Nullable<int>);
+						this._OpponentID = default(int);
 					}
 					this.SendPropertyChanged("Opponent");
 				}
@@ -368,7 +442,7 @@ namespace AnalyserLibrary
 					}
 					else
 					{
-						this._PitchID = default(Nullable<int>);
+						this._PitchID = default(int);
 					}
 					this.SendPropertyChanged("Pitch");
 				}
@@ -416,15 +490,15 @@ namespace AnalyserLibrary
 		
 		private int _TimeLineID;
 		
-		private System.Nullable<System.DateTime> _ReadingTime;
+		private System.DateTime _ReadingTime;
 		
-		private System.Nullable<double> _Longitude;
+		private double _Longitude;
 		
-		private System.Nullable<double> _Latitude;
+		private double _Latitude;
 		
-		private System.Nullable<int> _GPSDeviceID;
+		private int _GPSDeviceID;
 		
-		private System.Nullable<int> _LineupID;
+		private int _LineupID;
 		
 		private EntityRef<GPSDevice> _GPSDevice;
 		
@@ -436,15 +510,15 @@ namespace AnalyserLibrary
     partial void OnCreated();
     partial void OnTimeLineIDChanging(int value);
     partial void OnTimeLineIDChanged();
-    partial void OnReadingTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnReadingTimeChanging(System.DateTime value);
     partial void OnReadingTimeChanged();
-    partial void OnLongitudeChanging(System.Nullable<double> value);
+    partial void OnLongitudeChanging(double value);
     partial void OnLongitudeChanged();
-    partial void OnLatitudeChanging(System.Nullable<double> value);
+    partial void OnLatitudeChanging(double value);
     partial void OnLatitudeChanged();
-    partial void OnGPSDeviceIDChanging(System.Nullable<int> value);
+    partial void OnGPSDeviceIDChanging(int value);
     partial void OnGPSDeviceIDChanged();
-    partial void OnLineupIDChanging(System.Nullable<int> value);
+    partial void OnLineupIDChanging(int value);
     partial void OnLineupIDChanged();
     #endregion
 		
@@ -475,8 +549,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReadingTime", DbType="DateTime2")]
-		public System.Nullable<System.DateTime> ReadingTime
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReadingTime", DbType="DateTime2 NOT NULL")]
+		public System.DateTime ReadingTime
 		{
 			get
 			{
@@ -495,8 +569,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Longitude", DbType="Float")]
-		public System.Nullable<double> Longitude
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Longitude", DbType="Float NOT NULL")]
+		public double Longitude
 		{
 			get
 			{
@@ -515,8 +589,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Latitude", DbType="Float")]
-		public System.Nullable<double> Latitude
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Latitude", DbType="Float NOT NULL")]
+		public double Latitude
 		{
 			get
 			{
@@ -535,8 +609,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GPSDeviceID", DbType="Int")]
-		public System.Nullable<int> GPSDeviceID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GPSDeviceID", DbType="Int NOT NULL")]
+		public int GPSDeviceID
 		{
 			get
 			{
@@ -559,8 +633,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupID", DbType="Int")]
-		public System.Nullable<int> LineupID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupID", DbType="Int NOT NULL")]
+		public int LineupID
 		{
 			get
 			{
@@ -610,7 +684,7 @@ namespace AnalyserLibrary
 					}
 					else
 					{
-						this._GPSDeviceID = default(Nullable<int>);
+						this._GPSDeviceID = default(int);
 					}
 					this.SendPropertyChanged("GPSDevice");
 				}
@@ -644,7 +718,7 @@ namespace AnalyserLibrary
 					}
 					else
 					{
-						this._LineupID = default(Nullable<int>);
+						this._LineupID = default(int);
 					}
 					this.SendPropertyChanged("Lineup");
 				}
@@ -669,6 +743,120 @@ namespace AnalyserLibrary
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GameType")]
+	public partial class GameType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _GameTypeID;
+		
+		private string _Type;
+		
+		private EntitySet<Game> _Games;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnGameTypeIDChanging(int value);
+    partial void OnGameTypeIDChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
+    #endregion
+		
+		public GameType()
+		{
+			this._Games = new EntitySet<Game>(new Action<Game>(this.attach_Games), new Action<Game>(this.detach_Games));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameTypeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int GameTypeID
+		{
+			get
+			{
+				return this._GameTypeID;
+			}
+			set
+			{
+				if ((this._GameTypeID != value))
+				{
+					this.OnGameTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._GameTypeID = value;
+					this.SendPropertyChanged("GameTypeID");
+					this.OnGameTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GameType_Game", Storage="_Games", ThisKey="GameTypeID", OtherKey="GameTypeID")]
+		public EntitySet<Game> Games
+		{
+			get
+			{
+				return this._Games;
+			}
+			set
+			{
+				this._Games.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Games(Game entity)
+		{
+			this.SendPropertyChanging();
+			entity.GameType = this;
+		}
+		
+		private void detach_Games(Game entity)
+		{
+			this.SendPropertyChanging();
+			entity.GameType = null;
 		}
 	}
 	
@@ -720,7 +908,7 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GPSDeviceName", DbType="VarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GPSDeviceName", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
 		public string GPSDeviceName
 		{
 			get
@@ -794,13 +982,11 @@ namespace AnalyserLibrary
 		
 		private int _LineupID;
 		
-		private System.Nullable<int> _PositionID;
+		private int _PositionID;
 		
-		private System.Nullable<int> _PlayerID;
+		private int _PlayerID;
 		
-		private System.Nullable<int> _GameID;
-		
-		private System.Nullable<bool> _Training;
+		private int _GameID;
 		
 		private EntitySet<TimeLine> _TimeLines;
 		
@@ -818,14 +1004,12 @@ namespace AnalyserLibrary
     partial void OnCreated();
     partial void OnLineupIDChanging(int value);
     partial void OnLineupIDChanged();
-    partial void OnPositionIDChanging(System.Nullable<int> value);
+    partial void OnPositionIDChanging(int value);
     partial void OnPositionIDChanged();
-    partial void OnPlayerIDChanging(System.Nullable<int> value);
+    partial void OnPlayerIDChanging(int value);
     partial void OnPlayerIDChanged();
-    partial void OnGameIDChanging(System.Nullable<int> value);
+    partial void OnGameIDChanging(int value);
     partial void OnGameIDChanged();
-    partial void OnTrainingChanging(System.Nullable<bool> value);
-    partial void OnTrainingChanged();
     #endregion
 		
 		public Lineup()
@@ -858,8 +1042,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionID", DbType="Int")]
-		public System.Nullable<int> PositionID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionID", DbType="Int NOT NULL")]
+		public int PositionID
 		{
 			get
 			{
@@ -882,8 +1066,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerID", DbType="Int")]
-		public System.Nullable<int> PlayerID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerID", DbType="Int NOT NULL")]
+		public int PlayerID
 		{
 			get
 			{
@@ -906,8 +1090,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", DbType="Int")]
-		public System.Nullable<int> GameID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", DbType="Int NOT NULL")]
+		public int GameID
 		{
 			get
 			{
@@ -926,26 +1110,6 @@ namespace AnalyserLibrary
 					this._GameID = value;
 					this.SendPropertyChanged("GameID");
 					this.OnGameIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Training", DbType="Bit")]
-		public System.Nullable<bool> Training
-		{
-			get
-			{
-				return this._Training;
-			}
-			set
-			{
-				if ((this._Training != value))
-				{
-					this.OnTrainingChanging(value);
-					this.SendPropertyChanging();
-					this._Training = value;
-					this.SendPropertyChanged("Training");
-					this.OnTrainingChanged();
 				}
 			}
 		}
@@ -1003,7 +1167,7 @@ namespace AnalyserLibrary
 					}
 					else
 					{
-						this._GameID = default(Nullable<int>);
+						this._GameID = default(int);
 					}
 					this.SendPropertyChanged("Game");
 				}
@@ -1037,7 +1201,7 @@ namespace AnalyserLibrary
 					}
 					else
 					{
-						this._PlayerID = default(Nullable<int>);
+						this._PlayerID = default(int);
 					}
 					this.SendPropertyChanged("Player");
 				}
@@ -1071,7 +1235,7 @@ namespace AnalyserLibrary
 					}
 					else
 					{
-						this._PositionID = default(Nullable<int>);
+						this._PositionID = default(int);
 					}
 					this.SendPropertyChanged("Position");
 				}
@@ -1171,7 +1335,7 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpponentName", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpponentName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string OpponentName
 		{
 			get
@@ -1247,21 +1411,21 @@ namespace AnalyserLibrary
 		
 		private string _PitchName;
 		
-		private System.Nullable<double> _NPointLat;
+		private double _NPointLat;
 		
-		private System.Nullable<double> _NPointLon;
+		private double _NPointLon;
 		
-		private System.Nullable<double> _EPointLat;
+		private double _EPointLat;
 		
-		private System.Nullable<double> _EPointLon;
+		private double _EPointLon;
 		
-		private System.Nullable<double> _SPoingLat;
+		private double _SPoingLat;
 		
-		private System.Nullable<double> _SPointLon;
+		private double _SPointLon;
 		
-		private System.Nullable<double> _WPointLat;
+		private double _WPointLat;
 		
-		private System.Nullable<double> _WPointLon;
+		private double _WPointLon;
 		
 		private EntitySet<Game> _Games;
 		
@@ -1273,21 +1437,21 @@ namespace AnalyserLibrary
     partial void OnPitchIDChanged();
     partial void OnPitchNameChanging(string value);
     partial void OnPitchNameChanged();
-    partial void OnNPointLatChanging(System.Nullable<double> value);
+    partial void OnNPointLatChanging(double value);
     partial void OnNPointLatChanged();
-    partial void OnNPointLonChanging(System.Nullable<double> value);
+    partial void OnNPointLonChanging(double value);
     partial void OnNPointLonChanged();
-    partial void OnEPointLatChanging(System.Nullable<double> value);
+    partial void OnEPointLatChanging(double value);
     partial void OnEPointLatChanged();
-    partial void OnEPointLonChanging(System.Nullable<double> value);
+    partial void OnEPointLonChanging(double value);
     partial void OnEPointLonChanged();
-    partial void OnSPoingLatChanging(System.Nullable<double> value);
+    partial void OnSPoingLatChanging(double value);
     partial void OnSPoingLatChanged();
-    partial void OnSPointLonChanging(System.Nullable<double> value);
+    partial void OnSPointLonChanging(double value);
     partial void OnSPointLonChanged();
-    partial void OnWPointLatChanging(System.Nullable<double> value);
+    partial void OnWPointLatChanging(double value);
     partial void OnWPointLatChanged();
-    partial void OnWPointLonChanging(System.Nullable<double> value);
+    partial void OnWPointLonChanging(double value);
     partial void OnWPointLonChanged();
     #endregion
 		
@@ -1317,7 +1481,7 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PitchName", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PitchName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string PitchName
 		{
 			get
@@ -1337,8 +1501,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NPointLat", DbType="Float")]
-		public System.Nullable<double> NPointLat
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NPointLat", DbType="Float NOT NULL")]
+		public double NPointLat
 		{
 			get
 			{
@@ -1357,8 +1521,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NPointLon", DbType="Float")]
-		public System.Nullable<double> NPointLon
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NPointLon", DbType="Float NOT NULL")]
+		public double NPointLon
 		{
 			get
 			{
@@ -1377,8 +1541,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EPointLat", DbType="Float")]
-		public System.Nullable<double> EPointLat
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EPointLat", DbType="Float NOT NULL")]
+		public double EPointLat
 		{
 			get
 			{
@@ -1397,8 +1561,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EPointLon", DbType="Float")]
-		public System.Nullable<double> EPointLon
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EPointLon", DbType="Float NOT NULL")]
+		public double EPointLon
 		{
 			get
 			{
@@ -1417,8 +1581,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPoingLat", DbType="Float")]
-		public System.Nullable<double> SPoingLat
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPoingLat", DbType="Float NOT NULL")]
+		public double SPoingLat
 		{
 			get
 			{
@@ -1437,8 +1601,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPointLon", DbType="Float")]
-		public System.Nullable<double> SPointLon
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPointLon", DbType="Float NOT NULL")]
+		public double SPointLon
 		{
 			get
 			{
@@ -1457,8 +1621,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPointLat", DbType="Float")]
-		public System.Nullable<double> WPointLat
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPointLat", DbType="Float NOT NULL")]
+		public double WPointLat
 		{
 			get
 			{
@@ -1477,8 +1641,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPointLon", DbType="Float")]
-		public System.Nullable<double> WPointLon
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPointLon", DbType="Float NOT NULL")]
+		public double WPointLon
 		{
 			get
 			{
@@ -1557,7 +1721,7 @@ namespace AnalyserLibrary
 		
 		private System.DateTime _Dob;
 		
-		private System.Nullable<bool> _Active;
+		private bool _Active;
 		
 		private EntitySet<Lineup> _Lineups;
 		
@@ -1573,7 +1737,7 @@ namespace AnalyserLibrary
     partial void OnSurnameChanged();
     partial void OnDobChanging(System.DateTime value);
     partial void OnDobChanged();
-    partial void OnActiveChanging(System.Nullable<bool> value);
+    partial void OnActiveChanging(bool value);
     partial void OnActiveChanged();
     #endregion
 		
@@ -1603,7 +1767,7 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Forename", DbType="VarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Forename", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
 		public string Forename
 		{
 			get
@@ -1623,7 +1787,7 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="VarChar(40)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="VarChar(40) NOT NULL", CanBeNull=false)]
 		public string Surname
 		{
 			get
@@ -1642,10 +1806,8 @@ namespace AnalyserLibrary
 				}
 			}
 		}
-
-        public string FullDetails => $"{Forename} {Surname} - DOB: {Dob.ToShortDateString()}";
-
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dob", DbType="Date NOT NULL")]
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dob", DbType="Date NOT NULL")]
 		public System.DateTime Dob
 		{
 			get
@@ -1665,8 +1827,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit")]
-		public System.Nullable<bool> Active
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+		public bool Active
 		{
 			get
 			{
@@ -1739,25 +1901,25 @@ namespace AnalyserLibrary
 		
 		private int _PlayerPerformanceID;
 		
-		private System.Nullable<int> _Shots;
+		private int _Shots;
 		
-		private System.Nullable<int> _Goals;
+		private int _Goals;
 		
-		private System.Nullable<int> _Assists;
+		private int _Assists;
 		
-		private System.Nullable<int> _Passes;
+		private int _Passes;
 		
-		private System.Nullable<int> _Interceptions;
+		private int _Interceptions;
 		
-		private System.Nullable<int> _Tackles;
+		private int _Tackles;
 		
-		private System.Nullable<int> _Crosses;
+		private int _Crosses;
 		
-		private System.Nullable<int> _Corners;
+		private int _Corners;
 		
-		private System.Nullable<int> _Saves;
+		private int _Saves;
 		
-		private System.Nullable<int> _LineupID;
+		private int _LineupID;
 		
 		private EntityRef<Lineup> _Lineup;
 		
@@ -1767,25 +1929,25 @@ namespace AnalyserLibrary
     partial void OnCreated();
     partial void OnPlayerPerformanceIDChanging(int value);
     partial void OnPlayerPerformanceIDChanged();
-    partial void OnShotsChanging(System.Nullable<int> value);
+    partial void OnShotsChanging(int value);
     partial void OnShotsChanged();
-    partial void OnGoalsChanging(System.Nullable<int> value);
+    partial void OnGoalsChanging(int value);
     partial void OnGoalsChanged();
-    partial void OnAssistsChanging(System.Nullable<int> value);
+    partial void OnAssistsChanging(int value);
     partial void OnAssistsChanged();
-    partial void OnPassesChanging(System.Nullable<int> value);
+    partial void OnPassesChanging(int value);
     partial void OnPassesChanged();
-    partial void OnInterceptionsChanging(System.Nullable<int> value);
+    partial void OnInterceptionsChanging(int value);
     partial void OnInterceptionsChanged();
-    partial void OnTacklesChanging(System.Nullable<int> value);
+    partial void OnTacklesChanging(int value);
     partial void OnTacklesChanged();
-    partial void OnCrossesChanging(System.Nullable<int> value);
+    partial void OnCrossesChanging(int value);
     partial void OnCrossesChanged();
-    partial void OnCornersChanging(System.Nullable<int> value);
+    partial void OnCornersChanging(int value);
     partial void OnCornersChanged();
-    partial void OnSavesChanging(System.Nullable<int> value);
+    partial void OnSavesChanging(int value);
     partial void OnSavesChanged();
-    partial void OnLineupIDChanging(System.Nullable<int> value);
+    partial void OnLineupIDChanging(int value);
     partial void OnLineupIDChanged();
     #endregion
 		
@@ -1815,8 +1977,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Shots", DbType="Int")]
-		public System.Nullable<int> Shots
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Shots", DbType="Int NOT NULL")]
+		public int Shots
 		{
 			get
 			{
@@ -1835,8 +1997,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Goals", DbType="Int")]
-		public System.Nullable<int> Goals
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Goals", DbType="Int NOT NULL")]
+		public int Goals
 		{
 			get
 			{
@@ -1855,8 +2017,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Assists", DbType="Int")]
-		public System.Nullable<int> Assists
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Assists", DbType="Int NOT NULL")]
+		public int Assists
 		{
 			get
 			{
@@ -1875,8 +2037,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Passes", DbType="Int")]
-		public System.Nullable<int> Passes
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Passes", DbType="Int NOT NULL")]
+		public int Passes
 		{
 			get
 			{
@@ -1895,8 +2057,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Interceptions", DbType="Int")]
-		public System.Nullable<int> Interceptions
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Interceptions", DbType="Int NOT NULL")]
+		public int Interceptions
 		{
 			get
 			{
@@ -1915,8 +2077,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tackles", DbType="Int")]
-		public System.Nullable<int> Tackles
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tackles", DbType="Int NOT NULL")]
+		public int Tackles
 		{
 			get
 			{
@@ -1935,8 +2097,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Crosses", DbType="Int")]
-		public System.Nullable<int> Crosses
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Crosses", DbType="Int NOT NULL")]
+		public int Crosses
 		{
 			get
 			{
@@ -1955,8 +2117,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Corners", DbType="Int")]
-		public System.Nullable<int> Corners
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Corners", DbType="Int NOT NULL")]
+		public int Corners
 		{
 			get
 			{
@@ -1975,8 +2137,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Saves", DbType="Int")]
-		public System.Nullable<int> Saves
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Saves", DbType="Int NOT NULL")]
+		public int Saves
 		{
 			get
 			{
@@ -1995,8 +2157,8 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupID", DbType="Int")]
-		public System.Nullable<int> LineupID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupID", DbType="Int NOT NULL")]
+		public int LineupID
 		{
 			get
 			{
@@ -2046,7 +2208,7 @@ namespace AnalyserLibrary
 					}
 					else
 					{
-						this._LineupID = default(Nullable<int>);
+						this._LineupID = default(int);
 					}
 					this.SendPropertyChanged("Lineup");
 				}
@@ -2122,7 +2284,7 @@ namespace AnalyserLibrary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Position", Storage="_Position1", DbType="VarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Position", Storage="_Position1", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
 		public string Position1
 		{
 			get
