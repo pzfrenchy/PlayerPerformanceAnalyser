@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AnalyserLibrary;
 
 namespace Analyser
 {
@@ -56,7 +57,7 @@ namespace Analyser
         }
 
         /// <summary>
-        /// Event handler to create a new upload form on shortcut keypress (ctrl+u)
+        /// Event handler to create new forms on shortcut keypress (ctrl+u)
         /// </summary>
         private void KeyDownEvent(object sender, KeyEventArgs e)
         {

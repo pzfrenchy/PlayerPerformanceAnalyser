@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coordinates.cs" />
     <Compile Include="DataClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -49,6 +50,7 @@
     </Compile>
     <Compile Include="DirSearch.cs" />
     <Compile Include="GetGpxDataFromFile.cs" />
+    <Compile Include="GPXCalculations.cs" />
     <Compile Include="GpxFile.cs" />
     <Compile Include="OptionSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

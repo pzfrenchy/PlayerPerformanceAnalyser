@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AnalyserLibrary;
+using Xunit;
+
+namespace Analyser.Tests
+{
+    public class GPXCalculationsTests
+    {
+        [Theory]
+        [InlineData(50.128953, -5.501886, 50.128953, -5.501900, 1.00)]
+        [InlineData(50.128953, 5.501886, 50.128953, 5.501900, 1.00)]
+        [InlineData(50.128921, -5.501482, 50.128953, -5.501900, 30.01)]
+        [InlineData(50.128921, 5.501482, 50.128953, 5.501900, 30.01)]
+        public void RoundedDistance_LatLonShouldCalculate(double lat1, double lon1, double lat2, double lon2, double expected)
+        {
+            //Arrange
+            GPXCalculations gPXCalc = new GPXCalculations();
+
+            //Act
+            double actual = gPXCalc.RoundedDistance(lat1, lon1, lat2, lon2);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(50.128953, -5.501886, 50.128953, -5.501900, 0.99795960)]
+        [InlineData(50.128953, 5.501886, 50.128953, 5.501900, 0.99795960)]
+        [InlineData(50.128921, -5.501482, 50.128953, -5.501900, 30.00794101)]
+        [InlineData(50.128921, 5.501482, 50.128953, 5.501900, 30.00794101)]
+        public void Distance_LatLonShouldCalculate(double lat1, double lon1, double lat2, double lon2, double expected)
+        {
+            //Arrange
+
+            //Act
+            GPXCalculations gPXCalc = new GPXCalculations();
+            double actual = gPXCalc.FullDistance(lat1, lon1, lat2, lon2);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+    }
+}
