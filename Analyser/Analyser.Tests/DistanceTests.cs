@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Analyser.Tests
 {
-    public class GPXCalculationsTests
+    public class DistanceTests
     {
         [Theory]
         [InlineData(50.128953, -5.501886, 50.128953, -5.501900, 1.00)]
@@ -18,10 +18,10 @@ namespace Analyser.Tests
         public void RoundedDistance_LatLonShouldCalculate(double lat1, double lon1, double lat2, double lon2, double expected)
         {
             //Arrange
-            GPXCalculations gPXCalc = new GPXCalculations();
+            Distance calc = new Distance();
 
             //Act
-            double actual = gPXCalc.RoundedDistance(lat1, lon1, lat2, lon2);
+            double actual = calc.RoundedDistanceInMtr(lat1, lon1, lat2, lon2);
 
             //Assert
             Assert.Equal(expected, actual);
@@ -37,13 +37,11 @@ namespace Analyser.Tests
             //Arrange
 
             //Act
-            GPXCalculations gPXCalc = new GPXCalculations();
-            double actual = gPXCalc.FullDistance(lat1, lon1, lat2, lon2);
+            Distance calc = new Distance();
+            double actual = calc.FullDistanceInMtr(lat1, lon1, lat2, lon2);
 
             //Assert
             Assert.Equal(expected, actual);
         }
-
-
     }
 }

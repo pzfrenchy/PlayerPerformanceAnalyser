@@ -8,12 +8,14 @@ namespace AnalyserLibrary
 {
     public class Coordinates
     {
-        public Coordinates(double lat, double lon)
+        public Coordinates(DateTime dt, double lat, double lon)
         {
+            this.Dt = dt;
             this.Lat = lat;
             this.Lon = lon;
         }
 
+        public DateTime Dt { get; set; }
         public double Lat { get; set; }
         public double Lon { get; set; }
     }

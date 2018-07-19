@@ -256,6 +256,7 @@
             this.dateCombo.Name = "dateCombo";
             this.dateCombo.Size = new System.Drawing.Size(245, 33);
             this.dateCombo.TabIndex = 2;
+            this.dateCombo.SelectedIndexChanged += new System.EventHandler(this.DateComboIndexChanged);
             // 
             // PlayerStatsForm
             // 

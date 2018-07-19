@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnalyserLibrary
 {
-    public class GPXCalculations
+    public class Distance
     {
         /// <summary>
         /// Method to convert decimal degrees to radians.
@@ -36,13 +36,13 @@ namespace AnalyserLibrary
             return output;
         }
 
-        private double distanceInMtr(double b)
+        private double DistanceInMtr(double b)
         {
             double earthRadius = 6371e3; //in metres
 
-            double output = earthRadius * b;
+            double distance = earthRadius * b;
 
-            return output;
+            return distance;
         }
 
         private double CalcBetweenTwoPoints(double lat1, double lon1, double lat2, double lon2)
@@ -54,25 +54,27 @@ namespace AnalyserLibrary
 
             double a = calcA(lat1Rad, lat2Rad, dLatRad, dLonRad);
 
-            double b = calcB(a);
-
-            double distance = distanceInMtr(b);
+            double distance = calcB(a);
 
             return distance;
         }
 
-        public double RoundedDistance(double lat1, double lon1, double lat2, double lon2)
+        public double RoundedDistanceInMtr(double lat1, double lon1, double lat2, double lon2)
         {
             double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
 
-            return Math.Round(distance, 2);
+            double distanceInMtr = DistanceInMtr(distance);
+
+            return Math.Round(distanceInMtr, 2);
         }
 
-        public double FullDistance(double lat1, double lon1, double lat2, double lon2)
+        public double FullDistanceInMtr(double lat1, double lon1, double lat2, double lon2)
         {
             double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
 
-            return Math.Round(distance, 8);
+            double distanceInMtr = DistanceInMtr(distance);
+
+            return Math.Round(distanceInMtr, 8);
         }
     }
 }

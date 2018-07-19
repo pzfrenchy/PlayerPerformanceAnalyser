@@ -57,8 +57,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GPXCalculationsTests.cs" />
+    <Compile Include="DistanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpeedTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

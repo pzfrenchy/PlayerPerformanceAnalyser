@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AnalyserLibrary
 {
-    public class GetGpxDataFromFile
+    public class GpxData
     {
-        public List<string> getGpxData(string fe, string d)
+        public List<string> getGpxDataFromDirectory(string fe, string d)
         {
             List<string> gpxDataList = new List<string>();
             DirSearch ds = new DirSearch();

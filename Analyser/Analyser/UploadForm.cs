@@ -29,7 +29,11 @@ namespace Analyser
         {
             string searchType = uploadSearchCombo.Text;
             string searchString = uploadSearchTxt.Text;
-            SearchForGame(searchType, searchString);
+
+            Search search = new Search();
+            List<Game> gameList = search.SearchForGame(searchType, searchString);
+
+            PopulateGameLstBox(gameList);
         }
 
         private void uploadSeachIndexChanged(object sender, EventArgs e)
@@ -38,19 +42,68 @@ namespace Analyser
             SearchForLineup(selectedGame);
         }
 
+        private int GetTrainingLineupID(DateTime dt, int oppID, int pitchID, int gameTypeID, int positionID, int playerID)
+        {
+            int lineupID = 0;
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //training, so no previous game would be set, need to make new game object
+                Game game = new Game
+                {
+                    //temp date, real training date is pulled from GPX file
+                    GameDate = dt,
+                    OpponentID = oppID,
+                    PitchID = pitchID,
+                    GameTypeID = gameTypeID
+                };
+                dbContext.Games.InsertOnSubmit(game);
+                dbContext.SubmitChanges();
+
+                //create new lineup object
+                Lineup lineup = new Lineup
+                {
+                    PositionID = positionID,
+                    PlayerID = playerID,
+                    GameID = game.GameID //gameID direct from new game record
+                };
+                //write object to database
+                dbContext.Lineups.InsertOnSubmit(lineup);
+                dbContext.SubmitChanges();
+
+                //set lineupID to equal that of newly created lineup object
+                lineupID = lineup.LineupID;
+            }
+            return lineupID;
+        }
+
+        private void AddTrackElementsToTimeLineTable(List<string> gpxTrackList, int lineupID)
+        {
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //Iterate trough list and generate new Timelines object from each
+                for (int i = 0; i < gpxTrackList.Count; i++)
+                {
+                    string[] elements = gpxTrackList[i].Split(',');
+
+                    TimeLine timeLines = new TimeLine
+                    {
+                        Longitude = Convert.ToDouble(elements[1]),
+                        Latitude = Convert.ToDouble(elements[2]),
+                        ReadingTime = Convert.ToDateTime(elements[3]),
+                        LineupID = lineupID,
+                        GPSDeviceID = gpsDeviceID
+                    };
+                    //Write to database
+                    dbContext.TimeLines.InsertOnSubmit(timeLines);
+                    dbContext.SubmitChanges();
+                }
+            }
+        }
+
         private void uploadBtn_Click(object sender, EventArgs e)
         {
-            string selectedFile = "";
-
-            //Open file dialog screen to allow user to browse for gpx file
-            OpenFileDialog op = new OpenFileDialog();
-            op.InitialDirectory = "C:\\";
-            op.Title = "Select file";
-            if (op.ShowDialog() == DialogResult.OK)
-            {
-                //save file path for use in GPX reader
-                selectedFile = op.FileName;
-            }
+            FileHandling file = new FileHandling();
+            string selectedFile = file.getFileName();
 
             try
             {
@@ -61,31 +114,14 @@ namespace Analyser
                     //check if training item is being uploaded as position and game ID's not required.
                     if (trainingCBox.Checked == true)
                     {
-                        //training, so no previous game would be set, need to make new game object
-                        Game game = new Game
-                        {
-                            //temp date, real training date is pulled from GPX file
-                            GameDate = DateTime.Now,
-                            OpponentID = trainingOppositionID,
-                            PitchID = trainingPitchID,
-                            GameTypeID = trainingGameTypeID
-                        };
-                        dbContext.Games.InsertOnSubmit(game);
-                        dbContext.SubmitChanges();
+                        DateTime dt = DateTime.Now;
+                        int opponentID = trainingOppositionID;
+                        int pitchID = trainingPitchID;
+                        int gameTypeID = trainingGameTypeID;
+                        int positionID = trainingPositionID;
+                        int playerID = Convert.ToInt16(uploadLineupLstBox.SelectedValue.ToString());
 
-                        //create new lineup object
-                        Lineup lineup = new Lineup
-                        {
-                            PositionID = trainingPositionID,
-                            PlayerID = Convert.ToInt16(uploadLineupLstBox.SelectedValue.ToString()),
-                            GameID = game.GameID //gameID direct from new game record
-                        };
-                        //write object to database
-                        dbContext.Lineups.InsertOnSubmit(lineup);
-                        dbContext.SubmitChanges();
-
-                        //set lineupID to equal that of newly created lineup object
-                        lineupID = lineup.LineupID;
+                        lineupID = GetTrainingLineupID(dt, opponentID, pitchID, gameTypeID, positionID, playerID);
                     }
                     else //new lineup item created with game and position ID's required
                     {
@@ -101,23 +137,7 @@ namespace Analyser
                     //Get list of GPX tracks
                     List<string> gpxTrackList = reader.GPXTracksList(selectedFile);
 
-                    //Iterate trough list and generate new Timelines object from each
-                    for (int i = 0; i < gpxTrackList.Count; i++)
-                    {
-                        string[] elements = gpxTrackList[i].Split(',');
-
-                        TimeLine timeLines = new TimeLine
-                        {
-                            Longitude = Convert.ToDouble(elements[1]),
-                            Latitude = Convert.ToDouble(elements[2]),
-                            ReadingTime = Convert.ToDateTime(elements[3]),
-                            LineupID = lineupID,
-                            GPSDeviceID = gpsDeviceID
-                        };
-                        //Write to database
-                        dbContext.TimeLines.InsertOnSubmit(timeLines);
-                        dbContext.SubmitChanges();
-                    }
+                    AddTrackElementsToTimeLineTable(gpxTrackList, lineupID);
                 }
                 MessageBox.Show("Upload Complete");
             }
@@ -165,44 +185,6 @@ namespace Analyser
             }
         }
 
-        /// <summary>
-        /// Allows searching games table by date or opponent
-        /// </summary>
-        /// <param name="searchType">string, "date" or "opponent"</param>
-        /// <param name="searchString">string, the search value</param>
-        private void SearchForGame(string searchType, string searchString)
-        {
-            List<Game> gameList = new List<Game>();
-            if (searchType == "Date")
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    foreach (var game in dbContext.Games)
-                    {
-                        if (game.GameDate.ToString().Contains(searchString) && searchString != "")
-                        {
-                            gameList.Add(game);
-                        }
-                    }
-                }
-            }
-            else if (searchType == "Opposition")
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    foreach (var game in dbContext.Games)
-                    {
-                        string oppName = game.Opponent.OpponentName.ToUpper();
-                        if (oppName.Contains(searchString.ToUpper()) && searchString != "")
-                        {
-                            gameList.Add(game);
-                        }
-                    }
-                }
-            }
-            PopulateGameLstBox(gameList);
-        }
-
         private void PopulateGameLstBox(List<Game> games)
         {
             uploadSearchResultsLstBox.ValueMember = "GameID";
@@ -212,19 +194,25 @@ namespace Analyser
 
         private void FormatResultsString(object sender, ListControlConvertEventArgs e)
         {
-            //set variables from associated list box 
-            string opponentName = "";
+            //set variables from associated list box
             string gameDate = ((Game)e.ListItem).GameDate.ToShortDateString();
             int opponentID = Convert.ToInt16(((Game)e.ListItem).OpponentID.ToString());
 
+            string opponentName = GetOpponentNameByID(opponentID);
+
+            //Create new list item string
+            e.Value = string.Format("{0} - {1}", gameDate, opponentName);
+        }
+
+        private string GetOpponentNameByID(int opponentID)
+        {
+            string opponentName = "";
             //select opponent name from opponents table
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
             {
                 opponentName = (dbContext.Opponents.Where(o => o.OpponentID == opponentID)).Single().OpponentName;
             }
-
-            //Create new list item string
-            e.Value = string.Format("{0} - {1}", gameDate, opponentName);
+            return opponentName;
         }
 
         /// <summary>

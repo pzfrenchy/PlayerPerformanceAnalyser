@@ -49,8 +49,9 @@
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
     <Compile Include="DirSearch.cs" />
-    <Compile Include="GetGpxDataFromFile.cs" />
-    <Compile Include="GPXCalculations.cs" />
+    <Compile Include="FileHandling.cs" />
+    <Compile Include="GpxData.cs" />
+    <Compile Include="Distance.cs" />
     <Compile Include="GpxFile.cs" />
     <Compile Include="OptionSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,6 +60,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Search.cs" />
+    <Compile Include="Speed.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
