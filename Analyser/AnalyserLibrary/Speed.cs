@@ -6,24 +6,38 @@ using System.Threading.Tasks;
 
 namespace AnalyserLibrary
 {
+    /// <summary>
+    /// Class for calculating the velocity of an object, exposes methods to return velocity in different forms.
+    /// </summary>
     public class Speed
     {
-        private TimeSpan CalcTimeSpan(DateTime startTime, DateTime endTime)
+        public Speed(double d, DateTime startTime, DateTime endTime)
         {
-            TimeSpan t = (endTime - startTime);
+            this.Distance = d;
+            this.StartTime = startTime;
+            this.EndTime = endTime;
+        }
+
+        public double Distance { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+
+        private TimeSpan CalcTimeSpan()
+        {
+            TimeSpan t = (EndTime - StartTime);
             return t;
         }
 
-        public double AvgMtrPerSecond(double d, DateTime startTime, DateTime endTime)
+        public double AvgMtrPerSecond()
         {
-            TimeSpan t = CalcTimeSpan(startTime, endTime);
-            double v = d / t.TotalSeconds;
+            TimeSpan t = CalcTimeSpan();
+            double v = Distance / t.TotalSeconds;
             return v;
         }
 
-        public double AvgMtrPerSecondRnd(double d, DateTime startTime, DateTime endTime)
+        public double AvgMtrPerSecondRnd()
         {
-            double v = AvgMtrPerSecond(d, startTime, endTime);
+            double v = AvgMtrPerSecond();
 
             return Math.Round(v, 2);
         }

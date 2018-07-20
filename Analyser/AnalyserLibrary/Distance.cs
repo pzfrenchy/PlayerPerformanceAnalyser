@@ -45,7 +45,7 @@ namespace AnalyserLibrary
             return distance;
         }
 
-        private double CalcBetweenTwoPoints(double lat1, double lon1, double lat2, double lon2)
+        private double CalcBetweenTwoPoints(double lat1, double lat2, double lon1, double lon2)
         {
             double lat1Rad = ToRadians(lat1);
             double lat2Rad = ToRadians(lat2);
@@ -59,18 +59,32 @@ namespace AnalyserLibrary
             return distance;
         }
 
-        public double RoundedDistanceInMtr(double lat1, double lon1, double lat2, double lon2)
+        /// <summary>
+        /// Calculates the distance between two point using latitude and longitude coordinates, returns double rounded to 2 decimal places.
+        /// </summary>
+        /// <param name="lat1">latitude 1</param>
+        /// <param name="lon1">longitude 1</param>
+        /// <param name="lat2">latitude 2</param>
+        /// <param name="lon2">longitude 2</param>
+        /// <returns>double</returns>
+        public double DistanceInMtrRnd(double lat1, double lat2, double lon1, double lon2)
         {
-            double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
+            double distance = DistanceInMtr(lat1, lat2, lon1, lon2);
 
-            double distanceInMtr = DistanceInMtr(distance);
-
-            return Math.Round(distanceInMtr, 2);
+            return Math.Round(distance, 2);
         }
 
-        public double FullDistanceInMtr(double lat1, double lon1, double lat2, double lon2)
+        /// <summary>
+        /// Calculates the distance between two point using latitude and longitude coordinates.
+        /// </summary>
+        /// <param name="lat1">latitude 1</param>
+        /// <param name="lon1">longitude 1</param>
+        /// <param name="lat2">latitude 2</param>
+        /// <param name="lon2">longitude 2</param>
+        /// <returns>double</returns>
+        public double DistanceInMtr(double lat1, double lat2, double lon1, double lon2)
         {
-            double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
+            double distance = CalcBetweenTwoPoints(lat1, lat2, lon1, lon2);
 
             double distanceInMtr = DistanceInMtr(distance);
 

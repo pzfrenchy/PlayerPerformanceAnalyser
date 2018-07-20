@@ -96,14 +96,14 @@ namespace Analyser
                 //calculate sum of distance covered and display
                 for (int i = 0; i < coords.Count() - 1; i++)
                 {
-                    double distance = calc.FullDistanceInMtr(coords[i].Lat, coords[i].Lon, coords[i + 1].Lat, coords[i + 1].Lon);
+                    double distance = calc.DistanceInMtr(coords[i].Lat, coords[i].Lon, coords[i + 1].Lat, coords[i + 1].Lon);
                     totalDistance = totalDistance + distance;
                 }
                 distanceLbl.Text = string.Format("{0} m", Math.Round(totalDistance, 2));
 
                 //calculate velocity and display
-                Speed speed = new Speed();
-                double v = speed.AvgMtrPerSecondRnd(totalDistance, coords[0].Dt, coords[coords.Count-1].Dt);
+                Speed speed = new Speed(totalDistance, coords[0].Dt, coords[coords.Count - 1].Dt);
+                double v = speed.AvgMtrPerSecondRnd();
                 paceLbl.Text = string.Format("{0} m/s", v);
             }
             else
