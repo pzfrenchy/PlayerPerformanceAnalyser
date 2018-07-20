@@ -36,7 +36,7 @@ namespace AnalyserLibrary
             return output;
         }
 
-        private double DistanceInMtr(double b)
+        private double ToMeter(double b)
         {
             double earthRadius = 6371e3; //in metres
 
@@ -45,7 +45,7 @@ namespace AnalyserLibrary
             return distance;
         }
 
-        private double CalcBetweenTwoPoints(double lat1, double lat2, double lon1, double lon2)
+        private double CalcBetweenTwoPoints(double lat1, double lon1, double lat2, double lon2)
         {
             double lat1Rad = ToRadians(lat1);
             double lat2Rad = ToRadians(lat2);
@@ -67,11 +67,13 @@ namespace AnalyserLibrary
         /// <param name="lat2">latitude 2</param>
         /// <param name="lon2">longitude 2</param>
         /// <returns>double</returns>
-        public double DistanceInMtrRnd(double lat1, double lat2, double lon1, double lon2)
+        public double DistanceInMtrRnd(double lat1, double lon1, double lat2, double lon2)
         {
-            double distance = DistanceInMtr(lat1, lat2, lon1, lon2);
+            double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
 
-            return Math.Round(distance, 2);
+            double distanceInMtr = ToMeter(distance);
+
+            return Math.Round(distanceInMtr, 2);
         }
 
         /// <summary>
@@ -82,11 +84,11 @@ namespace AnalyserLibrary
         /// <param name="lat2">latitude 2</param>
         /// <param name="lon2">longitude 2</param>
         /// <returns>double</returns>
-        public double DistanceInMtr(double lat1, double lat2, double lon1, double lon2)
+        public double DistanceInMtr(double lat1, double lon1, double lat2, double lon2)
         {
-            double distance = CalcBetweenTwoPoints(lat1, lat2, lon1, lon2);
+            double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
 
-            double distanceInMtr = DistanceInMtr(distance);
+            double distanceInMtr = ToMeter(distance);
 
             return Math.Round(distanceInMtr, 8);
         }
