@@ -15,13 +15,14 @@ namespace Analyser.Tests
         [InlineData(50.128953, 5.501886, 50.128953, 5.501900, 1.00)]
         [InlineData(50.128921, -5.501482, 50.128953, -5.501900, 30.01)]
         [InlineData(50.128921, 5.501482, 50.128953, 5.501900, 30.01)]
-        public void RoundedDistance_LatLonShouldCalculate(double lat1, double lon1, double lat2, double lon2, double expected)
+        public void DistanceInMtrRnd_LatLonShouldCalculate(double lat1, double lon1, double lat2, double lon2, double expected)
         {
             //Arrange
-            Distance calc = new Distance();
+
 
             //Act
-            double actual = calc.RoundedDistanceInMtr(lat1, lon1, lat2, lon2);
+            Distance calc = new Distance();
+            double actual = calc.DistanceInMtrRnd(lat1, lon1, lat2, lon2);
 
             //Assert
             Assert.Equal(expected, actual);
@@ -32,13 +33,13 @@ namespace Analyser.Tests
         [InlineData(50.128953, 5.501886, 50.128953, 5.501900, 0.99795960)]
         [InlineData(50.128921, -5.501482, 50.128953, -5.501900, 30.00794101)]
         [InlineData(50.128921, 5.501482, 50.128953, 5.501900, 30.00794101)]
-        public void Distance_LatLonShouldCalculate(double lat1, double lon1, double lat2, double lon2, double expected)
+        public void DistanceInMtr_LatLonShouldCalculate(double lat1, double lon1, double lat2, double lon2, double expected)
         {
             //Arrange
 
             //Act
             Distance calc = new Distance();
-            double actual = calc.FullDistanceInMtr(lat1, lon1, lat2, lon2);
+            double actual = calc.DistanceInMtr(lat1, lon1, lat2, lon2);
 
             //Assert
             Assert.Equal(expected, actual);

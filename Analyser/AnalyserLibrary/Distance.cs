@@ -8,6 +8,19 @@ namespace AnalyserLibrary
 {
     public class Distance
     {
+        public Distance(double lat1, double lat2, double lon1, double lon2)
+        {
+            this.Lat1 = lat1;
+            this.Lon1 = lon1;
+            this.Lat2 = lat2;
+            this.Lon2 = lon2;
+        }
+
+        public double Lat1 { get; set; }
+        public double Lon1 { get; set; }
+        public double Lat2 { get; set; }
+        public double Lon2 { get; set; }
+
         /// <summary>
         /// Method to convert decimal degrees to radians.
         /// </summary>
@@ -45,12 +58,12 @@ namespace AnalyserLibrary
             return distance;
         }
 
-        private double CalcBetweenTwoPoints(double lat1, double lon1, double lat2, double lon2)
+        private double CalcBetweenTwoPoints()
         {
-            double lat1Rad = ToRadians(lat1);
-            double lat2Rad = ToRadians(lat2);
-            double dLatRad = ToRadians((lat2 - lat1));
-            double dLonRad = ToRadians((lon2 - lon1));
+            double lat1Rad = ToRadians(Lat1);
+            double lat2Rad = ToRadians(Lat2);
+            double dLatRad = ToRadians((Lat2 - Lat1));
+            double dLonRad = ToRadians((Lon2 - Lon1));
 
             double a = calcA(lat1Rad, lat2Rad, dLatRad, dLonRad);
 
@@ -59,18 +72,34 @@ namespace AnalyserLibrary
             return distance;
         }
 
-        public double RoundedDistanceInMtr(double lat1, double lon1, double lat2, double lon2)
+        /// <summary>
+        /// Calculates the distance between two point using latitude and longitude coordinates, returns double rounded to 2 decimal places.
+        /// </summary>
+        /// <param name="lat1">latitude 1</param>
+        /// <param name="lon1">longitude 1</param>
+        /// <param name="lat2">latitude 2</param>
+        /// <param name="lon2">longitude 2</param>
+        /// <returns>double</returns>
+        public double DistanceInMtrRnd()
         {
-            double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
+            double distance = CalcBetweenTwoPoints();
 
             double distanceInMtr = DistanceInMtr(distance);
 
             return Math.Round(distanceInMtr, 2);
         }
 
-        public double FullDistanceInMtr(double lat1, double lon1, double lat2, double lon2)
+        /// <summary>
+        /// Calculates the distance between two point using latitude and longitude coordinates.
+        /// </summary>
+        /// <param name="lat1">latitude 1</param>
+        /// <param name="lon1">longitude 1</param>
+        /// <param name="lat2">latitude 2</param>
+        /// <param name="lon2">longitude 2</param>
+        /// <returns>double</returns>
+        public double DistanceInMtr()
         {
-            double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
+            double distance = CalcBetweenTwoPoints();
 
             double distanceInMtr = DistanceInMtr(distance);
 

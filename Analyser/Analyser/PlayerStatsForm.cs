@@ -66,7 +66,6 @@ namespace Analyser
             int playerID = Convert.ToInt16(playerCombo.SelectedValue.ToString());
             int gameID = Convert.ToInt16(dateCombo.SelectedValue.ToString());
             double totalDistance = 0.0;
-            Distance calc = new Distance();
 
             List<Coordinates> coords = new List<Coordinates>();
             
@@ -96,14 +95,15 @@ namespace Analyser
                 //calculate sum of distance covered and display
                 for (int i = 0; i < coords.Count() - 1; i++)
                 {
-                    double distance = calc.FullDistanceInMtr(coords[i].Lat, coords[i].Lon, coords[i + 1].Lat, coords[i + 1].Lon);
-                    totalDistance = totalDistance + distance;
+                    Distance distance = new Distance(coords[i].Lat, coords[i].Lon, coords[i + 1].Lat, coords[i + 1].Lon);
+                    double distanceInMtr = distance.DistanceInMtr();
+                    totalDistance = totalDistance + distanceInMtr;
                 }
                 distanceLbl.Text = string.Format("{0} m", Math.Round(totalDistance, 2));
 
                 //calculate velocity and display
-                Speed speed = new Speed();
-                double v = speed.AvgMtrPerSecondRnd(totalDistance, coords[0].Dt, coords[coords.Count-1].Dt);
+                Speed speed = new Speed(totalDistance, coords[0].Dt, coords[coords.Count - 1].Dt);
+                double v = speed.AvgMtrPerSecondRnd();
                 paceLbl.Text = string.Format("{0} m/s", v);
             }
             else
