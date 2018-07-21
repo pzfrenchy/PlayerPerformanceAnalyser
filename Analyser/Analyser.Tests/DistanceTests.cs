@@ -21,8 +21,8 @@ namespace Analyser.Tests
 
 
             //Act
-            Distance calc = new Distance();
-            double actual = calc.DistanceInMtrRnd(lat1, lon1, lat2, lon2);
+            Distance calc = new Distance(lat1, lon1, lat2, lon2);
+            double actual = calc.DistanceInMtrRnd();
 
             //Assert
             Assert.Equal(expected, actual);
@@ -38,8 +38,8 @@ namespace Analyser.Tests
             //Arrange
 
             //Act
-            Distance calc = new Distance();
-            double actual = calc.DistanceInMtr(lat1, lon1, lat2, lon2);
+            Distance calc = new Distance(lat1, lon1, lat2, lon2);
+            double actual = calc.DistanceInMtr();
 
             //Assert
             Assert.Equal(expected, actual);

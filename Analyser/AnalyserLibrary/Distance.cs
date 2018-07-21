@@ -8,6 +8,26 @@ namespace AnalyserLibrary
 {
     public class Distance
     {
+        public double Lat1 { get; set; }
+        public double Lon1 { get; set; }
+        public double Lat2 { get; set; }
+        public double Lon2 { get; set; }
+
+        /// <summary>
+        /// Represents a distance between two geolocations, calculated using latitude and longitude
+        /// </summary>
+        /// <param name="lat1">first geolocation latitude</param>
+        /// <param name="lon1">first geolocation longitude</param>
+        /// <param name="lat2">second geolocation latitude</param>
+        /// <param name="lon2">second geolocation longitude</param>
+        public Distance(double lat1, double lon1, double lat2, double lon2)
+        {
+            this.Lat1 = lat1;
+            this.Lat2 = lat2;
+            this.Lon1 = lon1;
+            this.Lon2 = lon2;
+        }
+
         /// <summary>
         /// Method to convert decimal degrees to radians.
         /// </summary>
@@ -45,12 +65,12 @@ namespace AnalyserLibrary
             return distance;
         }
 
-        private double CalcBetweenTwoPoints(double lat1, double lon1, double lat2, double lon2)
+        private double CalcBetweenTwoPoints()
         {
-            double lat1Rad = ToRadians(lat1);
-            double lat2Rad = ToRadians(lat2);
-            double dLatRad = ToRadians((lat2 - lat1));
-            double dLonRad = ToRadians((lon2 - lon1));
+            double lat1Rad = ToRadians(Lat1);
+            double lat2Rad = ToRadians(Lat2);
+            double dLatRad = ToRadians((Lat2 - Lat1));
+            double dLonRad = ToRadians((Lon2 - Lon1));
 
             double a = calcA(lat1Rad, lat2Rad, dLatRad, dLonRad);
 
@@ -67,9 +87,9 @@ namespace AnalyserLibrary
         /// <param name="lat2">latitude 2</param>
         /// <param name="lon2">longitude 2</param>
         /// <returns>double</returns>
-        public double DistanceInMtrRnd(double lat1, double lon1, double lat2, double lon2)
+        public double DistanceInMtrRnd()
         {
-            double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
+            double distance = CalcBetweenTwoPoints();
 
             double distanceInMtr = ToMeter(distance);
 
@@ -84,9 +104,9 @@ namespace AnalyserLibrary
         /// <param name="lat2">latitude 2</param>
         /// <param name="lon2">longitude 2</param>
         /// <returns>double</returns>
-        public double DistanceInMtr(double lat1, double lon1, double lat2, double lon2)
+        public double DistanceInMtr()
         {
-            double distance = CalcBetweenTwoPoints(lat1, lon1, lat2, lon2);
+            double distance = CalcBetweenTwoPoints();
 
             double distanceInMtr = ToMeter(distance);
 

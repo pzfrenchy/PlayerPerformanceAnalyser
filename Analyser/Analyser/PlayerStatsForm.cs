@@ -39,24 +39,8 @@ namespace Analyser
         private void PlayerComboIndexChanged(object sender, EventArgs e)
         {
             int playerID = Convert.ToInt16(playerCombo.SelectedValue.ToString());
-            List<Game> gameList = new List<Game>();
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                foreach (var lineup in dbContext.Lineups)
-                {
-                    if (lineup.PlayerID == playerID)
-                    {
-                        int gameID = lineup.GameID;
-                        foreach(var game in dbContext.Games)
-                        {
-                            if (game.GameID == gameID)
-                            {
-                                gameList.Add(game);
-                            }
-                        }
-                    }
-                }
-            }
+            Search search = new Search();
+            List<Game> gameList = search.FindAllGamesByPlayerID(playerID);
             PopulateDateCombo(gameList);
         }
 
@@ -65,40 +49,14 @@ namespace Analyser
             //calculate distance overwrite distance label
             int playerID = Convert.ToInt16(playerCombo.SelectedValue.ToString());
             int gameID = Convert.ToInt16(dateCombo.SelectedValue.ToString());
-            double totalDistance = 0.0;
-            Distance calc = new Distance();
 
-            List<Coordinates> coords = new List<Coordinates>();
-            
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
-            {
-                foreach (var lineup in dbContext.Lineups)
-                {
-                    if (lineup.GameID == gameID && lineup.PlayerID == playerID)
-                    {
-                        int lineupID = lineup.LineupID;
-                        foreach (var timeline in dbContext.TimeLines)
-                        {
-                            if (timeline.LineupID == lineupID)
-                            {
-                                DateTime dt = timeline.ReadingTime;
-                                double lat = timeline.Latitude;
-                                double lon = timeline.Longitude;
-                                Coordinates coordinates = new Coordinates(dt, lat, lon);
-                                coords.Add(coordinates);
-                            }
-                        }
-                    }
-                }
-            }
+            Search search = new Search();
+            List<Coordinates> coords = search.FindCoordsFromLineupItem(gameID, playerID);
+
             if (coords.Count() != 0)
             {
-                //calculate sum of distance covered and display
-                for (int i = 0; i < coords.Count() - 1; i++)
-                {
-                    double distance = calc.DistanceInMtr(coords[i].Lat, coords[i].Lon, coords[i + 1].Lat, coords[i + 1].Lon);
-                    totalDistance = totalDistance + distance;
-                }
+                //calculate total distance and display
+                double totalDistance = CalcTotalDistance(coords);
                 distanceLbl.Text = string.Format("{0} m", Math.Round(totalDistance, 2));
 
                 //calculate velocity and display
@@ -111,6 +69,21 @@ namespace Analyser
                 distanceLbl.Text = "no data";
                 paceLbl.Text = "no data";
             }
+        }
+
+        private double CalcTotalDistance(List<Coordinates> coords)
+        {
+            double totalDistance = 0.0;
+
+            //calculate sum of distance covered
+            for (int i = 0; i < coords.Count() - 1; i++)
+            {
+                Distance d = new Distance(coords[i].Lat, coords[i].Lon, coords[i + 1].Lat, coords[i + 1].Lon);
+                double distance = d.DistanceInMtr();
+                totalDistance = totalDistance + distance;
+            }
+
+            return totalDistance;
         }
     }
 }
