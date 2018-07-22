@@ -40,25 +40,18 @@ namespace AnalyserLibrary
             return output;
         }
 
-        private double calcA(double lat1Rad, double lat2Rad, double dLatRad, double dLonRad)
-        {
-            double output = Math.Sin(dLatRad / 2) * Math.Sin(dLatRad / 2) +
-                Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
-                Math.Sin(dLonRad / 2) * Math.Sin(dLonRad / 2);
-
-            return output;
-        }
-
-        private double calcB(double a)
-        {
-            double output = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-
-            return output;
-        }
-
         private double ToMeter(double b)
         {
             double earthRadius = 6371e3; //in metres
+
+            double distance = earthRadius * b / 1.5;
+
+            return distance;
+        }
+
+        private double ToKilometer(double b)
+        {
+            double earthRadius = 6371; //in Kilometres
 
             double distance = earthRadius * b;
 
@@ -72,20 +65,18 @@ namespace AnalyserLibrary
             double dLatRad = ToRadians((Lat2 - Lat1));
             double dLonRad = ToRadians((Lon2 - Lon1));
 
-            double a = calcA(lat1Rad, lat2Rad, dLatRad, dLonRad);
+            var h1 = Math.Sin(dLatRad / 2) * Math.Sin(dLatRad / 2) +
+              Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
+              Math.Sin(dLonRad / 2) * Math.Sin(dLonRad / 2);
 
-            double distance = calcB(a);
+            var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
 
-            return distance;
+            return h2;
         }
 
         /// <summary>
         /// Calculates the distance between two point using latitude and longitude coordinates, returns double rounded to 2 decimal places.
         /// </summary>
-        /// <param name="lat1">latitude 1</param>
-        /// <param name="lon1">longitude 1</param>
-        /// <param name="lat2">latitude 2</param>
-        /// <param name="lon2">longitude 2</param>
         /// <returns>double</returns>
         public double DistanceInMtrRnd()
         {
@@ -99,10 +90,6 @@ namespace AnalyserLibrary
         /// <summary>
         /// Calculates the distance between two point using latitude and longitude coordinates.
         /// </summary>
-        /// <param name="lat1">latitude 1</param>
-        /// <param name="lon1">longitude 1</param>
-        /// <param name="lat2">latitude 2</param>
-        /// <param name="lon2">longitude 2</param>
         /// <returns>double</returns>
         public double DistanceInMtr()
         {
@@ -111,6 +98,22 @@ namespace AnalyserLibrary
             double distanceInMtr = ToMeter(distance);
 
             return Math.Round(distanceInMtr, 8);
+        }
+
+        public double DistanceInKmRnd()
+        {
+            double distance = DistanceInKm();
+
+            return Math.Round(distance, 2);
+        }
+
+        public double DistanceInKm()
+        {
+            double distance = CalcBetweenTwoPoints();
+
+            double distanceInKm = ToKilometer(distance);
+
+            return Math.Round(distanceInKm, 8);
         }
     }
 }

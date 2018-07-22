@@ -155,6 +155,8 @@
             // 
             this.breakdownChart.BackColor = System.Drawing.Color.Transparent;
             this.breakdownChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.breakdownChart.BackImageTransparentColor = System.Drawing.SystemColors.ControlLight;
+            this.breakdownChart.BackSecondaryColor = System.Drawing.Color.Transparent;
             chartArea1.Name = "ChartArea1";
             this.breakdownChart.ChartAreas.Add(chartArea1);
             this.breakdownChart.Location = new System.Drawing.Point(0, 271);

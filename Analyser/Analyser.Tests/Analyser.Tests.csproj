@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="DistanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeriesDataTests.cs" />
     <Compile Include="SpeedTests.cs" />
   </ItemGroup>
   <ItemGroup>

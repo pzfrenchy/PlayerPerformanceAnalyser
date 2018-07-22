@@ -75,14 +75,14 @@ namespace AnalyserLibrary
         }
 
         /// <summary>
-        /// Allows searching Lineup table by gameID and playerID and returns a list of all matching coordinates.
+        /// Using GameID and PlayerID returns a list of matching TimeLine object.
         /// </summary>
         /// <param name="gameID">int, ID of game</param>
         /// <param name="playerID">int, ID of player</param>
         /// <returns></returns>
-        public List<Coordinates> FindCoordsFromLineupItem(int gameID, int playerID)
+        public List<TimeLine> FindMatchingTimeLines(int gameID, int playerID)
         {
-            List<Coordinates> coords = new List<Coordinates>();
+            List<TimeLine> output = new List<TimeLine>();
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
             {
                 foreach (var lineup in dbContext.Lineups)
@@ -94,20 +94,21 @@ namespace AnalyserLibrary
                         {
                             if (timeline.LineupID == lineupID)
                             {
-                                DateTime dt = timeline.ReadingTime;
-                                double lat = timeline.Latitude;
-                                double lon = timeline.Longitude;
-                                Coordinates coordinates = new Coordinates(dt, lat, lon);
-                                coords.Add(coordinates);
+                                output.Add(timeline);
                             }
                         }
                     }
                 }
             }
-            return coords;
+            return output;
         }
 
-        public List<Game> FindAllGamesByPlayerID(int playerID)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerID"></param>
+        /// <returns></returns>
+        public List<Game> FindGamesByPlayerID(int playerID)
         {
             List<Game> gameList = new List<Game>();
             using (DataClassesDataContext dbContext = new DataClassesDataContext())

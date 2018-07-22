@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Coordinates.cs" />
+    <Compile Include="CalcTotals.cs" />
     <Compile Include="DataClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -61,7 +61,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Search.cs" />
-    <Compile Include="Series.cs" />
+    <Compile Include="SeriesData.cs" />
     <Compile Include="Speed.cs" />
   </ItemGroup>
   <ItemGroup>

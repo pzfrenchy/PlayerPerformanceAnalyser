@@ -7,16 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using AnalyserLibrary;
 
 namespace Analyser
 {
     public partial class PlayerStatsForm : Form
     {
+        Series series = new Series("series");
+
         public PlayerStatsForm()
         {
             InitializeComponent();
             PopulatePlayerCombo();
+            breakdownChart.Series.Add(series);
+            breakdownChart.Series["series"].YValueMembers = "Percent";
         }
 
         private void PopulatePlayerCombo()
@@ -40,27 +45,36 @@ namespace Analyser
         {
             int playerID = Convert.ToInt16(playerCombo.SelectedValue.ToString());
             Search search = new Search();
-            List<Game> gameList = search.FindAllGamesByPlayerID(playerID);
+            List<Game> gameList = search.FindGamesByPlayerID(playerID);
             PopulateDateCombo(gameList);
+            if (gameList.Count <= 0)
+            {
+                series.Points.Clear();
+                breakdownChart.DataSource = null;
+                breakdownChart.DataBind();
+
+                distanceLbl.Text = "no data";
+                paceLbl.Text = "no data";
+            }
         }
 
         private void DateComboIndexChanged(object sender, EventArgs e)
         {
-            //calculate distance overwrite distance label
             int playerID = Convert.ToInt16(playerCombo.SelectedValue.ToString());
             int gameID = Convert.ToInt16(dateCombo.SelectedValue.ToString());
 
             Search search = new Search();
-            List<Coordinates> coords = search.FindCoordsFromLineupItem(gameID, playerID);
+            List<TimeLine> matchedTimeLineRecords = search.FindMatchingTimeLines(gameID, playerID);
 
-            if (coords.Count() != 0)
+            if (matchedTimeLineRecords.Count() != 0)
             {
                 //calculate total distance and display
-                double totalDistance = CalcTotalDistance(coords);
+                
+                double totalDistance = CalcTotals.Instance.CalcTotalDistance(matchedTimeLineRecords);
                 distanceLbl.Text = string.Format("{0} m", Math.Round(totalDistance, 2));
 
                 //calculate velocity and display
-                Speed speed = new Speed(totalDistance, coords[0].Dt, coords[coords.Count - 1].Dt);
+                Speed speed = new Speed(totalDistance, matchedTimeLineRecords[0].ReadingTime, matchedTimeLineRecords[matchedTimeLineRecords.Count - 1].ReadingTime);
                 double v = speed.AvgMtrPerSecondRnd();
                 paceLbl.Text = string.Format("{0} m/s", v);
             }
@@ -69,21 +83,22 @@ namespace Analyser
                 distanceLbl.Text = "no data";
                 paceLbl.Text = "no data";
             }
+
+            SeriesData seriesData = new SeriesData();
+            PopulateChartWithDistance(seriesData.GetDistanceData(matchedTimeLineRecords));
         }
 
-        private double CalcTotalDistance(List<Coordinates> coords)
+        private void PopulateChartWithDistance(List<double> d)
         {
-            double totalDistance = 0.0;
+            series.Points.Clear();
+            breakdownChart.DataSource = null;
+            breakdownChart.DataBind();
 
-            //calculate sum of distance covered
-            for (int i = 0; i < coords.Count() - 1; i++)
+            if (d.Count > 0)
             {
-                Distance d = new Distance(coords[i].Lat, coords[i].Lon, coords[i + 1].Lat, coords[i + 1].Lon);
-                double distance = d.DistanceInMtr();
-                totalDistance = totalDistance + distance;
+                breakdownChart.DataSource = d;
+                breakdownChart.DataBind();
             }
-
-            return totalDistance;
         }
     }
 }
