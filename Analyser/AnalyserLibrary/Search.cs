@@ -8,6 +8,21 @@ namespace AnalyserLibrary
 {
     public class Search
     {
+        private static Search instance;
+
+        private Search() { }
+
+        public static Search Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Search();
+                }
+                return instance;
+            }
+        }
         private void addGameToGameList(List<Game> gameList, Game game)
         {
             if (game.GetType().Equals(typeof(Game)))

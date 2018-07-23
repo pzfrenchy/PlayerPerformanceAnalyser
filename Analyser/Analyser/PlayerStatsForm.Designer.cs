@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.playBtn = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pitchPictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.sprintsLbl = new System.Windows.Forms.Label();
             this.paceLbl = new System.Windows.Forms.Label();
@@ -49,10 +50,11 @@
             this.playerCombo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dateCombo = new System.Windows.Forms.ComboBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pitchPictureBox)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.breakdownChart)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -65,17 +67,17 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(14, 15);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1056, 730);
+            this.panel1.Size = new System.Drawing.Size(1051, 730);
             this.panel1.TabIndex = 4;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.playBtn);
             this.groupBox3.Controls.Add(this.trackBar1);
-            this.groupBox3.Controls.Add(this.pictureBox1);
+            this.groupBox3.Controls.Add(this.pitchPictureBox);
             this.groupBox3.Location = new System.Drawing.Point(23, 28);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(427, 679);
+            this.groupBox3.Size = new System.Drawing.Size(425, 679);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Position";
@@ -97,14 +99,14 @@
             this.trackBar1.Size = new System.Drawing.Size(338, 90);
             this.trackBar1.TabIndex = 4;
             // 
-            // pictureBox1
+            // pitchPictureBox
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(210)))), ((int)(((byte)(0)))));
-            this.pictureBox1.Location = new System.Drawing.Point(16, 41);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(391, 534);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
+            this.pitchPictureBox.BackColor = System.Drawing.Color.LimeGreen;
+            this.pitchPictureBox.Location = new System.Drawing.Point(16, 41);
+            this.pitchPictureBox.Name = "pitchPictureBox";
+            this.pitchPictureBox.Size = new System.Drawing.Size(391, 534);
+            this.pitchPictureBox.TabIndex = 3;
+            this.pitchPictureBox.TabStop = false;
             // 
             // groupBox2
             // 
@@ -117,7 +119,7 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(475, 188);
+            this.groupBox2.Location = new System.Drawing.Point(473, 188);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(556, 519);
             this.groupBox2.TabIndex = 8;
@@ -157,8 +159,8 @@
             this.breakdownChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.breakdownChart.BackImageTransparentColor = System.Drawing.SystemColors.ControlLight;
             this.breakdownChart.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.breakdownChart.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.breakdownChart.ChartAreas.Add(chartArea3);
             this.breakdownChart.Location = new System.Drawing.Point(0, 271);
             this.breakdownChart.Name = "breakdownChart";
             this.breakdownChart.Size = new System.Drawing.Size(556, 240);
@@ -217,7 +219,7 @@
             this.groupBox1.Controls.Add(this.playerCombo);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dateCombo);
-            this.groupBox1.Location = new System.Drawing.Point(475, 28);
+            this.groupBox1.Location = new System.Drawing.Point(473, 28);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(556, 153);
             this.groupBox1.TabIndex = 7;
@@ -260,11 +262,15 @@
             this.dateCombo.TabIndex = 2;
             this.dateCombo.SelectedIndexChanged += new System.EventHandler(this.DateComboIndexChanged);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // PlayerStatsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1081, 757);
+            this.ClientSize = new System.Drawing.Size(1082, 757);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "PlayerStatsForm";
@@ -273,7 +279,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pitchPictureBox)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.breakdownChart)).EndInit();
@@ -289,7 +295,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button playBtn;
         private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pitchPictureBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label sprintsLbl;
         private System.Windows.Forms.Label paceLbl;
@@ -305,5 +311,6 @@
         private System.Windows.Forms.ComboBox playerCombo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox dateCombo;
+        private System.Windows.Forms.Timer timer1;
     }
 }

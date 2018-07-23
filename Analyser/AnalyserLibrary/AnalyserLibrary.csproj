@@ -63,6 +63,7 @@
     <Compile Include="Search.cs" />
     <Compile Include="SeriesData.cs" />
     <Compile Include="Speed.cs" />
+    <Compile Include="XY.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

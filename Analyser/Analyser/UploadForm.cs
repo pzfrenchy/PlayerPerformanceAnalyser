@@ -30,8 +30,7 @@ namespace Analyser
             string searchType = uploadSearchCombo.Text;
             string searchString = uploadSearchTxt.Text;
 
-            Search search = new Search();
-            List<Game> gameList = search.SearchForGame(searchType, searchString);
+            List<Game> gameList = Search.Instance.SearchForGame(searchType, searchString);
 
             PopulateGameLstBox(gameList);
         }
