@@ -29,12 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.playBtn = new System.Windows.Forms.Button();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.pitchPictureBox = new System.Windows.Forms.PictureBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.fastForwardBtn = new System.Windows.Forms.Button();
+            this.pauseBtn = new System.Windows.Forms.Button();
+            this.playBtn = new System.Windows.Forms.Button();
+            this.rewindBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.sprintsLbl = new System.Windows.Forms.Label();
             this.paceLbl = new System.Windows.Forms.Label();
@@ -53,8 +56,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pitchPictureBox)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.breakdownChart)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -67,46 +70,78 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(14, 15);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1051, 730);
+            this.panel1.Size = new System.Drawing.Size(1104, 730);
             this.panel1.TabIndex = 4;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.playBtn);
-            this.groupBox3.Controls.Add(this.trackBar1);
             this.groupBox3.Controls.Add(this.pitchPictureBox);
+            this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Location = new System.Drawing.Point(23, 28);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(425, 679);
+            this.groupBox3.Size = new System.Drawing.Size(481, 679);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Position";
-            // 
-            // playBtn
-            // 
-            this.playBtn.Location = new System.Drawing.Point(16, 581);
-            this.playBtn.Name = "playBtn";
-            this.playBtn.Size = new System.Drawing.Size(47, 41);
-            this.playBtn.TabIndex = 3;
-            this.playBtn.Text = ">";
-            this.playBtn.UseVisualStyleBackColor = true;
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(69, 581);
-            this.trackBar1.Maximum = 90;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(338, 90);
-            this.trackBar1.TabIndex = 4;
             // 
             // pitchPictureBox
             // 
             this.pitchPictureBox.BackColor = System.Drawing.Color.LimeGreen;
             this.pitchPictureBox.Location = new System.Drawing.Point(16, 41);
             this.pitchPictureBox.Name = "pitchPictureBox";
-            this.pitchPictureBox.Size = new System.Drawing.Size(391, 534);
+            this.pitchPictureBox.Size = new System.Drawing.Size(450, 550);
+            this.pitchPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pitchPictureBox.TabIndex = 3;
             this.pitchPictureBox.TabStop = false;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.fastForwardBtn);
+            this.groupBox4.Controls.Add(this.pauseBtn);
+            this.groupBox4.Controls.Add(this.playBtn);
+            this.groupBox4.Controls.Add(this.rewindBtn);
+            this.groupBox4.Location = new System.Drawing.Point(87, 589);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(281, 82);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            // 
+            // fastForwardBtn
+            // 
+            this.fastForwardBtn.Location = new System.Drawing.Point(200, 22);
+            this.fastForwardBtn.Name = "fastForwardBtn";
+            this.fastForwardBtn.Size = new System.Drawing.Size(55, 50);
+            this.fastForwardBtn.TabIndex = 4;
+            this.fastForwardBtn.Text = ">>";
+            this.fastForwardBtn.UseVisualStyleBackColor = true;
+            // 
+            // pauseBtn
+            // 
+            this.pauseBtn.Location = new System.Drawing.Point(88, 22);
+            this.pauseBtn.Name = "pauseBtn";
+            this.pauseBtn.Size = new System.Drawing.Size(50, 50);
+            this.pauseBtn.TabIndex = 3;
+            this.pauseBtn.Text = "II";
+            this.pauseBtn.UseVisualStyleBackColor = true;
+            // 
+            // playBtn
+            // 
+            this.playBtn.Location = new System.Drawing.Point(144, 22);
+            this.playBtn.Name = "playBtn";
+            this.playBtn.Size = new System.Drawing.Size(50, 50);
+            this.playBtn.TabIndex = 4;
+            this.playBtn.Text = ">";
+            this.playBtn.UseVisualStyleBackColor = true;
+            this.playBtn.Click += new System.EventHandler(this.playBtn_Click);
+            // 
+            // rewindBtn
+            // 
+            this.rewindBtn.Location = new System.Drawing.Point(27, 22);
+            this.rewindBtn.Name = "rewindBtn";
+            this.rewindBtn.Size = new System.Drawing.Size(55, 50);
+            this.rewindBtn.TabIndex = 3;
+            this.rewindBtn.Text = "<<";
+            this.rewindBtn.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -119,7 +154,7 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(473, 188);
+            this.groupBox2.Location = new System.Drawing.Point(522, 188);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(556, 519);
             this.groupBox2.TabIndex = 8;
@@ -159,8 +194,8 @@
             this.breakdownChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.breakdownChart.BackImageTransparentColor = System.Drawing.SystemColors.ControlLight;
             this.breakdownChart.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea3.Name = "ChartArea1";
-            this.breakdownChart.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.breakdownChart.ChartAreas.Add(chartArea1);
             this.breakdownChart.Location = new System.Drawing.Point(0, 271);
             this.breakdownChart.Name = "breakdownChart";
             this.breakdownChart.Size = new System.Drawing.Size(556, 240);
@@ -219,7 +254,7 @@
             this.groupBox1.Controls.Add(this.playerCombo);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dateCombo);
-            this.groupBox1.Location = new System.Drawing.Point(473, 28);
+            this.groupBox1.Location = new System.Drawing.Point(522, 28);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(556, 153);
             this.groupBox1.TabIndex = 7;
@@ -270,16 +305,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1082, 757);
+            this.ClientSize = new System.Drawing.Size(1133, 761);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "PlayerStatsForm";
             this.Text = "TrackFit - Player Statistics";
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pitchPictureBox)).EndInit();
+            this.groupBox4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.breakdownChart)).EndInit();
@@ -293,8 +327,7 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button playBtn;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Button rewindBtn;
         private System.Windows.Forms.PictureBox pitchPictureBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label sprintsLbl;
@@ -312,5 +345,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox dateCombo;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button fastForwardBtn;
+        private System.Windows.Forms.Button pauseBtn;
+        private System.Windows.Forms.Button playBtn;
     }
 }

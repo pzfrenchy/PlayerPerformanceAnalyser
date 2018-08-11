@@ -54,9 +54,6 @@ namespace AnalyserLibrary
     partial void InsertPlayer(Player instance);
     partial void UpdatePlayer(Player instance);
     partial void DeletePlayer(Player instance);
-    partial void InsertPlayerPerformance(PlayerPerformance instance);
-    partial void UpdatePlayerPerformance(PlayerPerformance instance);
-    partial void DeletePlayerPerformance(PlayerPerformance instance);
     partial void InsertPosition(Position instance);
     partial void UpdatePosition(Position instance);
     partial void DeletePosition(Position instance);
@@ -153,14 +150,6 @@ namespace AnalyserLibrary
 			get
 			{
 				return this.GetTable<Player>();
-			}
-		}
-		
-		public System.Data.Linq.Table<PlayerPerformance> PlayerPerformances
-		{
-			get
-			{
-				return this.GetTable<PlayerPerformance>();
 			}
 		}
 		
@@ -990,8 +979,6 @@ namespace AnalyserLibrary
 		
 		private EntitySet<TimeLine> _TimeLines;
 		
-		private EntitySet<PlayerPerformance> _PlayerPerformances;
-		
 		private EntityRef<Game> _Game;
 		
 		private EntityRef<Player> _Player;
@@ -1015,7 +1002,6 @@ namespace AnalyserLibrary
 		public Lineup()
 		{
 			this._TimeLines = new EntitySet<TimeLine>(new Action<TimeLine>(this.attach_TimeLines), new Action<TimeLine>(this.detach_TimeLines));
-			this._PlayerPerformances = new EntitySet<PlayerPerformance>(new Action<PlayerPerformance>(this.attach_PlayerPerformances), new Action<PlayerPerformance>(this.detach_PlayerPerformances));
 			this._Game = default(EntityRef<Game>);
 			this._Player = default(EntityRef<Player>);
 			this._Position = default(EntityRef<Position>);
@@ -1124,19 +1110,6 @@ namespace AnalyserLibrary
 			set
 			{
 				this._TimeLines.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lineup_PlayerPerformance", Storage="_PlayerPerformances", ThisKey="LineupID", OtherKey="LineupID")]
-		public EntitySet<PlayerPerformance> PlayerPerformances
-		{
-			get
-			{
-				return this._PlayerPerformances;
-			}
-			set
-			{
-				this._PlayerPerformances.Assign(value);
 			}
 		}
 		
@@ -1273,18 +1246,6 @@ namespace AnalyserLibrary
 			this.SendPropertyChanging();
 			entity.Lineup = null;
 		}
-		
-		private void attach_PlayerPerformances(PlayerPerformance entity)
-		{
-			this.SendPropertyChanging();
-			entity.Lineup = this;
-		}
-		
-		private void detach_PlayerPerformances(PlayerPerformance entity)
-		{
-			this.SendPropertyChanging();
-			entity.Lineup = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Opponent")]
@@ -1411,22 +1372,6 @@ namespace AnalyserLibrary
 		
 		private string _PitchName;
 		
-		private double _NPointLat;
-		
-		private double _NPointLon;
-		
-		private double _EPointLat;
-		
-		private double _EPointLon;
-		
-		private double _SPoingLat;
-		
-		private double _SPointLon;
-		
-		private double _WPointLat;
-		
-		private double _WPointLon;
-		
 		private EntitySet<Game> _Games;
 		
     #region Extensibility Method Definitions
@@ -1437,22 +1382,6 @@ namespace AnalyserLibrary
     partial void OnPitchIDChanged();
     partial void OnPitchNameChanging(string value);
     partial void OnPitchNameChanged();
-    partial void OnNPointLatChanging(double value);
-    partial void OnNPointLatChanged();
-    partial void OnNPointLonChanging(double value);
-    partial void OnNPointLonChanged();
-    partial void OnEPointLatChanging(double value);
-    partial void OnEPointLatChanged();
-    partial void OnEPointLonChanging(double value);
-    partial void OnEPointLonChanged();
-    partial void OnSPoingLatChanging(double value);
-    partial void OnSPoingLatChanged();
-    partial void OnSPointLonChanging(double value);
-    partial void OnSPointLonChanged();
-    partial void OnWPointLatChanging(double value);
-    partial void OnWPointLatChanged();
-    partial void OnWPointLonChanging(double value);
-    partial void OnWPointLonChanged();
     #endregion
 		
 		public Pitch()
@@ -1497,166 +1426,6 @@ namespace AnalyserLibrary
 					this._PitchName = value;
 					this.SendPropertyChanged("PitchName");
 					this.OnPitchNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NPointLat", DbType="Float NOT NULL")]
-		public double NPointLat
-		{
-			get
-			{
-				return this._NPointLat;
-			}
-			set
-			{
-				if ((this._NPointLat != value))
-				{
-					this.OnNPointLatChanging(value);
-					this.SendPropertyChanging();
-					this._NPointLat = value;
-					this.SendPropertyChanged("NPointLat");
-					this.OnNPointLatChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NPointLon", DbType="Float NOT NULL")]
-		public double NPointLon
-		{
-			get
-			{
-				return this._NPointLon;
-			}
-			set
-			{
-				if ((this._NPointLon != value))
-				{
-					this.OnNPointLonChanging(value);
-					this.SendPropertyChanging();
-					this._NPointLon = value;
-					this.SendPropertyChanged("NPointLon");
-					this.OnNPointLonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EPointLat", DbType="Float NOT NULL")]
-		public double EPointLat
-		{
-			get
-			{
-				return this._EPointLat;
-			}
-			set
-			{
-				if ((this._EPointLat != value))
-				{
-					this.OnEPointLatChanging(value);
-					this.SendPropertyChanging();
-					this._EPointLat = value;
-					this.SendPropertyChanged("EPointLat");
-					this.OnEPointLatChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EPointLon", DbType="Float NOT NULL")]
-		public double EPointLon
-		{
-			get
-			{
-				return this._EPointLon;
-			}
-			set
-			{
-				if ((this._EPointLon != value))
-				{
-					this.OnEPointLonChanging(value);
-					this.SendPropertyChanging();
-					this._EPointLon = value;
-					this.SendPropertyChanged("EPointLon");
-					this.OnEPointLonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPoingLat", DbType="Float NOT NULL")]
-		public double SPoingLat
-		{
-			get
-			{
-				return this._SPoingLat;
-			}
-			set
-			{
-				if ((this._SPoingLat != value))
-				{
-					this.OnSPoingLatChanging(value);
-					this.SendPropertyChanging();
-					this._SPoingLat = value;
-					this.SendPropertyChanged("SPoingLat");
-					this.OnSPoingLatChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPointLon", DbType="Float NOT NULL")]
-		public double SPointLon
-		{
-			get
-			{
-				return this._SPointLon;
-			}
-			set
-			{
-				if ((this._SPointLon != value))
-				{
-					this.OnSPointLonChanging(value);
-					this.SendPropertyChanging();
-					this._SPointLon = value;
-					this.SendPropertyChanged("SPointLon");
-					this.OnSPointLonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPointLat", DbType="Float NOT NULL")]
-		public double WPointLat
-		{
-			get
-			{
-				return this._WPointLat;
-			}
-			set
-			{
-				if ((this._WPointLat != value))
-				{
-					this.OnWPointLatChanging(value);
-					this.SendPropertyChanging();
-					this._WPointLat = value;
-					this.SendPropertyChanged("WPointLat");
-					this.OnWPointLatChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPointLon", DbType="Float NOT NULL")]
-		public double WPointLon
-		{
-			get
-			{
-				return this._WPointLon;
-			}
-			set
-			{
-				if ((this._WPointLon != value))
-				{
-					this.OnWPointLonChanging(value);
-					this.SendPropertyChanging();
-					this._WPointLon = value;
-					this.SendPropertyChanged("WPointLon");
-					this.OnWPointLonChanged();
 				}
 			}
 		}
@@ -1890,349 +1659,6 @@ namespace AnalyserLibrary
 		{
 			this.SendPropertyChanging();
 			entity.Player = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PlayerPerformance")]
-	public partial class PlayerPerformance : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _PlayerPerformanceID;
-		
-		private int _Shots;
-		
-		private int _Goals;
-		
-		private int _Assists;
-		
-		private int _Passes;
-		
-		private int _Interceptions;
-		
-		private int _Tackles;
-		
-		private int _Crosses;
-		
-		private int _Corners;
-		
-		private int _Saves;
-		
-		private int _LineupID;
-		
-		private EntityRef<Lineup> _Lineup;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPlayerPerformanceIDChanging(int value);
-    partial void OnPlayerPerformanceIDChanged();
-    partial void OnShotsChanging(int value);
-    partial void OnShotsChanged();
-    partial void OnGoalsChanging(int value);
-    partial void OnGoalsChanged();
-    partial void OnAssistsChanging(int value);
-    partial void OnAssistsChanged();
-    partial void OnPassesChanging(int value);
-    partial void OnPassesChanged();
-    partial void OnInterceptionsChanging(int value);
-    partial void OnInterceptionsChanged();
-    partial void OnTacklesChanging(int value);
-    partial void OnTacklesChanged();
-    partial void OnCrossesChanging(int value);
-    partial void OnCrossesChanged();
-    partial void OnCornersChanging(int value);
-    partial void OnCornersChanged();
-    partial void OnSavesChanging(int value);
-    partial void OnSavesChanged();
-    partial void OnLineupIDChanging(int value);
-    partial void OnLineupIDChanged();
-    #endregion
-		
-		public PlayerPerformance()
-		{
-			this._Lineup = default(EntityRef<Lineup>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerPerformanceID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int PlayerPerformanceID
-		{
-			get
-			{
-				return this._PlayerPerformanceID;
-			}
-			set
-			{
-				if ((this._PlayerPerformanceID != value))
-				{
-					this.OnPlayerPerformanceIDChanging(value);
-					this.SendPropertyChanging();
-					this._PlayerPerformanceID = value;
-					this.SendPropertyChanged("PlayerPerformanceID");
-					this.OnPlayerPerformanceIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Shots", DbType="Int NOT NULL")]
-		public int Shots
-		{
-			get
-			{
-				return this._Shots;
-			}
-			set
-			{
-				if ((this._Shots != value))
-				{
-					this.OnShotsChanging(value);
-					this.SendPropertyChanging();
-					this._Shots = value;
-					this.SendPropertyChanged("Shots");
-					this.OnShotsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Goals", DbType="Int NOT NULL")]
-		public int Goals
-		{
-			get
-			{
-				return this._Goals;
-			}
-			set
-			{
-				if ((this._Goals != value))
-				{
-					this.OnGoalsChanging(value);
-					this.SendPropertyChanging();
-					this._Goals = value;
-					this.SendPropertyChanged("Goals");
-					this.OnGoalsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Assists", DbType="Int NOT NULL")]
-		public int Assists
-		{
-			get
-			{
-				return this._Assists;
-			}
-			set
-			{
-				if ((this._Assists != value))
-				{
-					this.OnAssistsChanging(value);
-					this.SendPropertyChanging();
-					this._Assists = value;
-					this.SendPropertyChanged("Assists");
-					this.OnAssistsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Passes", DbType="Int NOT NULL")]
-		public int Passes
-		{
-			get
-			{
-				return this._Passes;
-			}
-			set
-			{
-				if ((this._Passes != value))
-				{
-					this.OnPassesChanging(value);
-					this.SendPropertyChanging();
-					this._Passes = value;
-					this.SendPropertyChanged("Passes");
-					this.OnPassesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Interceptions", DbType="Int NOT NULL")]
-		public int Interceptions
-		{
-			get
-			{
-				return this._Interceptions;
-			}
-			set
-			{
-				if ((this._Interceptions != value))
-				{
-					this.OnInterceptionsChanging(value);
-					this.SendPropertyChanging();
-					this._Interceptions = value;
-					this.SendPropertyChanged("Interceptions");
-					this.OnInterceptionsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tackles", DbType="Int NOT NULL")]
-		public int Tackles
-		{
-			get
-			{
-				return this._Tackles;
-			}
-			set
-			{
-				if ((this._Tackles != value))
-				{
-					this.OnTacklesChanging(value);
-					this.SendPropertyChanging();
-					this._Tackles = value;
-					this.SendPropertyChanged("Tackles");
-					this.OnTacklesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Crosses", DbType="Int NOT NULL")]
-		public int Crosses
-		{
-			get
-			{
-				return this._Crosses;
-			}
-			set
-			{
-				if ((this._Crosses != value))
-				{
-					this.OnCrossesChanging(value);
-					this.SendPropertyChanging();
-					this._Crosses = value;
-					this.SendPropertyChanged("Crosses");
-					this.OnCrossesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Corners", DbType="Int NOT NULL")]
-		public int Corners
-		{
-			get
-			{
-				return this._Corners;
-			}
-			set
-			{
-				if ((this._Corners != value))
-				{
-					this.OnCornersChanging(value);
-					this.SendPropertyChanging();
-					this._Corners = value;
-					this.SendPropertyChanged("Corners");
-					this.OnCornersChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Saves", DbType="Int NOT NULL")]
-		public int Saves
-		{
-			get
-			{
-				return this._Saves;
-			}
-			set
-			{
-				if ((this._Saves != value))
-				{
-					this.OnSavesChanging(value);
-					this.SendPropertyChanging();
-					this._Saves = value;
-					this.SendPropertyChanged("Saves");
-					this.OnSavesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupID", DbType="Int NOT NULL")]
-		public int LineupID
-		{
-			get
-			{
-				return this._LineupID;
-			}
-			set
-			{
-				if ((this._LineupID != value))
-				{
-					if (this._Lineup.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnLineupIDChanging(value);
-					this.SendPropertyChanging();
-					this._LineupID = value;
-					this.SendPropertyChanged("LineupID");
-					this.OnLineupIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lineup_PlayerPerformance", Storage="_Lineup", ThisKey="LineupID", OtherKey="LineupID", IsForeignKey=true)]
-		public Lineup Lineup
-		{
-			get
-			{
-				return this._Lineup.Entity;
-			}
-			set
-			{
-				Lineup previousValue = this._Lineup.Entity;
-				if (((previousValue != value) 
-							|| (this._Lineup.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Lineup.Entity = null;
-						previousValue.PlayerPerformances.Remove(this);
-					}
-					this._Lineup.Entity = value;
-					if ((value != null))
-					{
-						value.PlayerPerformances.Add(this);
-						this._LineupID = value.LineupID;
-					}
-					else
-					{
-						this._LineupID = default(int);
-					}
-					this.SendPropertyChanged("Lineup");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	

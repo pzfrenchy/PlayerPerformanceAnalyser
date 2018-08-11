@@ -68,7 +68,7 @@ namespace Analyser
             {
                 //calculate total distance and display
                 
-                double totalDistance = CalcTotals.Instance.CalcTotalDistance(matchedTimeLineRecords);
+                double totalDistance = Calculations.Instance.CalcTotalDistance(matchedTimeLineRecords);
                 distanceLbl.Text = string.Format("{0} m", Math.Round(totalDistance, 2));
 
                 //calculate velocity and display
@@ -86,20 +86,22 @@ namespace Analyser
             PopulateChartWithDistance(seriesData.GetDistanceData(matchedTimeLineRecords));
 
             List<XY> xy = GeographicToCartesianCoords(matchedTimeLineRecords);
-            List<XY> minMax = MinMaxCoords(xy);
+            List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(xy);
 
-            //calculateLoc(matchedTimeLineRecords);
+            DrawPoints(xy);
+        }
 
+        private void DrawPoints(List<XY> xy)
+        {
             Graphics graphics;
             graphics = pitchPictureBox.CreateGraphics();
             graphics.Clear(Color.LimeGreen);
-            graphics.TranslateTransform(Convert.ToSingle(minMax[1].X), Convert.ToSingle(minMax[1].Y));
-            
+
             SolidBrush brush = new SolidBrush(Color.Black);
 
             for (int i = 0; i < xy.Count; i++)
             {
-                pitchPictureBox.CreateGraphics().DrawRectangle(new Pen(Brushes.Black, 1), new Rectangle(Convert.ToInt32(xy[i].X), Convert.ToInt32(xy[i].Y), 1, 1));
+                pitchPictureBox.CreateGraphics().DrawRectangle(new Pen(Brushes.Black, 1), new Rectangle(Convert.ToInt32(xy[i].Y), Convert.ToInt32(xy[i].X), 1, 1));
             }
         }
 
@@ -132,43 +134,28 @@ namespace Analyser
                 XYCoords.Add(xy);
             }
 
-            List<XY> minMax = MinMaxCoords(XYCoords);
+            List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(XYCoords);
+            int padding = 10;
 
             foreach (var item in XYCoords)
             {
-                item.X = ((item.X - minMax[0].X) / (minMax[1].X - minMax[0].X)) * 180;
-                item.Y = ((item.Y - minMax[0].Y) / (minMax[1].Y - minMax[0].Y)) * 180;
+                item.X = ((item.X - minMax[0].X) / (minMax[1].X - minMax[0].X)) * 200 + padding;
+                item.Y = ((item.Y - minMax[0].Y) / (minMax[1].Y - minMax[0].Y)) * 200 + padding;
             }
             return XYCoords;
         }
 
-        private List<XY> MinMaxCoords(List<XY> coords)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            List<XY> output = new List<XY>();
 
-            double minX = coords[0].X;
-            double minY = coords[0].Y;
-            double maxX = coords[0].X;
-            double maxY = coords[0].Y;
-
-            foreach (var c in coords)
-            {
-                //find minimum and maximum values to scale pitch.
-                minX = Math.Min(c.X, minX);
-                minY = Math.Min(c.Y, minY);
-                maxX = Math.Max(c.X, maxX);
-                maxY = Math.Max(c.Y, maxY);
-            }
-
-            XY minXY = new XY(minX, minY);
-            XY maxXY = new XY(maxX, maxY);
-            output.Add(minXY);
-            output.Add(maxXY);
-
-            return output;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void playBtn_Click(object sender, EventArgs e)
+        {
+            DrawXY();
+        }
+
+        private void DrawXY()
         {
 
         }

@@ -43,23 +43,7 @@
             this.pitchTab = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.pitchLstBox = new System.Windows.Forms.ListBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.pitchWLonTxt = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.pitchSLonTxt = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.pitchELonTxt = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.pitchNLonTxt = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pitchWLatTxt = new System.Windows.Forms.TextBox();
-            this.pitchSLatTxt = new System.Windows.Forms.TextBox();
-            this.pitchELatTxt = new System.Windows.Forms.TextBox();
-            this.pitchNLatTxt = new System.Windows.Forms.TextBox();
             this.pitchNameTxt = new System.Windows.Forms.TextBox();
             this.createPitchBtn = new System.Windows.Forms.Button();
             this.opponentTab = new System.Windows.Forms.TabPage();
@@ -226,23 +210,7 @@
             // 
             this.pitchTab.BackColor = System.Drawing.Color.Transparent;
             this.pitchTab.Controls.Add(this.groupBox5);
-            this.pitchTab.Controls.Add(this.label13);
-            this.pitchTab.Controls.Add(this.pitchWLonTxt);
-            this.pitchTab.Controls.Add(this.label12);
-            this.pitchTab.Controls.Add(this.pitchSLonTxt);
-            this.pitchTab.Controls.Add(this.label11);
-            this.pitchTab.Controls.Add(this.pitchELonTxt);
-            this.pitchTab.Controls.Add(this.label10);
-            this.pitchTab.Controls.Add(this.pitchNLonTxt);
-            this.pitchTab.Controls.Add(this.label9);
-            this.pitchTab.Controls.Add(this.label8);
-            this.pitchTab.Controls.Add(this.label7);
-            this.pitchTab.Controls.Add(this.label6);
             this.pitchTab.Controls.Add(this.label1);
-            this.pitchTab.Controls.Add(this.pitchWLatTxt);
-            this.pitchTab.Controls.Add(this.pitchSLatTxt);
-            this.pitchTab.Controls.Add(this.pitchELatTxt);
-            this.pitchTab.Controls.Add(this.pitchNLatTxt);
             this.pitchTab.Controls.Add(this.pitchNameTxt);
             this.pitchTab.Controls.Add(this.createPitchBtn);
             this.pitchTab.Location = new System.Drawing.Point(8, 39);
@@ -270,106 +238,6 @@
             this.pitchLstBox.Size = new System.Drawing.Size(457, 604);
             this.pitchLstBox.TabIndex = 11;
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(55, 450);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(158, 25);
-            this.label13.TabIndex = 19;
-            this.label13.Text = "West Point Lon";
-            // 
-            // pitchWLonTxt
-            // 
-            this.pitchWLonTxt.Location = new System.Drawing.Point(270, 444);
-            this.pitchWLonTxt.Name = "pitchWLonTxt";
-            this.pitchWLonTxt.Size = new System.Drawing.Size(100, 31);
-            this.pitchWLonTxt.TabIndex = 18;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(55, 364);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(165, 25);
-            this.label12.TabIndex = 17;
-            this.label12.Text = "South Point Lon";
-            // 
-            // pitchSLonTxt
-            // 
-            this.pitchSLonTxt.Location = new System.Drawing.Point(270, 358);
-            this.pitchSLonTxt.Name = "pitchSLonTxt";
-            this.pitchSLonTxt.Size = new System.Drawing.Size(100, 31);
-            this.pitchSLonTxt.TabIndex = 16;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(55, 269);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(152, 25);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "East Point Lon";
-            // 
-            // pitchELonTxt
-            // 
-            this.pitchELonTxt.Location = new System.Drawing.Point(270, 263);
-            this.pitchELonTxt.Name = "pitchELonTxt";
-            this.pitchELonTxt.Size = new System.Drawing.Size(100, 31);
-            this.pitchELonTxt.TabIndex = 14;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(55, 175);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(161, 25);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "North Point Lon";
-            // 
-            // pitchNLonTxt
-            // 
-            this.pitchNLonTxt.Location = new System.Drawing.Point(270, 169);
-            this.pitchNLonTxt.Name = "pitchNLonTxt";
-            this.pitchNLonTxt.Size = new System.Drawing.Size(100, 31);
-            this.pitchNLonTxt.TabIndex = 12;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(55, 413);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(152, 25);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "West Point Lat";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(55, 327);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(159, 25);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "South Point Lat";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(55, 232);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(146, 25);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "East Point Lat";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(55, 138);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(155, 25);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "North Point Lat";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -378,34 +246,6 @@
             this.label1.Size = new System.Drawing.Size(122, 25);
             this.label1.TabIndex = 6;
             this.label1.Text = "Pitch Name";
-            // 
-            // pitchWLatTxt
-            // 
-            this.pitchWLatTxt.Location = new System.Drawing.Point(270, 407);
-            this.pitchWLatTxt.Name = "pitchWLatTxt";
-            this.pitchWLatTxt.Size = new System.Drawing.Size(100, 31);
-            this.pitchWLatTxt.TabIndex = 5;
-            // 
-            // pitchSLatTxt
-            // 
-            this.pitchSLatTxt.Location = new System.Drawing.Point(270, 321);
-            this.pitchSLatTxt.Name = "pitchSLatTxt";
-            this.pitchSLatTxt.Size = new System.Drawing.Size(100, 31);
-            this.pitchSLatTxt.TabIndex = 4;
-            // 
-            // pitchELatTxt
-            // 
-            this.pitchELatTxt.Location = new System.Drawing.Point(270, 226);
-            this.pitchELatTxt.Name = "pitchELatTxt";
-            this.pitchELatTxt.Size = new System.Drawing.Size(100, 31);
-            this.pitchELatTxt.TabIndex = 3;
-            // 
-            // pitchNLatTxt
-            // 
-            this.pitchNLatTxt.Location = new System.Drawing.Point(270, 132);
-            this.pitchNLatTxt.Name = "pitchNLatTxt";
-            this.pitchNLatTxt.Size = new System.Drawing.Size(100, 31);
-            this.pitchNLatTxt.TabIndex = 2;
             // 
             // pitchNameTxt
             // 
@@ -416,7 +256,7 @@
             // 
             // createPitchBtn
             // 
-            this.createPitchBtn.Location = new System.Drawing.Point(119, 512);
+            this.createPitchBtn.Location = new System.Drawing.Point(143, 168);
             this.createPitchBtn.Name = "createPitchBtn";
             this.createPitchBtn.Size = new System.Drawing.Size(139, 51);
             this.createPitchBtn.TabIndex = 0;
@@ -757,25 +597,9 @@
         private System.Windows.Forms.TabPage pitchTab;
         private System.Windows.Forms.TabPage matchTab;
         private System.Windows.Forms.ListBox pitchLstBox;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox pitchWLatTxt;
-        private System.Windows.Forms.TextBox pitchSLatTxt;
-        private System.Windows.Forms.TextBox pitchELatTxt;
-        private System.Windows.Forms.TextBox pitchNLatTxt;
         private System.Windows.Forms.TextBox pitchNameTxt;
         private System.Windows.Forms.Button createPitchBtn;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox pitchWLonTxt;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox pitchSLonTxt;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox pitchELonTxt;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox pitchNLonTxt;
         private System.Windows.Forms.TextBox oppNameTxt;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button createOppBtn;

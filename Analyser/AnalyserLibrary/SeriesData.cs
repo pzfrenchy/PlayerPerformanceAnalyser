@@ -12,7 +12,7 @@ namespace AnalyserLibrary
         {
             List<TimeLine> timeLines = t;
             List<double> seriesData = new List<double>();
-            double initialDistance = CalcTotals.Instance.CalcTotalDistance(t);
+            double initialDistance = Calculations.Instance.CalcTotalDistance(t);
 
             if (timeLines.Count > 0)
             {

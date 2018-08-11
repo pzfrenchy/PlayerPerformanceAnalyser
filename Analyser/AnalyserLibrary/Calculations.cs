@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace AnalyserLibrary
 {
-    public class CalcTotals
+    public class Calculations
     {
-        private static CalcTotals instance;
+        private static Calculations instance;
 
-        private CalcTotals() { }
+        private Calculations() { }
 
-        public static CalcTotals Instance
+        public static Calculations Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new CalcTotals();
+                    instance = new Calculations();
                 }
                 return instance;
             }
@@ -47,6 +47,32 @@ namespace AnalyserLibrary
             }
 
             return totalDistance;
+        }
+
+        public List<XY> CalcMinMaxCoords(List<XY> coords)
+        {
+            List<XY> output = new List<XY>();
+
+            double minX = coords[0].X;
+            double minY = coords[0].Y;
+            double maxX = coords[0].X;
+            double maxY = coords[0].Y;
+
+            foreach (var c in coords)
+            {
+                //find minimum and maximum values to scale pitch.
+                minX = Math.Min(c.X, minX);
+                minY = Math.Min(c.Y, minY);
+                maxX = Math.Max(c.X, maxX);
+                maxY = Math.Max(c.Y, maxY);
+            }
+
+            XY minXY = new XY(minX, minY);
+            XY maxXY = new XY(maxX, maxY);
+            output.Add(minXY);
+            output.Add(maxXY);
+
+            return output;
         }
     }
 }

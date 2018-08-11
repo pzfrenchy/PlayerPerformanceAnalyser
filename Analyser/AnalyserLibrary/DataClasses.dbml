@@ -46,7 +46,6 @@
       <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Lineup_TimeLine" Member="TimeLines" ThisKey="LineupID" OtherKey="LineupID" Type="TimeLine" />
-      <Association Name="Lineup_PlayerPerformance" Member="PlayerPerformances" ThisKey="LineupID" OtherKey="LineupID" Type="PlayerPerformance" />
       <Association Name="Game_Lineup" Member="Game" ThisKey="GameID" OtherKey="GameID" Type="Game" IsForeignKey="true" />
       <Association Name="Player_Lineup" Member="Player" ThisKey="PlayerID" OtherKey="PlayerID" Type="Player" IsForeignKey="true" />
       <Association Name="Position_Lineup" Member="Position" ThisKey="PositionID" OtherKey="PositionID" Type="Position" IsForeignKey="true" />
@@ -63,14 +62,6 @@
     <Type Name="Pitch">
       <Column Name="PitchID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="PitchName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="NPointLat" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="NPointLon" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="EPointLat" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="EPointLon" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="SPoingLat" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="SPointLon" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="WPointLat" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="WPointLon" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Association Name="Pitch_Game" Member="Games" ThisKey="PitchID" OtherKey="PitchID" Type="Game" />
     </Type>
   </Table>
@@ -82,22 +73,6 @@
       <Column Name="Dob" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Player_Lineup" Member="Lineups" ThisKey="PlayerID" OtherKey="PlayerID" Type="Lineup" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PlayerPerformance" Member="PlayerPerformances">
-    <Type Name="PlayerPerformance">
-      <Column Name="PlayerPerformanceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Shots" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Goals" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Assists" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Passes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Interceptions" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Tackles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Crosses" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Corners" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Saves" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="LineupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Lineup_PlayerPerformance" Member="Lineup" ThisKey="LineupID" OtherKey="LineupID" Type="Lineup" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Position" Member="Positions">

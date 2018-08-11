@@ -58,9 +58,9 @@ namespace Analyser
         private void createPitchBtn_Click(object sender, EventArgs e)
         {
             //Data entry validation carried out in separate method.
-            if (ArePitchDetailsValid() == false)
+            if (string.IsNullOrEmpty(pitchNameTxt.Text))
             {
-                MessageBox.Show("Please enter the correct details");
+                MessageBox.Show("Please enter the pitch name");
             }
             else
             {
@@ -69,14 +69,6 @@ namespace Analyser
                     Pitch pitch = new Pitch()
                     {
                         PitchName = pitchNameTxt.Text,
-                        NPointLat = Convert.ToDouble(pitchNLatTxt.Text),
-                        NPointLon = Convert.ToDouble(pitchNLonTxt.Text),
-                        EPointLat = Convert.ToDouble(pitchELatTxt.Text),
-                        EPointLon = Convert.ToDouble(pitchELonTxt.Text),
-                        SPoingLat = Convert.ToDouble(pitchSLatTxt.Text),
-                        SPointLon = Convert.ToDouble(pitchSLonTxt.Text),
-                        WPointLat = Convert.ToDouble(pitchWLatTxt.Text),
-                        WPointLon = Convert.ToDouble(pitchWLonTxt.Text),
                     };
                     dbContext.Pitches.InsertOnSubmit(pitch);
                     dbContext.SubmitChanges();
@@ -405,48 +397,6 @@ namespace Analyser
             lineupPlayersLstBox.DisplayMember = "PlayerID";
             lineupPlayersLstBox.ValueMember = "LineupID";
             lineupPlayersLstBox.DataSource = lineupList;
-        }
-
-        //Validation methods
-
-        /// <summary>
-        /// Presence and type check for pitch details text boxes
-        /// </summary>
-        /// <returns>bool</returns>
-        private bool ArePitchDetailsValid()
-        {
-            bool detailsCorrect = false;
-            if (
-                string.IsNullOrEmpty(pitchNameTxt.Text) ||
-                string.IsNullOrEmpty(pitchELatTxt.Text) ||
-                string.IsNullOrEmpty(pitchELonTxt.Text) ||
-                string.IsNullOrEmpty(pitchWLatTxt.Text) ||
-                string.IsNullOrEmpty(pitchWLonTxt.Text) ||
-                string.IsNullOrEmpty(pitchNLatTxt.Text) ||
-                string.IsNullOrEmpty(pitchNLonTxt.Text) ||
-                string.IsNullOrEmpty(pitchSLatTxt.Text) ||
-                string.IsNullOrEmpty(pitchSLonTxt.Text)
-                )
-            {
-                detailsCorrect = false;
-            }
-            else
-            {
-                if (
-                    double.TryParse(pitchELatTxt.Text, out double ELat) &&
-                    double.TryParse(pitchELonTxt.Text, out double ELon) &&
-                    double.TryParse(pitchWLatTxt.Text, out double WLat) &&
-                    double.TryParse(pitchWLonTxt.Text, out double WLon) &&
-                    double.TryParse(pitchNLatTxt.Text, out double NLat) &&
-                    double.TryParse(pitchNLonTxt.Text, out double NLon) &&
-                    double.TryParse(pitchSLatTxt.Text, out double SLat) &&
-                    double.TryParse(pitchSLonTxt.Text, out double SLon)
-                    )
-                {
-                    detailsCorrect = true;
-                }
-            }
-            return detailsCorrect;
         }
 
         //Methods to format string output of form elements
