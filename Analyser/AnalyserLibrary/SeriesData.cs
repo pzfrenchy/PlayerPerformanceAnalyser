@@ -33,7 +33,7 @@ namespace AnalyserLibrary
                         TimeSpan ts = (timeLines[i + 1].ReadingTime - startTime);
                         if (ts.TotalMinutes <= 5.0)
                         {
-                            Distance dist = new Distance(timeLines[i].Latitude, timeLines[i].Longitude, timeLines[i + 1].Latitude, timeLines[i + 1].Longitude);
+                            HaversineDistance dist = new HaversineDistance(timeLines[i].Latitude, timeLines[i].Longitude, timeLines[i + 1].Latitude, timeLines[i + 1].Longitude);
                             totalDistance = totalDistance + dist.DistanceInMtr();
                             endTime = timeLines[i + 1].ReadingTime;
                         }

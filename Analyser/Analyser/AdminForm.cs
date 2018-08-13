@@ -157,7 +157,14 @@ namespace Analyser
         {
             string searchType = lineupGameSearchCombo.Text;
             string searchString = lineupGameSearchTxt.Text;
-            PopulateLineupSearchLstBox(searchType, searchString);
+            if (string.IsNullOrEmpty(searchString))
+            {
+                lineupSearchResultsLstBox.DataSource = null;
+            }
+            else
+            {
+                PopulateLineupSearchLstBox(searchType, searchString);
+            }
         }
 
         /// <summary>
@@ -165,8 +172,16 @@ namespace Analyser
         /// </summary>
         private void gameSearchLstBoxIndexChanged(object sender, EventArgs e)
         {
-            int gameID = Convert.ToInt16(lineupSearchResultsLstBox.GetItemText(lineupSearchResultsLstBox.SelectedValue));
-            PopulateLineupPlayersLstBox(gameID);
+            string searchString = lineupGameSearchTxt.Text;
+            if (string.IsNullOrEmpty(searchString))
+            {
+                lineupPlayersLstBox.DataSource = null;
+            }
+            else
+            {
+                int gameID = Convert.ToInt16(lineupSearchResultsLstBox.GetItemText(lineupSearchResultsLstBox.SelectedValue));
+                PopulateLineupPlayersLstBox(gameID);
+            }
         }
 
         /// <summary>
@@ -256,9 +271,9 @@ namespace Analyser
         {
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
             {
-                playersLstBox.DisplayMember = "Forename";
+                playersLstBox.DisplayMember = "FullName";
                 playersLstBox.ValueMember = "PlayerID";
-                playersLstBox.DataSource = dbContext.Players;
+                playersLstBox.DataSource = dbContext.PlayerFullNameProc();
             }
         }
 
@@ -306,9 +321,9 @@ namespace Analyser
         {
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
             {
-                gameLstBox.DisplayMember = "GameID";
+                gameLstBox.DisplayMember = "GameDetails";
                 gameLstBox.ValueMember = "GameID";
-                gameLstBox.DataSource = dbContext.Games;
+                gameLstBox.DataSource = dbContext.GameDetailsProc();
             }
         }
 
@@ -316,9 +331,9 @@ namespace Analyser
         {
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
             {
-                lineupPlayerCombo.DisplayMember = "FullDetails";
+                lineupPlayerCombo.DisplayMember = "FullName";
                 lineupPlayerCombo.ValueMember = "PlayerID";
-                lineupPlayerCombo.DataSource = dbContext.Players;
+                lineupPlayerCombo.DataSource = dbContext.PlayerFullNameProc();
             }
         }
 
@@ -334,34 +349,24 @@ namespace Analyser
 
         private void PopulateLineupSearchLstBox(string searchType, string searchString)
         {
-            List<Game> gameList = new List<Game>();
             try
             {
-                if (searchType == "Date")
+                if (searchType == "Date" && Int32.TryParse(searchString, out int temp))
                 {
                     using (DataClassesDataContext dbContext = new DataClassesDataContext())
                     {
-                        foreach (var game in dbContext.Games)
-                        {
-                            if (game.GameDate.ToString().Contains(searchString) && searchString != "")
-                            {
-                                gameList.Add(game);
-                            }
-                        }
+                        lineupSearchResultsLstBox.ValueMember = "GameID";
+                        lineupSearchResultsLstBox.DisplayMember = "LineupDetails";
+                        lineupSearchResultsLstBox.DataSource = dbContext.GameSearchByDateProc(Convert.ToInt32(searchString));
                     }
                 }
                 else if (searchType == "Opposition")
                 {
                     using (DataClassesDataContext dbContext = new DataClassesDataContext())
                     {
-                        foreach (var game in dbContext.Games)
-                        {
-                            string oppName = game.Opponent.OpponentName.ToUpper();
-                            if (oppName.Contains(searchString.ToUpper()) && searchString != "")
-                            {
-                                gameList.Add(game);
-                            }
-                        }
+                        lineupSearchResultsLstBox.ValueMember = "GameID";
+                        lineupSearchResultsLstBox.DisplayMember = "LineupDetails";
+                        lineupSearchResultsLstBox.DataSource = dbContext.GameSearchByOpponentProc(searchString);
                     }
                 }
             }
@@ -369,101 +374,15 @@ namespace Analyser
             {
                 Console.WriteLine(ex);
             }
-            lineupSearchResultsLstBox.ValueMember = "GameID";
-            lineupSearchResultsLstBox.DisplayMember = "GameDate";
-            lineupSearchResultsLstBox.DataSource = gameList;
         }
 
         private void PopulateLineupPlayersLstBox(int gameID)
         {
-            List<Lineup> lineupList = new List<Lineup>();
-            try
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    foreach (var lineup in dbContext.Lineups)
-                    {
-                        if (lineup.GameID == gameID)
-                        {
-                            lineupList.Add(lineup);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            lineupPlayersLstBox.DisplayMember = "PlayerID";
-            lineupPlayersLstBox.ValueMember = "LineupID";
-            lineupPlayersLstBox.DataSource = lineupList;
-        }
-
-        //Methods to format string output of form elements
-
-        private void FormatGameString(object sender, ListControlConvertEventArgs e)
-        {
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
             {
-                string date = ((Game)e.ListItem).GameDate.ToShortDateString();
-                string oppName = (dbContext.Opponents.Where(o => o.OpponentID == ((Game)e.ListItem).OpponentID)).Single().OpponentName;
-                e.Value = string.Format("Date: {0} - Opponent: {1}", date, oppName);
-            }
-        }
-
-        private void FormatPlayersString(object sender, ListControlConvertEventArgs e)
-        {
-            try
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    string forename = ((Player)e.ListItem).Forename;
-                    string surname = ((Player)e.ListItem).Surname;
-                    e.Value = string.Format("{0} {1}", forename, surname);
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
-
-        private void FormatLineupPlayersString(object sender, ListControlConvertEventArgs e)
-        {
-            try
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    string forename = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Forename;
-                    string surname = (dbContext.Players.Where(p => p.PlayerID == ((Lineup)e.ListItem).PlayerID)).Single().Surname;
-                    string position = (dbContext.Positions.Where(p => p.PositionID == ((Lineup)e.ListItem).PositionID)).Single().Position1;
-                    e.Value = string.Format("{0} {1} - {2}", forename, surname, position);
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
-
-        private void FormatLineupSearchResultsString(object sender, ListControlConvertEventArgs e)
-        {
-            try
-            {
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
-                {
-                    string date = ((Game)e.ListItem).GameDate.ToShortDateString();
-                    int oppID = (int)((Game)e.ListItem).OpponentID;
-
-                    //use opponentID to access opponent fields and get opponentName
-                    string oppName = (dbContext.Opponents.Where(o => o.OpponentID == oppID)).Single().OpponentName;
-
-                    e.Value = string.Format("Date: {0} - Opponent: {1}", date, oppName);
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
+                lineupPlayersLstBox.DisplayMember = "LineupDetails";
+                lineupPlayersLstBox.ValueMember = "LineupID";
+                lineupPlayersLstBox.DataSource = dbContext.PlayerLineupDetailsProc(gameID);
             }
         }
     }

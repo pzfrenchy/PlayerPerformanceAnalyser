@@ -63,14 +63,14 @@
         <classShapeMoniker Id="06435bba-5229-47ed-8a6a-d5aa0e73d368" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.75 : 2.31899251302083); (9.75 : 3.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(9.75 : 2.31899251302083); (9.75 : 3.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/GPSDevice/GPSDevice_TimeLine" />
       <nodes>
         <classShapeMoniker Id="2bc9675d-8dc6-43b1-b2bb-f1f61372379e" />
         <classShapeMoniker Id="a8d18d84-8081-4e54-9038-b46677cb6378" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8 : 4.16429768880208); (8.75 : 4.16429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8 : 4.16429768880208); (8.75 : 4.16429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Lineup/Lineup_TimeLine" />
       <nodes>
         <classShapeMoniker Id="96fedf8b-8f40-45ef-b7c9-d13a0302433d" />
@@ -84,28 +84,28 @@
         <classShapeMoniker Id="96fedf8b-8f40-45ef-b7c9-d13a0302433d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.25 : 2.31899251302083); (4.25 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.53125 : 2.31899251302083); (4.53125 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataClassesDataContext/Opponent/Opponent_Game" />
       <nodes>
         <classShapeMoniker Id="3c777299-e2f5-46e5-bba7-466dcf0440d7" />
         <classShapeMoniker Id="06435bba-5229-47ed-8a6a-d5aa0e73d368" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.60564603122394 : 6); (4.60564603122394 : 5.14589680989583)]" manuallyRouted="true" fixedFrom="Caller" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.60564603122394 : 6); (4.60564603122394 : 5.14589680989583)]" manuallyRouted="true" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Pitch/Pitch_Game" />
       <nodes>
         <classShapeMoniker Id="7ca760d7-a5ff-4df3-99e4-870736a94bc4" />
         <classShapeMoniker Id="06435bba-5229-47ed-8a6a-d5aa0e73d368" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7 : 5.625); (7 : 4.95359537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7 : 5.625); (7 : 4.95359537760417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Player/Player_Lineup" />
       <nodes>
         <classShapeMoniker Id="38a70ea9-4705-4a95-825e-4b722287c2eb" />
         <classShapeMoniker Id="96fedf8b-8f40-45ef-b7c9-d13a0302433d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7 : 2.31899251302083); (7 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7 : 2.31899251302083); (7 : 3.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Position/Position_Lineup" />
       <nodes>
         <classShapeMoniker Id="e82ba7bd-443a-4e27-b9f1-ad4916d33a3c" />

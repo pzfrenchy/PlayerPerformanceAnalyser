@@ -160,6 +160,41 @@ namespace AnalyserLibrary
 				return this.GetTable<Position>();
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.PlayerFullNameProc")]
+		public ISingleResult<PlayerFullNameProcResult> PlayerFullNameProc()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<PlayerFullNameProcResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GameDetailsProc")]
+		public ISingleResult<GameDetailsProcResult> GameDetailsProc()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<GameDetailsProcResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.PlayerLineupDetailsProc")]
+		public ISingleResult<PlayerLineupDetailsProcResult> PlayerLineupDetailsProc([global::System.Data.Linq.Mapping.ParameterAttribute(Name="GameID", DbType="Int")] System.Nullable<int> gameID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), gameID);
+			return ((ISingleResult<PlayerLineupDetailsProcResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GameSearchByDateProc")]
+		public ISingleResult<GameSearchByDateProcResult> GameSearchByDateProc([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Date", DbType="Int")] System.Nullable<int> date)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), date);
+			return ((ISingleResult<GameSearchByDateProcResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GameSearchByOpponentProc")]
+		public ISingleResult<GameSearchByOpponentProcResult> GameSearchByOpponentProc([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Opponent", DbType="VarChar(1)")] string opponent)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), opponent);
+			return ((ISingleResult<GameSearchByOpponentProcResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Game")]
@@ -1773,6 +1808,226 @@ namespace AnalyserLibrary
 		{
 			this.SendPropertyChanging();
 			entity.Position = null;
+		}
+	}
+	
+	public partial class PlayerFullNameProcResult
+	{
+		
+		private int _PlayerID;
+		
+		private string _Fullname;
+		
+		public PlayerFullNameProcResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerID", DbType="Int NOT NULL")]
+		public int PlayerID
+		{
+			get
+			{
+				return this._PlayerID;
+			}
+			set
+			{
+				if ((this._PlayerID != value))
+				{
+					this._PlayerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fullname", DbType="VarChar(71) NOT NULL", CanBeNull=false)]
+		public string Fullname
+		{
+			get
+			{
+				return this._Fullname;
+			}
+			set
+			{
+				if ((this._Fullname != value))
+				{
+					this._Fullname = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GameDetailsProcResult
+	{
+		
+		private int _GameID;
+		
+		private string _GameDetails;
+		
+		public GameDetailsProcResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", DbType="Int NOT NULL")]
+		public int GameID
+		{
+			get
+			{
+				return this._GameID;
+			}
+			set
+			{
+				if ((this._GameID != value))
+				{
+					this._GameID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameDetails", DbType="VarChar(109) NOT NULL", CanBeNull=false)]
+		public string GameDetails
+		{
+			get
+			{
+				return this._GameDetails;
+			}
+			set
+			{
+				if ((this._GameDetails != value))
+				{
+					this._GameDetails = value;
+				}
+			}
+		}
+	}
+	
+	public partial class PlayerLineupDetailsProcResult
+	{
+		
+		private int _LineupID;
+		
+		private string _LineupDetails;
+		
+		public PlayerLineupDetailsProcResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupID", DbType="Int NOT NULL")]
+		public int LineupID
+		{
+			get
+			{
+				return this._LineupID;
+			}
+			set
+			{
+				if ((this._LineupID != value))
+				{
+					this._LineupID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupDetails", DbType="VarChar(104) NOT NULL", CanBeNull=false)]
+		public string LineupDetails
+		{
+			get
+			{
+				return this._LineupDetails;
+			}
+			set
+			{
+				if ((this._LineupDetails != value))
+				{
+					this._LineupDetails = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GameSearchByDateProcResult
+	{
+		
+		private int _GameID;
+		
+		private string _LineupDetails;
+		
+		public GameSearchByDateProcResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", DbType="Int NOT NULL")]
+		public int GameID
+		{
+			get
+			{
+				return this._GameID;
+			}
+			set
+			{
+				if ((this._GameID != value))
+				{
+					this._GameID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupDetails", DbType="VarChar(99) NOT NULL", CanBeNull=false)]
+		public string LineupDetails
+		{
+			get
+			{
+				return this._LineupDetails;
+			}
+			set
+			{
+				if ((this._LineupDetails != value))
+				{
+					this._LineupDetails = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GameSearchByOpponentProcResult
+	{
+		
+		private int _GameID;
+		
+		private string _LineupDetails;
+		
+		public GameSearchByOpponentProcResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", DbType="Int NOT NULL")]
+		public int GameID
+		{
+			get
+			{
+				return this._GameID;
+			}
+			set
+			{
+				if ((this._GameID != value))
+				{
+					this._GameID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineupDetails", DbType="VarChar(99) NOT NULL", CanBeNull=false)]
+		public string LineupDetails
+		{
+			get
+			{
+				return this._LineupDetails;
+			}
+			set
+			{
+				if ((this._LineupDetails != value))
+				{
+					this._LineupDetails = value;
+				}
+			}
 		}
 	}
 }

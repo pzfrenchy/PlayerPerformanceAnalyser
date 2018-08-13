@@ -10,9 +10,9 @@ namespace AnalyserLibrary
     public class GpxFile
     {
         /// <summary> 
-        /// Load the Xml document for parsing 
+        /// Loads the Xml document.
         /// </summary> 
-        /// <param name="filePath">Fully qualified file name (local)</param> 
+        /// <param name="filePath">Full file name</param> 
         /// <returns>XDocument</returns> 
         private XDocument GetGpxDoc(string filePath)
         {
@@ -21,9 +21,9 @@ namespace AnalyserLibrary
         }
 
         /// <summary> 
-        /// Load the namespace for a standard GPX document 
+        /// Loads the standard GPX document namespace. 
         /// </summary> 
-        /// <returns>GPX XNamespace</returns> 
+        /// <returns>XNamespace</returns> 
         private XNamespace GetGpxNameSpace()
         {
             XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/1");
@@ -31,9 +31,9 @@ namespace AnalyserLibrary
         }
 
         /// <summary> 
-        /// When passed a file, open it and parse all tracks and track segments from it.
+        /// Parses all tracks and track segments from a file.
         /// </summary> 
-        /// <param name = "filePath" > Fully qualified file name(local)</param> 
+        /// <param name = "filePath" > Full file name</param> 
         /// <returns>list of strings (csv) containing line delimited waypoints from the file</returns> 
         public List<string> GPXTracksList(string filePath)
         {

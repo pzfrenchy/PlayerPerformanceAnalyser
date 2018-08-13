@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnalyserLibrary
 {
-    public class Distance
+    public class HaversineDistance
     {
         public double Lat1 { get; set; }
         public double Lon1 { get; set; }
@@ -20,7 +20,7 @@ namespace AnalyserLibrary
         /// <param name="lon1">first geolocation longitude</param>
         /// <param name="lat2">second geolocation latitude</param>
         /// <param name="lon2">second geolocation longitude</param>
-        public Distance(double lat1, double lon1, double lat2, double lon2)
+        public HaversineDistance(double lat1, double lon1, double lat2, double lon2)
         {
             this.Lat1 = lat1;
             this.Lat2 = lat2;
@@ -58,7 +58,7 @@ namespace AnalyserLibrary
             return distance;
         }
 
-        private double CalcBetweenTwoPoints()
+        private double HaversineCalc()
         {
             double lat1Rad = ToRadians(Lat1);
             double lat2Rad = ToRadians(Lat2);
@@ -80,7 +80,7 @@ namespace AnalyserLibrary
         /// <returns>double</returns>
         public double DistanceInMtrRnd()
         {
-            double distance = CalcBetweenTwoPoints();
+            double distance = HaversineCalc();
 
             double distanceInMtr = ToMeter(distance);
 
@@ -93,7 +93,7 @@ namespace AnalyserLibrary
         /// <returns>double</returns>
         public double DistanceInMtr()
         {
-            double distance = CalcBetweenTwoPoints();
+            double distance = HaversineCalc();
 
             double distanceInMtr = ToMeter(distance);
 
@@ -109,7 +109,7 @@ namespace AnalyserLibrary
 
         public double DistanceInKm()
         {
-            double distance = CalcBetweenTwoPoints();
+            double distance = HaversineCalc();
 
             double distanceInKm = ToKilometer(distance);
 

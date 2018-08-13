@@ -204,7 +204,6 @@
             this.playersLstBox.Name = "playersLstBox";
             this.playersLstBox.Size = new System.Drawing.Size(457, 604);
             this.playersLstBox.TabIndex = 7;
-            this.playersLstBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatPlayersString);
             // 
             // pitchTab
             // 
@@ -338,7 +337,6 @@
             this.gameLstBox.Name = "gameLstBox";
             this.gameLstBox.Size = new System.Drawing.Size(606, 454);
             this.gameLstBox.TabIndex = 7;
-            this.gameLstBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatGameString);
             // 
             // createGameBtn
             // 
@@ -448,7 +446,6 @@
             this.lineupPlayersLstBox.Name = "lineupPlayersLstBox";
             this.lineupPlayersLstBox.Size = new System.Drawing.Size(652, 379);
             this.lineupPlayersLstBox.TabIndex = 5;
-            this.lineupPlayersLstBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatLineupPlayersString);
             // 
             // lineupPositionCombo
             // 
@@ -466,7 +463,6 @@
             this.lineupPlayerCombo.Name = "lineupPlayerCombo";
             this.lineupPlayerCombo.Size = new System.Drawing.Size(267, 33);
             this.lineupPlayerCombo.TabIndex = 3;
-            this.lineupPlayerCombo.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatPlayersString);
             this.lineupPlayerCombo.Click += new System.EventHandler(this.selectPlayerComboClick);
             // 
             // addPlayerToLineupBtn
@@ -548,7 +544,6 @@
             this.lineupSearchResultsLstBox.Size = new System.Drawing.Size(652, 179);
             this.lineupSearchResultsLstBox.TabIndex = 0;
             this.lineupSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.gameSearchLstBoxIndexChanged);
-            this.lineupSearchResultsLstBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatLineupSearchResultsString);
             // 
             // AdminForm
             // 

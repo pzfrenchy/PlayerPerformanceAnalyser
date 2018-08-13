@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Analyser.Tests
 {
-    public class DistanceTests
+    public class HaversineDistanceTests
     {
         [Theory]
         [InlineData(50.128953, -5.501886, 50.128953, -5.501900, 1.00)]
@@ -23,7 +23,7 @@ namespace Analyser.Tests
 
 
             //Act
-            Distance calc = new Distance(lat1, lon1, lat2, lon2);
+            HaversineDistance calc = new HaversineDistance(lat1, lon1, lat2, lon2);
             double actual = calc.DistanceInMtrRnd();
 
             //Assert
@@ -42,7 +42,7 @@ namespace Analyser.Tests
             //Arrange
 
             //Act
-            Distance calc = new Distance(lat1, lon1, lat2, lon2);
+            HaversineDistance calc = new HaversineDistance(lat1, lon1, lat2, lon2);
             double actual = calc.DistanceInMtr();
 
             //Assert

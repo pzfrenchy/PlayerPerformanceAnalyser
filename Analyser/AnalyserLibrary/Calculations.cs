@@ -39,9 +39,9 @@ namespace AnalyserLibrary
                 double p2Lat = timeLines[i + 1].Latitude;
                 double p2Lon = timeLines[i + 1].Longitude;
 
-                Distance d = new Distance(p1Lat, p1Lon, p2Lat, p2Lon);
+                HaversineDistance d = new HaversineDistance(p1Lat, p1Lon, p2Lat, p2Lon);
 
-                double distance = d.DistanceInMtrRnd();
+                double distance = d.DistanceInMtr();
 
                 totalDistance = totalDistance + distance;
             }

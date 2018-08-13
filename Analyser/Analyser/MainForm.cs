@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AnalyserLibrary;
-
 namespace Analyser
 {
     public partial class MainForm : Form

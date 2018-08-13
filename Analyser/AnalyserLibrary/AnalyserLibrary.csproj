@@ -51,7 +51,7 @@
     <Compile Include="DirSearch.cs" />
     <Compile Include="FileHandling.cs" />
     <Compile Include="GpxData.cs" />
-    <Compile Include="Distance.cs" />
+    <Compile Include="HaversineDistance.cs" />
     <Compile Include="GpxFile.cs" />
     <Compile Include="OptionSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -82,4 +82,37 @@
       <Association Name="Position_Lineup" Member="Lineups" ThisKey="PositionID" OtherKey="PositionID" Type="Lineup" />
     </Type>
   </Table>
+  <Function Name="dbo.PlayerFullNameProc" Method="PlayerFullNameProc">
+    <ElementType Name="PlayerFullNameProcResult">
+      <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Fullname" Type="System.String" DbType="VarChar(71) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GameDetailsProc" Method="GameDetailsProc">
+    <ElementType Name="GameDetailsProcResult">
+      <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GameDetails" Type="System.String" DbType="VarChar(109) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.PlayerLineupDetailsProc" Method="PlayerLineupDetailsProc">
+    <Parameter Name="GameID" Parameter="gameID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="PlayerLineupDetailsProcResult">
+      <Column Name="LineupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LineupDetails" Type="System.String" DbType="VarChar(104) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GameSearchByDateProc" Method="GameSearchByDateProc">
+    <Parameter Name="Date" Parameter="date" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GameSearchByDateProcResult">
+      <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LineupDetails" Type="System.String" DbType="VarChar(99) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GameSearchByOpponentProc" Method="GameSearchByOpponentProc">
+    <Parameter Name="Opponent" Parameter="opponent" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="GameSearchByOpponentProcResult">
+      <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LineupDetails" Type="System.String" DbType="VarChar(99) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
 </Database>
