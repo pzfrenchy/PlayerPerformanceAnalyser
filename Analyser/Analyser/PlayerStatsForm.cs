@@ -151,10 +151,11 @@ namespace Analyser
             }
 
             SeriesData seriesData = new SeriesData();
-            PopulateChartWithDistance(seriesData.GetDistanceData(matchedTimeLineRecords));
+            double seriesInterval = 5.0; //interval for series, set here, could be dynamically set in future
+            PopulateChartWithDistance(seriesData.GenerateSeriesData(matchedTimeLineRecords, seriesInterval));
 
-            List<XY> xy = Calculations.Instance.ConvertGeolocationCoordsToXY(matchedTimeLineRecords, Width, Height);
-            List<XY> minMax = Calculations.Instance.FindMinMaxCoords(xy);
+            List<XY> xy = Calculations.Instance.CalcXYFromGeolocationCoords(matchedTimeLineRecords, Width, Height);
+            List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(xy);
 
             DrawPoints(xy);
         }

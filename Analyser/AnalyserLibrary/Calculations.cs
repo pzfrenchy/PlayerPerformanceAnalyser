@@ -54,7 +54,7 @@ namespace AnalyserLibrary
         /// </summary>
         /// <param name="coords">List of XY coordinates</param>
         /// <returns></returns>
-        public List<XY> FindMinMaxCoords(List<XY> coords)
+        public List<XY> CalcMinMaxCoords(List<XY> coords)
         {
             List<XY> output = new List<XY>();
 
@@ -87,7 +87,7 @@ namespace AnalyserLibrary
         /// <param name="width">Width of the control</param>
         /// <param name="height">Height of the control</param>
         /// <returns></returns>
-        public List<XY> ConvertGeolocationCoordsToXY(List<TimeLine> timeLines, int width, int height)
+        public List<XY> CalcXYFromGeolocationCoords(List<TimeLine> timeLines, int width, int height)
         {
             List<XY> XYCoords = new List<XY>();
 
@@ -114,7 +114,7 @@ namespace AnalyserLibrary
         /// <returns>List of XY coordinates</returns>
         public List<XY> NormaliseXYCoords(List<XY> XYCoords)
         {
-            List<XY> minMax = Calculations.Instance.FindMinMaxCoords(XYCoords); //Find the min and max XY
+            List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(XYCoords); //Find the min and max XY
             int padding = 10; //Stop points occuring on edge, improves readability
 
             //XY normalised to 0-1 range and multiplied out to fit picturebox

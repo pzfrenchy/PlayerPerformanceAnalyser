@@ -8,34 +8,41 @@ namespace AnalyserLibrary
 {
     public class SeriesData
     {
-        public List<double> GetDistanceData(List<TimeLine> t)
+        /// <summary>
+        /// Method to generate series data for an activity
+        /// </summary>
+        /// <param name="t">List of activity waypoints</param>
+        /// <returns>List of values</returns>
+        public List<double> GenerateSeriesData(List<TimeLine> t, double i)
         {
             List<TimeLine> timeLines = t;
             List<double> seriesData = new List<double>();
+            double interval = i;
             double initialDistance = Calculations.Instance.CalcTotalDistance(t);
 
-            if (timeLines.Count > 0)
+            if (timeLines.Count > 0) //Check there is timeline data for the activity
             {
+                //timespan used to find difference between start and end times
                 DateTime startTime = timeLines[0].ReadingTime;
                 double totalDistance = 0;
                 DateTime endTime = new DateTime(01, 01, 01, 00, 00, 00);
                 TimeSpan totalTime = (timeLines[timeLines.Count - 1].ReadingTime - startTime);
 
-                if (totalTime.TotalMinutes <= 5.0)
+                if (totalTime.TotalMinutes <= interval) //Check if activity is less than interval
                 {
                     totalDistance = initialDistance;
                     seriesData.Add(initialDistance);
                 }
-                else
+                else //activity greater than interval, lets get splitting
                 {
-                    for (int i = 0; i < timeLines.Count - 1; i++)
+                    for (int y = 0; y < timeLines.Count - 1; y++)
                     {
-                        TimeSpan ts = (timeLines[i + 1].ReadingTime - startTime);
-                        if (ts.TotalMinutes <= 5.0)
+                        TimeSpan ts = (timeLines[y + 1].ReadingTime - startTime);
+                        if (ts.TotalMinutes <= interval)
                         {
-                            HaversineDistance dist = new HaversineDistance(timeLines[i].Latitude, timeLines[i].Longitude, timeLines[i + 1].Latitude, timeLines[i + 1].Longitude);
+                            HaversineDistance dist = new HaversineDistance(timeLines[y].Latitude, timeLines[y].Longitude, timeLines[y + 1].Latitude, timeLines[y + 1].Longitude);
                             totalDistance = totalDistance + dist.DistanceInMtr();
-                            endTime = timeLines[i + 1].ReadingTime;
+                            endTime = timeLines[y + 1].ReadingTime;
                         }
                         else
                         {
@@ -43,7 +50,7 @@ namespace AnalyserLibrary
 
                             //reset counters
                             totalDistance = 0;
-                            startTime = timeLines[i].ReadingTime;
+                            startTime = timeLines[y].ReadingTime;
                         }
                     }
                 }
