@@ -141,7 +141,7 @@ namespace Analyser
                         GameDate = gameDtp.Value,
                         PitchID = pitchID,
                         OpponentID = opponentID,
-                        GameTypeID = matchGameType
+                        GameTypeID = matchGameType //global variable delared at start of file
                     };
                     dbContext.Games.InsertOnSubmit(game);
                     dbContext.SubmitChanges();
@@ -155,12 +155,16 @@ namespace Analyser
         /// </summary>
         private void lineupSearchTxtChanged(object sender, EventArgs e)
         {
+            //capture entered details
             string searchType = lineupGameSearchCombo.Text;
             string searchString = lineupGameSearchTxt.Text;
+
+            //ensure searchstring hasn't been completely deleted
             if (string.IsNullOrEmpty(searchString))
             {
                 lineupSearchResultsLstBox.DataSource = null;
             }
+            //populate list box
             else
             {
                 PopulateLineupSearchLstBox(searchType, searchString);
@@ -351,6 +355,7 @@ namespace Analyser
         {
             try
             {
+                //check that search type is date and the search string is integer 
                 if (searchType == "Date" && Int32.TryParse(searchString, out int temp))
                 {
                     using (DataClassesDataContext dbContext = new DataClassesDataContext())

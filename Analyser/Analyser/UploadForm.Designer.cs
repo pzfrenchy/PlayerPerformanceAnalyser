@@ -37,15 +37,18 @@
             this.uploadSearchCombo = new System.Windows.Forms.ComboBox();
             this.uploadSearchTxt = new System.Windows.Forms.TextBox();
             this.uploadSearchResultsLstBox = new System.Windows.Forms.ListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox4
             // 
+            this.groupBox4.BackColor = System.Drawing.SystemColors.Window;
             this.groupBox4.Controls.Add(this.uploadLineupLstBox);
             this.groupBox4.Controls.Add(this.uploadBtn);
-            this.groupBox4.Location = new System.Drawing.Point(12, 293);
+            this.groupBox4.Location = new System.Drawing.Point(15, 284);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(910, 391);
             this.groupBox4.TabIndex = 8;
@@ -76,12 +79,13 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.BackColor = System.Drawing.SystemColors.Window;
             this.groupBox3.Controls.Add(this.trainingCBox);
             this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.uploadSearchCombo);
             this.groupBox3.Controls.Add(this.uploadSearchTxt);
             this.groupBox3.Controls.Add(this.uploadSearchResultsLstBox);
-            this.groupBox3.Location = new System.Drawing.Point(12, 12);
+            this.groupBox3.Location = new System.Drawing.Point(15, 3);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(910, 275);
             this.groupBox3.TabIndex = 7;
@@ -139,13 +143,23 @@
             this.uploadSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.uploadSeachIndexChanged);
             this.uploadSearchResultsLstBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatResultsString);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.panel1.Controls.Add(this.groupBox4);
+            this.panel1.Controls.Add(this.groupBox3);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(942, 688);
+            this.panel1.TabIndex = 9;
+            // 
             // UploadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(936, 696);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.ClientSize = new System.Drawing.Size(967, 712);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -154,6 +168,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -169,5 +184,6 @@
         private System.Windows.Forms.ComboBox uploadSearchCombo;
         private System.Windows.Forms.TextBox uploadSearchTxt;
         private System.Windows.Forms.ListBox uploadSearchResultsLstBox;
+        private System.Windows.Forms.Panel panel1;
     }
 }
