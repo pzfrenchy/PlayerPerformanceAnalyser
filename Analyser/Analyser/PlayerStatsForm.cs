@@ -16,7 +16,7 @@ namespace Analyser
     {
         Series series = new Series("series");
         int XYCount = 0; //variable to hold the total count of XYCoordinates in a series
-        int temp = 0;
+        int XYCountdown = 0; //variable to track which coord to display as graphics timer runs
         List<XY> xy = new List<XY>();
 
         public PlayerStatsForm()
@@ -27,7 +27,6 @@ namespace Analyser
             breakdownChart.Series["series"].YValueMembers = "Percent";
             PopulateData();
             timeLbl.Text = "0:00";
-
         }
 
         /// <summary>
@@ -159,8 +158,10 @@ namespace Analyser
             }
             else
             {
+                //no data exists, clear text fields
                 distanceLbl.Text = "no data";
                 paceLbl.Text = "no data";
+                sprintsLbl.Text = "no data";
             }
 
             SeriesData seriesData = new SeriesData();
@@ -172,7 +173,7 @@ namespace Analyser
             List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(xy);
 
             XYCount = xy.Count();
-            temp = xy.Count();
+            XYCountdown = xy.Count();
         }
 
         /// <summary>
@@ -203,21 +204,21 @@ namespace Analyser
 
         private void movementTimer_Tick(object sender, EventArgs e)
         {
-            if (temp != 0)
+            if (XYCountdown != 0)
             {
-                DrawPoints(xy, XYCount - temp);
-                temp--;
+                DrawPoints(xy, XYCount - XYCountdown);
+                XYCountdown--;
 
                 //temp code to populate timer display, just counting timer ticks for 
                 //some reference but not representitive of activity at present
-                timeLbl.Text = string.Format("{0}:00", XYCount - temp);
+                timeLbl.Text = string.Format("{0}:00", XYCount - XYCountdown);
             }
             else
             {
                 movementTimer.Stop();
                 movementTimer.Interval = 100;
                 speedLbl.Text = "Normal";
-                temp = xy.Count();
+                XYCountdown = xy.Count();
                 timeLbl.Text = "0:00";
             }
         }

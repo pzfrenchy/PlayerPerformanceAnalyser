@@ -132,11 +132,13 @@ namespace Analyser
             this.teamStatsBtn.TabIndex = 4;
             this.teamStatsBtn.Text = "Team Stats";
             this.teamStatsBtn.UseVisualStyleBackColor = false;
+            this.teamStatsBtn.Click += new System.EventHandler(this.teamStatsBtn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1080, 798);
             this.Controls.Add(this.teamStatsBtn);
             this.Controls.Add(this.playerStatsBtn);

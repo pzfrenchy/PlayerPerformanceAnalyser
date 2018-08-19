@@ -49,9 +49,15 @@ namespace AnalyserLibrary
             return totalDistance;
         }
 
+        /// <summary>
+        /// Method to calculate the number of sprints in a given set of timeline events
+        /// </summary>
+        /// <param name="t">List of timeline events</param>
+        /// <returns>the number of spring - integer</returns>
         public int CalcSprints(List<TimeLine> t)
         {
             int sprints = 0;
+            double sprintThreshold = 6.4; //speed for sprint in m/s
             for (int i = 0; i < t.Count()-1; i++)
             {
                 //calc distance between the points
@@ -63,7 +69,7 @@ namespace AnalyserLibrary
                 //calc speed
                 Speed speed = new Speed(d, t[i].ReadingTime, t[i+1].ReadingTime);
                 double s = speed.AvgMtrPerSecondRnd();
-                if (s >= 6.4)
+                if (s >= sprintThreshold)
                 {
                     sprints++;
                 }

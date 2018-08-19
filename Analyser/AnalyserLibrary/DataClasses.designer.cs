@@ -168,13 +168,6 @@ namespace AnalyserLibrary
 			return ((ISingleResult<PlayerFullNameProcResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GameDetailsProc")]
-		public ISingleResult<GameDetailsProcResult> GameDetailsProc()
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<GameDetailsProcResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.PlayerLineupDetailsProc")]
 		public ISingleResult<PlayerLineupDetailsProcResult> PlayerLineupDetailsProc([global::System.Data.Linq.Mapping.ParameterAttribute(Name="GameID", DbType="Int")] System.Nullable<int> gameID)
 		{
@@ -194,6 +187,20 @@ namespace AnalyserLibrary
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), opponent);
 			return ((ISingleResult<GameSearchByOpponentProcResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SelectOpponentsBarTraining")]
+		public ISingleResult<SelectOpponentsBarTrainingResult> SelectOpponentsBarTraining()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SelectOpponentsBarTrainingResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GameDetailsProc")]
+		public ISingleResult<GameDetailsProcResult> GameDetailsProc()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<GameDetailsProcResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1855,50 +1862,6 @@ namespace AnalyserLibrary
 		}
 	}
 	
-	public partial class GameDetailsProcResult
-	{
-		
-		private int _GameID;
-		
-		private string _GameDetails;
-		
-		public GameDetailsProcResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", DbType="Int NOT NULL")]
-		public int GameID
-		{
-			get
-			{
-				return this._GameID;
-			}
-			set
-			{
-				if ((this._GameID != value))
-				{
-					this._GameID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameDetails", DbType="VarChar(109) NOT NULL", CanBeNull=false)]
-		public string GameDetails
-		{
-			get
-			{
-				return this._GameDetails;
-			}
-			set
-			{
-				if ((this._GameDetails != value))
-				{
-					this._GameDetails = value;
-				}
-			}
-		}
-	}
-	
 	public partial class PlayerLineupDetailsProcResult
 	{
 		
@@ -2026,6 +1989,94 @@ namespace AnalyserLibrary
 				if ((this._LineupDetails != value))
 				{
 					this._LineupDetails = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SelectOpponentsBarTrainingResult
+	{
+		
+		private int _OpponentID;
+		
+		private string _OpponentName;
+		
+		public SelectOpponentsBarTrainingResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpponentID", DbType="Int NOT NULL")]
+		public int OpponentID
+		{
+			get
+			{
+				return this._OpponentID;
+			}
+			set
+			{
+				if ((this._OpponentID != value))
+				{
+					this._OpponentID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpponentName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string OpponentName
+		{
+			get
+			{
+				return this._OpponentName;
+			}
+			set
+			{
+				if ((this._OpponentName != value))
+				{
+					this._OpponentName = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GameDetailsProcResult
+	{
+		
+		private int _GameID;
+		
+		private string _GameDetails;
+		
+		public GameDetailsProcResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", DbType="Int NOT NULL")]
+		public int GameID
+		{
+			get
+			{
+				return this._GameID;
+			}
+			set
+			{
+				if ((this._GameID != value))
+				{
+					this._GameID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameDetails", DbType="VarChar(109) NOT NULL", CanBeNull=false)]
+		public string GameDetails
+		{
+			get
+			{
+				return this._GameDetails;
+			}
+			set
+			{
+				if ((this._GameDetails != value))
+				{
+					this._GameDetails = value;
 				}
 			}
 		}

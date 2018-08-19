@@ -88,12 +88,6 @@
       <Column Name="Fullname" Type="System.String" DbType="VarChar(71) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.GameDetailsProc" Method="GameDetailsProc">
-    <ElementType Name="GameDetailsProcResult">
-      <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="GameDetails" Type="System.String" DbType="VarChar(109) NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.PlayerLineupDetailsProc" Method="PlayerLineupDetailsProc">
     <Parameter Name="GameID" Parameter="gameID" Type="System.Int32" DbType="Int" />
     <ElementType Name="PlayerLineupDetailsProcResult">
@@ -113,6 +107,18 @@
     <ElementType Name="GameSearchByOpponentProcResult">
       <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="LineupDetails" Type="System.String" DbType="VarChar(99) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SelectOpponentsBarTraining" Method="SelectOpponentsBarTraining">
+    <ElementType Name="SelectOpponentsBarTrainingResult">
+      <Column Name="OpponentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OpponentName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GameDetailsProc" Method="GameDetailsProc">
+    <ElementType Name="GameDetailsProcResult">
+      <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GameDetails" Type="System.String" DbType="VarChar(109) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
 </Database>

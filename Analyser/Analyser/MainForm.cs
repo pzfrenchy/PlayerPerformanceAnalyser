@@ -55,6 +55,11 @@ namespace Analyser
             form.Show();
         }
 
+        private void teamStatsBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Team stats coming soon!");
+        }
+
         /// <summary>
         /// Event handler to create new forms on shortcut keypress (ctrl+u)
         /// </summary>

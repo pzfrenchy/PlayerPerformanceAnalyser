@@ -29,7 +29,7 @@ namespace Analyser
         /// <summary>
         /// Event handler to create a new player record in the Players db table
         /// </summary>
-        private void registerPlayerBtn_Click(object sender, EventArgs e)
+        private void createPlayerBtn_Click(object sender, EventArgs e)
         {
             if (forenameTxt.Text == "" || surnameTxt.Text == "")
             {
@@ -49,6 +49,43 @@ namespace Analyser
                     dbContext.SubmitChanges();
                 }
                 PopulatePlayersLstBox();
+            }
+        }
+
+        /// <summary>
+        /// Event handler to update a player record in the Players db table
+        /// </summary>
+        private void updatePlayerBtn_Click(object sender, EventArgs e)
+        {
+            int selectedPlayerID = Convert.ToInt32(playersLstBox.SelectedValue.ToString());
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //find player in players table
+                Player player = dbContext.Players.Where(p => p.PlayerID.Equals(selectedPlayerID)).SingleOrDefault();
+                //write values
+                player.Forename = forenameTxt.Text;
+                player.Surname = surnameTxt.Text;
+                player.Dob = dobDtp.Value;
+                //update database
+                dbContext.SubmitChanges();
+            }
+            PopulatePlayersLstBox();
+        }
+
+        /// <summary>
+        /// Event handler to update player textbox values when selected in the player listbox
+        /// </summary>
+        private void playersLstBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedPlayerID = Convert.ToInt32(playersLstBox.SelectedValue.ToString());
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //find player in players table
+                Player player = dbContext.Players.Where(p => p.PlayerID.Equals(selectedPlayerID)).SingleOrDefault();
+                //update textbox values
+                forenameTxt.Text = player.Forename;
+                surnameTxt.Text = player.Surname;
+                dobDtp.Value = player.Dob;
             }
         }
 
@@ -78,6 +115,39 @@ namespace Analyser
         }
 
         /// <summary>
+        /// Event handler to update a pitch record in the Pitches db table
+        /// </summary>
+        private void updatePitchBtn_Click(object sender, EventArgs e)
+        {
+            int selectedPitchID = Convert.ToInt32(pitchLstBox.SelectedValue.ToString());
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //find pitch in pitches table
+                Pitch pitch = dbContext.Pitches.Where(p => p.PitchID.Equals(selectedPitchID)).SingleOrDefault();
+                //write values
+                pitch.PitchName = pitchNameTxt.Text;
+                //update database
+                dbContext.SubmitChanges();
+            }
+            PopulatePitchLstBox();
+        }
+
+        /// <summary>
+        /// Event handler to update pitch textbox values when selected in the pitch listbox
+        /// </summary>
+        private void pitchLstBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedPitchID = Convert.ToInt32(pitchLstBox.SelectedValue.ToString());
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //find pitch in pitches table
+                Pitch pitch = dbContext.Pitches.Where(p => p.PitchID.Equals(selectedPitchID)).SingleOrDefault();
+                //update textbox values
+                pitchNameTxt.Text = pitch.PitchName;
+            }
+        }
+
+        /// <summary>
         /// Event handler to create a new opposition record in the Opposition db table.
         /// </summary>
         private void createOppBtn_Click(object sender, EventArgs e)
@@ -98,6 +168,39 @@ namespace Analyser
                     dbContext.SubmitChanges();
                 }
                 PopulateOppLstBox();
+            }
+        }
+
+        /// <summary>
+        /// Event handler to update an opponent record in the Opponents db table
+        /// </summary>
+        private void updateOppBtn_Click(object sender, EventArgs e)
+        {
+            int selectedOpponentID = Convert.ToInt32(oppLstBox.SelectedValue.ToString());
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //find opponent in opponents table
+                Opponent opponent = dbContext.Opponents.Where(o => o.OpponentID.Equals(selectedOpponentID)).SingleOrDefault();
+                //write values
+                opponent.OpponentName = oppNameTxt.Text;
+                //update database
+                dbContext.SubmitChanges();
+            }
+            PopulateOppLstBox();
+        }
+
+        /// <summary>
+        /// Event handler to update opponent textbox values when selected in the opponent listbox
+        /// </summary>
+        private void oppLstBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedOpponentID = Convert.ToInt32(oppLstBox.SelectedValue.ToString());
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //find opponent in opponents table
+                Opponent opponent = dbContext.Opponents.Where(o => o.OpponentID.Equals(selectedOpponentID)).SingleOrDefault();
+                //update textbox values
+                oppNameTxt.Text = opponent.OpponentName;
             }
         }
 
@@ -147,6 +250,49 @@ namespace Analyser
                     dbContext.SubmitChanges();
                 }
                 PopulateGameLstBox();
+            }
+        }
+
+        /// <summary>
+        /// Event handler to update a new game record in the Games db table.
+        /// </summary>
+        private void updateGameBtn_Click(object sender, EventArgs e)
+        {
+            //Get pitch ID from pitch combo box.
+            int pitchID = Convert.ToInt16(gamePitchCombo.GetItemText(gamePitchCombo.SelectedValue));
+
+            //Get opponent ID from opponent combo box.
+            int opponentID = Convert.ToInt16(gameOppCombo.GetItemText(gameOppCombo.SelectedValue));
+
+            int selectedGameID = Convert.ToInt32(gameLstBox.SelectedValue.ToString());
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //find game in games table
+                Game game = dbContext.Games.Where(g => g.GameID.Equals(selectedGameID)).SingleOrDefault();
+                //write values
+                game.GameDate = gameDtp.Value;
+                game.OpponentID = opponentID;
+                game.PitchID = pitchID;
+                //update database
+                dbContext.SubmitChanges();
+            }
+            PopulateGameLstBox();
+        }
+
+        /// <summary>
+        /// Event handler to update game textbox values when selected in the game listbox
+        /// </summary>
+        private void gameLstBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedGameID = Convert.ToInt32(gameLstBox.SelectedValue.ToString());
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                //find game in games table
+                Game game = dbContext.Games.Where(g => g.GameID.Equals(selectedGameID)).SingleOrDefault();
+                //update textbox values
+                gameDtp.Value = game.GameDate;
+                gameOppCombo.SelectedValue = game.OpponentID;
+                gamePitchCombo.SelectedValue = game.PitchID;
             }
         }
 
@@ -202,14 +348,6 @@ namespace Analyser
         private void selectPositionComboClick(object sender, EventArgs e)
         {
             PopulateLineupPositionCombo();
-        }
-
-        /// <summary>
-        /// Event handler to update the pitch combo box on click.
-        /// </summary>
-        private void SelectPitchComboIndexChanged(object sender, EventArgs e)
-        {
-            PopulateGamePitchCombo();
         }
 
         /// <summary>
@@ -297,7 +435,7 @@ namespace Analyser
             {
                 oppLstBox.DisplayMember = "OpponentName";
                 oppLstBox.ValueMember = "OpponentID";
-                oppLstBox.DataSource = dbContext.Opponents;
+                oppLstBox.DataSource = dbContext.SelectOpponentsBarTraining();
             }
         }
 
@@ -307,7 +445,7 @@ namespace Analyser
             {
                 gameOppCombo.DisplayMember = "OpponentName";
                 gameOppCombo.ValueMember = "OpponentID";
-                gameOppCombo.DataSource = dbContext.Opponents;
+                gameOppCombo.DataSource = dbContext.SelectOpponentsBarTraining();
             }
         }
 

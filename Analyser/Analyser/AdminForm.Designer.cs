@@ -30,12 +30,20 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.playerTab = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.updateOppBtn = new System.Windows.Forms.Button();
+            this.oppLstBox = new System.Windows.Forms.ListBox();
+            this.oppNameTxt = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.createOppBtn = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.updatePitchBtn = new System.Windows.Forms.Button();
             this.pitchLstBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pitchNameTxt = new System.Windows.Forms.TextBox();
             this.createPitchBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.playersLstBox = new System.Windows.Forms.ListBox();
             this.updatePlayerBtn = new System.Windows.Forms.Button();
             this.forenameTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,16 +52,19 @@
             this.dobDtp = new System.Windows.Forms.DateTimePicker();
             this.surnameTxt = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.playersLstBox = new System.Windows.Forms.ListBox();
             this.matchTab = new System.Windows.Forms.TabPage();
-            this.gameLstBox = new System.Windows.Forms.ListBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.updateGameBtn = new System.Windows.Forms.Button();
             this.createGameBtn = new System.Windows.Forms.Button();
+            this.gameLstBox = new System.Windows.Forms.ListBox();
+            this.gameDtp = new System.Windows.Forms.DateTimePicker();
+            this.label15 = new System.Windows.Forms.Label();
             this.gamePitchCombo = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.gameOppCombo = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.gameDtp = new System.Windows.Forms.DateTimePicker();
             this.lineupTab = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.removeLineupItemBtn = new System.Windows.Forms.Button();
@@ -68,27 +79,16 @@
             this.lineupGameSearchCombo = new System.Windows.Forms.ComboBox();
             this.lineupGameSearchTxt = new System.Windows.Forms.TextBox();
             this.lineupSearchResultsLstBox = new System.Windows.Forms.ListBox();
-            this.updatePitchBtn = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.oppLstBox = new System.Windows.Forms.ListBox();
-            this.oppNameTxt = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.createOppBtn = new System.Windows.Forms.Button();
-            this.updateOppBtn = new System.Windows.Forms.Button();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.updateGameBtn = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.playerTab.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.matchTab.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.lineupTab.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -115,6 +115,65 @@
             this.playerTab.TabIndex = 0;
             this.playerTab.Text = "Admin";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.updateOppBtn);
+            this.groupBox3.Controls.Add(this.oppLstBox);
+            this.groupBox3.Controls.Add(this.oppNameTxt);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.createOppBtn);
+            this.groupBox3.Location = new System.Drawing.Point(22, 552);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(975, 261);
+            this.groupBox3.TabIndex = 25;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Opponent Details";
+            // 
+            // updateOppBtn
+            // 
+            this.updateOppBtn.Location = new System.Drawing.Point(219, 186);
+            this.updateOppBtn.Name = "updateOppBtn";
+            this.updateOppBtn.Size = new System.Drawing.Size(115, 48);
+            this.updateOppBtn.TabIndex = 8;
+            this.updateOppBtn.Text = "Update";
+            this.updateOppBtn.UseVisualStyleBackColor = true;
+            this.updateOppBtn.Click += new System.EventHandler(this.updateOppBtn_Click);
+            // 
+            // oppLstBox
+            // 
+            this.oppLstBox.FormattingEnabled = true;
+            this.oppLstBox.ItemHeight = 25;
+            this.oppLstBox.Location = new System.Drawing.Point(496, 30);
+            this.oppLstBox.Name = "oppLstBox";
+            this.oppLstBox.Size = new System.Drawing.Size(457, 204);
+            this.oppLstBox.TabIndex = 7;
+            this.oppLstBox.SelectedIndexChanged += new System.EventHandler(this.oppLstBox_SelectedIndexChanged);
+            // 
+            // oppNameTxt
+            // 
+            this.oppNameTxt.Location = new System.Drawing.Point(151, 44);
+            this.oppNameTxt.Name = "oppNameTxt";
+            this.oppNameTxt.Size = new System.Drawing.Size(240, 31);
+            this.oppNameTxt.TabIndex = 6;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(23, 50);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(68, 25);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "Name";
+            // 
+            // createOppBtn
+            // 
+            this.createOppBtn.Location = new System.Drawing.Point(75, 189);
+            this.createOppBtn.Name = "createOppBtn";
+            this.createOppBtn.Size = new System.Drawing.Size(115, 48);
+            this.createOppBtn.TabIndex = 4;
+            this.createOppBtn.Text = "Create";
+            this.createOppBtn.UseVisualStyleBackColor = true;
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.updatePitchBtn);
@@ -129,6 +188,16 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Pitch Details";
             // 
+            // updatePitchBtn
+            // 
+            this.updatePitchBtn.Location = new System.Drawing.Point(219, 189);
+            this.updatePitchBtn.Name = "updatePitchBtn";
+            this.updatePitchBtn.Size = new System.Drawing.Size(115, 48);
+            this.updatePitchBtn.TabIndex = 24;
+            this.updatePitchBtn.Text = "Update";
+            this.updatePitchBtn.UseVisualStyleBackColor = true;
+            this.updatePitchBtn.Click += new System.EventHandler(this.updatePitchBtn_Click);
+            // 
             // pitchLstBox
             // 
             this.pitchLstBox.FormattingEnabled = true;
@@ -137,6 +206,7 @@
             this.pitchLstBox.Name = "pitchLstBox";
             this.pitchLstBox.Size = new System.Drawing.Size(457, 204);
             this.pitchLstBox.TabIndex = 11;
+            this.pitchLstBox.SelectedIndexChanged += new System.EventHandler(this.pitchLstBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -162,6 +232,7 @@
             this.createPitchBtn.TabIndex = 21;
             this.createPitchBtn.Text = "Create";
             this.createPitchBtn.UseVisualStyleBackColor = true;
+            this.createPitchBtn.Click += new System.EventHandler(this.createPitchBtn_Click);
             // 
             // groupBox4
             // 
@@ -181,6 +252,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Player Details";
             // 
+            // playersLstBox
+            // 
+            this.playersLstBox.FormattingEnabled = true;
+            this.playersLstBox.ItemHeight = 25;
+            this.playersLstBox.Location = new System.Drawing.Point(496, 30);
+            this.playersLstBox.Name = "playersLstBox";
+            this.playersLstBox.Size = new System.Drawing.Size(457, 204);
+            this.playersLstBox.TabIndex = 7;
+            this.playersLstBox.SelectedIndexChanged += new System.EventHandler(this.playersLstBox_SelectedIndexChanged);
+            // 
             // updatePlayerBtn
             // 
             this.updatePlayerBtn.Location = new System.Drawing.Point(219, 189);
@@ -189,6 +270,7 @@
             this.updatePlayerBtn.TabIndex = 10;
             this.updatePlayerBtn.Text = "Update";
             this.updatePlayerBtn.UseVisualStyleBackColor = true;
+            this.updatePlayerBtn.Click += new System.EventHandler(this.updatePlayerBtn_Click);
             // 
             // forenameTxt
             // 
@@ -214,7 +296,7 @@
             this.registerPlayerBtn.TabIndex = 9;
             this.registerPlayerBtn.Text = "Create";
             this.registerPlayerBtn.UseVisualStyleBackColor = true;
-            this.registerPlayerBtn.Click += new System.EventHandler(this.registerPlayerBtn_Click);
+            this.registerPlayerBtn.Click += new System.EventHandler(this.createPlayerBtn_Click);
             // 
             // label4
             // 
@@ -248,15 +330,6 @@
             this.label5.TabIndex = 5;
             this.label5.Text = "DOB";
             // 
-            // playersLstBox
-            // 
-            this.playersLstBox.FormattingEnabled = true;
-            this.playersLstBox.ItemHeight = 25;
-            this.playersLstBox.Location = new System.Drawing.Point(496, 30);
-            this.playersLstBox.Name = "playersLstBox";
-            this.playersLstBox.Size = new System.Drawing.Size(457, 204);
-            this.playersLstBox.TabIndex = 7;
-            // 
             // matchTab
             // 
             this.matchTab.BackColor = System.Drawing.Color.White;
@@ -267,14 +340,51 @@
             this.matchTab.TabIndex = 3;
             this.matchTab.Text = "Create Match";
             // 
-            // gameLstBox
+            // groupBox6
             // 
-            this.gameLstBox.FormattingEnabled = true;
-            this.gameLstBox.ItemHeight = 25;
-            this.gameLstBox.Location = new System.Drawing.Point(448, 80);
-            this.gameLstBox.Name = "gameLstBox";
-            this.gameLstBox.Size = new System.Drawing.Size(502, 679);
-            this.gameLstBox.TabIndex = 7;
+            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Controls.Add(this.label2);
+            this.groupBox6.Controls.Add(this.updateGameBtn);
+            this.groupBox6.Controls.Add(this.createGameBtn);
+            this.groupBox6.Controls.Add(this.gameLstBox);
+            this.groupBox6.Controls.Add(this.gameDtp);
+            this.groupBox6.Controls.Add(this.label15);
+            this.groupBox6.Controls.Add(this.gamePitchCombo);
+            this.groupBox6.Controls.Add(this.label16);
+            this.groupBox6.Controls.Add(this.gameOppCombo);
+            this.groupBox6.Controls.Add(this.label17);
+            this.groupBox6.Location = new System.Drawing.Point(22, 16);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(968, 787);
+            this.groupBox6.TabIndex = 8;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Match Details";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(521, 37);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(429, 31);
+            this.textBox1.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(448, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 25);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Filter:";
+            // 
+            // updateGameBtn
+            // 
+            this.updateGameBtn.Location = new System.Drawing.Point(219, 254);
+            this.updateGameBtn.Name = "updateGameBtn";
+            this.updateGameBtn.Size = new System.Drawing.Size(115, 48);
+            this.updateGameBtn.TabIndex = 8;
+            this.updateGameBtn.Text = "Update";
+            this.updateGameBtn.UseVisualStyleBackColor = true;
+            this.updateGameBtn.Click += new System.EventHandler(this.updateGameBtn_Click);
             // 
             // createGameBtn
             // 
@@ -286,6 +396,32 @@
             this.createGameBtn.UseVisualStyleBackColor = true;
             this.createGameBtn.Click += new System.EventHandler(this.createGameBtn_Click);
             // 
+            // gameLstBox
+            // 
+            this.gameLstBox.FormattingEnabled = true;
+            this.gameLstBox.ItemHeight = 25;
+            this.gameLstBox.Location = new System.Drawing.Point(448, 80);
+            this.gameLstBox.Name = "gameLstBox";
+            this.gameLstBox.Size = new System.Drawing.Size(502, 679);
+            this.gameLstBox.TabIndex = 7;
+            this.gameLstBox.SelectedIndexChanged += new System.EventHandler(this.gameLstBox_SelectedIndexChanged);
+            // 
+            // gameDtp
+            // 
+            this.gameDtp.Location = new System.Drawing.Point(208, 44);
+            this.gameDtp.Name = "gameDtp";
+            this.gameDtp.Size = new System.Drawing.Size(200, 31);
+            this.gameDtp.TabIndex = 0;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(23, 50);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(123, 25);
+            this.label15.TabIndex = 1;
+            this.label15.Text = "Select Date";
+            // 
             // gamePitchCombo
             // 
             this.gamePitchCombo.FormattingEnabled = true;
@@ -293,8 +429,16 @@
             this.gamePitchCombo.Name = "gamePitchCombo";
             this.gamePitchCombo.Size = new System.Drawing.Size(200, 33);
             this.gamePitchCombo.TabIndex = 5;
-            this.gamePitchCombo.SelectedIndexChanged += new System.EventHandler(this.SelectPitchComboIndexChanged);
             this.gamePitchCombo.Click += new System.EventHandler(this.selectPitchComboClick);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(23, 108);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(172, 25);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "Select Opponent";
             // 
             // gameOppCombo
             // 
@@ -313,31 +457,6 @@
             this.label17.Size = new System.Drawing.Size(126, 25);
             this.label17.TabIndex = 3;
             this.label17.Text = "Select Pitch";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(23, 108);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(172, 25);
-            this.label16.TabIndex = 2;
-            this.label16.Text = "Select Opponent";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(23, 50);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(123, 25);
-            this.label15.TabIndex = 1;
-            this.label15.Text = "Select Date";
-            // 
-            // gameDtp
-            // 
-            this.gameDtp.Location = new System.Drawing.Point(208, 44);
-            this.gameDtp.Name = "gameDtp";
-            this.gameDtp.Size = new System.Drawing.Size(200, 31);
-            this.gameDtp.TabIndex = 0;
             // 
             // lineupTab
             // 
@@ -483,117 +602,6 @@
             this.lineupSearchResultsLstBox.TabIndex = 0;
             this.lineupSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.gameSearchLstBoxIndexChanged);
             // 
-            // updatePitchBtn
-            // 
-            this.updatePitchBtn.Location = new System.Drawing.Point(219, 189);
-            this.updatePitchBtn.Name = "updatePitchBtn";
-            this.updatePitchBtn.Size = new System.Drawing.Size(115, 48);
-            this.updatePitchBtn.TabIndex = 24;
-            this.updatePitchBtn.Text = "Update";
-            this.updatePitchBtn.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.updateOppBtn);
-            this.groupBox3.Controls.Add(this.oppLstBox);
-            this.groupBox3.Controls.Add(this.oppNameTxt);
-            this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Controls.Add(this.createOppBtn);
-            this.groupBox3.Location = new System.Drawing.Point(22, 552);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(975, 261);
-            this.groupBox3.TabIndex = 25;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Opponent Details";
-            // 
-            // oppLstBox
-            // 
-            this.oppLstBox.FormattingEnabled = true;
-            this.oppLstBox.ItemHeight = 25;
-            this.oppLstBox.Location = new System.Drawing.Point(496, 30);
-            this.oppLstBox.Name = "oppLstBox";
-            this.oppLstBox.Size = new System.Drawing.Size(457, 204);
-            this.oppLstBox.TabIndex = 7;
-            // 
-            // oppNameTxt
-            // 
-            this.oppNameTxt.Location = new System.Drawing.Point(151, 44);
-            this.oppNameTxt.Name = "oppNameTxt";
-            this.oppNameTxt.Size = new System.Drawing.Size(240, 31);
-            this.oppNameTxt.TabIndex = 6;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(23, 50);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(68, 25);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "Name";
-            // 
-            // createOppBtn
-            // 
-            this.createOppBtn.Location = new System.Drawing.Point(75, 189);
-            this.createOppBtn.Name = "createOppBtn";
-            this.createOppBtn.Size = new System.Drawing.Size(115, 48);
-            this.createOppBtn.TabIndex = 4;
-            this.createOppBtn.Text = "Create";
-            this.createOppBtn.UseVisualStyleBackColor = true;
-            // 
-            // updateOppBtn
-            // 
-            this.updateOppBtn.Location = new System.Drawing.Point(219, 186);
-            this.updateOppBtn.Name = "updateOppBtn";
-            this.updateOppBtn.Size = new System.Drawing.Size(115, 48);
-            this.updateOppBtn.TabIndex = 8;
-            this.updateOppBtn.Text = "Update";
-            this.updateOppBtn.UseVisualStyleBackColor = true;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.textBox1);
-            this.groupBox6.Controls.Add(this.label2);
-            this.groupBox6.Controls.Add(this.updateGameBtn);
-            this.groupBox6.Controls.Add(this.createGameBtn);
-            this.groupBox6.Controls.Add(this.gameLstBox);
-            this.groupBox6.Controls.Add(this.gameDtp);
-            this.groupBox6.Controls.Add(this.label15);
-            this.groupBox6.Controls.Add(this.gamePitchCombo);
-            this.groupBox6.Controls.Add(this.label16);
-            this.groupBox6.Controls.Add(this.gameOppCombo);
-            this.groupBox6.Controls.Add(this.label17);
-            this.groupBox6.Location = new System.Drawing.Point(22, 16);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(968, 787);
-            this.groupBox6.TabIndex = 8;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Match Details";
-            // 
-            // updateGameBtn
-            // 
-            this.updateGameBtn.Location = new System.Drawing.Point(219, 254);
-            this.updateGameBtn.Name = "updateGameBtn";
-            this.updateGameBtn.Size = new System.Drawing.Size(115, 48);
-            this.updateGameBtn.TabIndex = 8;
-            this.updateGameBtn.Text = "Update";
-            this.updateGameBtn.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(448, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 25);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Filter:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(521, 37);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(429, 31);
-            this.textBox1.TabIndex = 10;
-            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -609,20 +617,20 @@
             this.Text = "TrackFit - Admin";
             this.tabControl1.ResumeLayout(false);
             this.playerTab.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.matchTab.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.lineupTab.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
