@@ -49,6 +49,28 @@ namespace AnalyserLibrary
             return totalDistance;
         }
 
+        public int CalcSprints(List<TimeLine> t)
+        {
+            int sprints = 0;
+            for (int i = 0; i < t.Count()-1; i++)
+            {
+                //calc distance between the points
+                List<TimeLine> tempTimeline = new List<TimeLine>();
+                tempTimeline.Add(t[i]);
+                tempTimeline.Add(t[i + 1]);
+                double d = CalcTotalDistance(tempTimeline);
+
+                //calc speed
+                Speed speed = new Speed(d, t[i].ReadingTime, t[i+1].ReadingTime);
+                double s = speed.AvgMtrPerSecondRnd();
+                if (s >= 6.4)
+                {
+                    sprints++;
+                }
+            }
+            return sprints;
+        }
+
         /// <summary>
         /// Method to find the min and max X and Y coordinates from a given List
         /// </summary>

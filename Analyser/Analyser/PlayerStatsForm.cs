@@ -152,6 +152,10 @@ namespace Analyser
                 Speed speed = new Speed(totalDistance, matchedTimeLineRecords[0].ReadingTime, matchedTimeLineRecords[matchedTimeLineRecords.Count - 1].ReadingTime);
                 double v = speed.AvgMtrPerSecondRnd();
                 paceLbl.Text = string.Format("{0} m/s", v);
+
+                //calculate sprints and display
+                double sprints = Calculations.Instance.CalcSprints(matchedTimeLineRecords);
+                sprintsLbl.Text = string.Format("{0}", sprints);
             }
             else
             {
@@ -163,13 +167,12 @@ namespace Analyser
             double seriesInterval = 5.0; //interval for series, set here, could be dynamically set in future
             PopulateChartWithDistance(seriesData.GenerateSeriesData(matchedTimeLineRecords, seriesInterval));
 
+            //Create list of xy coordinates from timeline events for the graphical display
             xy = Calculations.Instance.CalcXYFromGeolocationCoords(matchedTimeLineRecords, Width, Height);
             List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(xy);
 
             XYCount = xy.Count();
             temp = xy.Count();
-
-            //DrawPoints(xy);
         }
 
         /// <summary>
@@ -204,6 +207,10 @@ namespace Analyser
             {
                 DrawPoints(xy, XYCount - temp);
                 temp--;
+
+                //temp code to populate timer display, just counting timer ticks for 
+                //some reference but not representitive of activity at present
+                timeLbl.Text = string.Format("{0}:00", XYCount - temp);
             }
             else
             {
@@ -211,6 +218,7 @@ namespace Analyser
                 movementTimer.Interval = 100;
                 speedLbl.Text = "Normal";
                 temp = xy.Count();
+                timeLbl.Text = "0:00";
             }
         }
 
