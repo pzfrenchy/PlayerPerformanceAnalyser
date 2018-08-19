@@ -15,6 +15,9 @@ namespace Analyser
     public partial class PlayerStatsForm : Form
     {
         Series series = new Series("series");
+        int XYCount = 0; //variable to hold the total count of XYCoordinates in a series
+        int temp = 0;
+        List<XY> xy = new List<XY>();
 
         public PlayerStatsForm()
         {
@@ -23,6 +26,8 @@ namespace Analyser
             breakdownChart.Series.Add(series);
             breakdownChart.Series["series"].YValueMembers = "Percent";
             PopulateData();
+            timeLbl.Text = "0:00";
+
         }
 
         /// <summary>
@@ -86,7 +91,7 @@ namespace Analyser
         /// Method to draw points on a picturebox based on a list of coordinates
         /// </summary>
         /// <param name="xy">A list of all coordinates to be displayed</param>
-        private void DrawPoints(List<XY> xy)
+        private void DrawPoints(List<XY> xy, int p)
         {
             //Associate picturebox object to new graphics object
             Graphics graphics;
@@ -97,11 +102,15 @@ namespace Analyser
 
             SolidBrush brush = new SolidBrush(Color.Black);
 
+            //Alternate method to draw whole movement trace in one go
             //iterate through coordinates list and draw points
-            for (int i = 0; i < xy.Count; i++)
-            {
-                pitchPictureBox.CreateGraphics().DrawRectangle(new Pen(Brushes.Black, 1), new Rectangle(Convert.ToInt32(xy[i].Y), Convert.ToInt32(xy[i].X), 1, 1));
-            }
+            //for (int i = 0; i < xy.Count; i++)
+            //{
+            //    pitchPictureBox.CreateGraphics().DrawRectangle(new Pen(Brushes.Black, 1), new Rectangle(Convert.ToInt32(xy[i].Y), Convert.ToInt32(xy[i].X), 1, 1));
+            //}
+
+            //draw point
+            pitchPictureBox.CreateGraphics().DrawEllipse(new Pen(Brushes.Black, 2), new Rectangle(Convert.ToInt32(xy[p].Y), Convert.ToInt32(xy[p].X), 5, 5));
         }
 
         /// <summary>
@@ -154,10 +163,13 @@ namespace Analyser
             double seriesInterval = 5.0; //interval for series, set here, could be dynamically set in future
             PopulateChartWithDistance(seriesData.GenerateSeriesData(matchedTimeLineRecords, seriesInterval));
 
-            List<XY> xy = Calculations.Instance.CalcXYFromGeolocationCoords(matchedTimeLineRecords, Width, Height);
+            xy = Calculations.Instance.CalcXYFromGeolocationCoords(matchedTimeLineRecords, Width, Height);
             List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(xy);
 
-            DrawPoints(xy);
+            XYCount = xy.Count();
+            temp = xy.Count();
+
+            //DrawPoints(xy);
         }
 
         /// <summary>
@@ -186,19 +198,64 @@ namespace Analyser
             paceLbl.Text = "no data";
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void movementTimer_Tick(object sender, EventArgs e)
         {
-
+            if (temp != 0)
+            {
+                DrawPoints(xy, XYCount - temp);
+                temp--;
+            }
+            else
+            {
+                movementTimer.Stop();
+                movementTimer.Interval = 100;
+                speedLbl.Text = "Normal";
+                temp = xy.Count();
+            }
         }
 
         private void playBtn_Click(object sender, EventArgs e)
         {
-
+            movementTimer.Start();
         }
 
-        private void DrawXY()
+        private void pauseBtn_Click(object sender, EventArgs e)
         {
+            movementTimer.Stop();
+        }
 
+        private void fastForwardBtn_Click(object sender, EventArgs e)
+        {
+            if (movementTimer.Enabled)
+            {
+                if (movementTimer.Interval == 100)
+                {
+                    movementTimer.Interval = 50;
+                    speedLbl.Text = "X2";
+                }
+                else if (movementTimer.Interval == 50)
+                {
+                    movementTimer.Interval = 25;
+                    speedLbl.Text = "X4";
+                }
+            }
+        }
+
+        private void rewindBtn_Click(object sender, EventArgs e)
+        {
+            if (movementTimer.Enabled)
+            {
+                if (movementTimer.Interval == 50)
+                {
+                    movementTimer.Interval = 100;
+                    speedLbl.Text = "Normal";
+                }
+                else if (movementTimer.Interval == 25)
+                {
+                    movementTimer.Interval = 50;
+                    speedLbl.Text = "X2";
+                }
+            }
         }
     }
 }

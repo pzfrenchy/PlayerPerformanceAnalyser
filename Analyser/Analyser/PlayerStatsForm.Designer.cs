@@ -32,6 +32,8 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.speedLbl = new System.Windows.Forms.Label();
+            this.timeLbl = new System.Windows.Forms.Label();
             this.pitchPictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.fastForwardBtn = new System.Windows.Forms.Button();
@@ -53,7 +55,7 @@
             this.playerCombo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dateCombo = new System.Windows.Forms.ComboBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.movementTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pitchPictureBox)).BeginInit();
@@ -76,6 +78,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.speedLbl);
+            this.groupBox3.Controls.Add(this.timeLbl);
             this.groupBox3.Controls.Add(this.pitchPictureBox);
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Location = new System.Drawing.Point(23, 28);
@@ -84,6 +88,26 @@
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Position";
+            // 
+            // speedLbl
+            // 
+            this.speedLbl.AutoSize = true;
+            this.speedLbl.Location = new System.Drawing.Point(386, 624);
+            this.speedLbl.Name = "speedLbl";
+            this.speedLbl.Size = new System.Drawing.Size(80, 25);
+            this.speedLbl.TabIndex = 6;
+            this.speedLbl.Text = "Normal";
+            this.speedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timeLbl
+            // 
+            this.timeLbl.AutoSize = true;
+            this.timeLbl.BackColor = System.Drawing.Color.LimeGreen;
+            this.timeLbl.Location = new System.Drawing.Point(23, 561);
+            this.timeLbl.Name = "timeLbl";
+            this.timeLbl.Size = new System.Drawing.Size(54, 25);
+            this.timeLbl.TabIndex = 5;
+            this.timeLbl.Text = "0:00";
             // 
             // pitchPictureBox
             // 
@@ -115,6 +139,7 @@
             this.fastForwardBtn.TabIndex = 4;
             this.fastForwardBtn.Text = ">>";
             this.fastForwardBtn.UseVisualStyleBackColor = true;
+            this.fastForwardBtn.Click += new System.EventHandler(this.fastForwardBtn_Click);
             // 
             // pauseBtn
             // 
@@ -124,6 +149,7 @@
             this.pauseBtn.TabIndex = 3;
             this.pauseBtn.Text = "II";
             this.pauseBtn.UseVisualStyleBackColor = true;
+            this.pauseBtn.Click += new System.EventHandler(this.pauseBtn_Click);
             // 
             // playBtn
             // 
@@ -143,6 +169,7 @@
             this.rewindBtn.TabIndex = 3;
             this.rewindBtn.Text = "<<";
             this.rewindBtn.UseVisualStyleBackColor = true;
+            this.rewindBtn.Click += new System.EventHandler(this.rewindBtn_Click);
             // 
             // groupBox2
             // 
@@ -298,9 +325,9 @@
             this.dateCombo.TabIndex = 2;
             this.dateCombo.SelectedIndexChanged += new System.EventHandler(this.DateComboIndexChanged);
             // 
-            // timer1
+            // movementTimer
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.movementTimer.Tick += new System.EventHandler(this.movementTimer_Tick);
             // 
             // PlayerStatsForm
             // 
@@ -314,6 +341,7 @@
             this.Text = "TrackFit - Player Statistics";
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pitchPictureBox)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -346,10 +374,12 @@
         private System.Windows.Forms.ComboBox playerCombo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox dateCombo;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer movementTimer;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button fastForwardBtn;
         private System.Windows.Forms.Button pauseBtn;
         private System.Windows.Forms.Button playBtn;
+        private System.Windows.Forms.Label speedLbl;
+        private System.Windows.Forms.Label timeLbl;
     }
 }
