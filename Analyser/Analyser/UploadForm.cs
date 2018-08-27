@@ -13,6 +13,7 @@ namespace Analyser
 {
     public partial class UploadForm : Form
     {
+        //variables used to create a training activity
         int trainingGameTypeID = 2; //reference training gametype ID in database.
         int trainingOppositionID = 1; //reference training opposition ID in database.
         int trainingPositionID = 9; //reference training position ID in database.
@@ -25,22 +26,54 @@ namespace Analyser
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Event handler to search for game details and update gameSearchLstBox with results
+        /// </summary>
         private void uploadSearchTxtChanged(object sender, EventArgs e)
         {
             string searchType = uploadSearchCombo.Text;
             string searchString = uploadSearchTxt.Text;
 
-            List<Game> gameList = Search.Instance.SearchForGame(searchType, searchString);
-
-            PopulateGameLstBox(gameList);
+            //ensure searchstring hasn't been completely deleted
+            if (string.IsNullOrEmpty(searchString))
+            {
+                uploadSearchResultsLstBox.DataSource = null;
+                uploadLineupLstBox.DataSource = null;
+            }
+            //populate list box
+            else
+            {
+                PopulateGameLstBox(searchType, searchString);
+            }
         }
 
-        private void uploadSeachIndexChanged(object sender, EventArgs e)
-        {
-            int selectedGame = Convert.ToInt16(uploadSearchResultsLstBox.SelectedValue.ToString());
-            SearchForLineup(selectedGame);
+        /// <summary>
+        /// Method to search for all players associated to a game when selected.
+        /// </summary>
+        private void uploadSearchIndexChanged(object sender, EventArgs e)
+        { 
+            string searchString = uploadSearchTxt.Text;
+            if (string.IsNullOrEmpty(searchString))
+            {
+                //if search text is empty do nothing
+            }
+            else
+            {
+                int selectedGame = Convert.ToInt16(uploadSearchResultsLstBox.SelectedValue.ToString());
+                SearchForLineup(selectedGame);
+            }
         }
 
+        /// <summary>
+        /// Method to create a new training activity in the game table and return the new lineup ID
+        /// </summary>
+        /// <param name="dt">Datetime for the activity</param>
+        /// <param name="oppID">opponent</param>
+        /// <param name="pitchID">pitch</param>
+        /// <param name="gameTypeID">activity type</param>
+        /// <param name="positionID">player position</param>
+        /// <param name="playerID">player ID</param>
+        /// <returns>int, lineup ID of the new activity</returns>
         private int GetTrainingLineupID(DateTime dt, int oppID, int pitchID, int gameTypeID, int positionID, int playerID)
         {
             int lineupID = 0;
@@ -75,6 +108,11 @@ namespace Analyser
             return lineupID;
         }
 
+        /// <summary>
+        /// Method to iterate through a list of track elements and upload to timeline table
+        /// </summary>
+        /// <param name="gpxTrackList">list of CSV strings containing track information</param>
+        /// <param name="lineupID">the associated lineup id</param>
         private void AddTrackElementsToTimeLineTable(List<string> gpxTrackList, int lineupID)
         {
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
@@ -99,6 +137,9 @@ namespace Analyser
             }
         }
 
+        /// <summary>
+        /// Event handler to enable gpx file upload based on a selected lineupID
+        /// </summary>
         private void uploadBtn_Click(object sender, EventArgs e)
         {
             FileHandling file = new FileHandling();
@@ -146,12 +187,16 @@ namespace Analyser
             }
         }
 
+        /// <summary>
+        /// Event handler to change state of elements based on checkbox state
+        /// </summary>
         private void TrainingCBoxChecked(object sender, EventArgs e)
         {
             if (trainingCBox.Checked == true)
             {
                 //clear game search details
                 uploadSearchTxt.Text = "";
+                uploadSearchTxt.Enabled = false;
                 uploadSearchResultsLstBox.DataSource = null;
 
                 //If training data list box populated with all registered players
@@ -166,6 +211,7 @@ namespace Analyser
             {
                 //Clear list box when unchecked
                 uploadLineupLstBox.DataSource = null;
+                uploadSearchTxt.Enabled = true;
             }
         }
 
@@ -184,25 +230,46 @@ namespace Analyser
             }
         }
 
-        private void PopulateGameLstBox(List<Game> games)
+        /// <summary>
+        /// Method to populate the gamelistbox based on search results from provided search type and search string
+        /// </summary>
+        /// <param name="searchType">string containing date or opponent</param>
+        /// <param name="searchString">string containing search parameters</param>
+        private void PopulateGameLstBox(string searchType, string searchString)
         {
-            uploadSearchResultsLstBox.ValueMember = "GameID";
-            uploadSearchResultsLstBox.DisplayMember = "GameDate";
-            uploadSearchResultsLstBox.DataSource = games;
+            try
+            {
+                //check that search type is date and the search string is integer 
+                if (searchType == "Date" && Int32.TryParse(searchString, out int temp))
+                {
+                    using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                    {
+                        uploadSearchResultsLstBox.ValueMember = "GameID";
+                        uploadSearchResultsLstBox.DisplayMember = "LineupDetails";
+                        uploadSearchResultsLstBox.DataSource = dbContext.GameSearchByDateProc(Convert.ToInt32(searchString));
+                    }
+                }
+                else if (searchType == "Opposition")
+                {
+                    using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                    {
+                        uploadSearchResultsLstBox.ValueMember = "GameID";
+                        uploadSearchResultsLstBox.DisplayMember = "LineupDetails";
+                        uploadSearchResultsLstBox.DataSource = dbContext.GameSearchByOpponentProc(searchString);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
-        private void FormatResultsString(object sender, ListControlConvertEventArgs e)
-        {
-            //set variables from associated list box
-            string gameDate = ((Game)e.ListItem).GameDate.ToShortDateString();
-            int opponentID = Convert.ToInt16(((Game)e.ListItem).OpponentID.ToString());
-
-            string opponentName = GetOpponentNameByID(opponentID);
-
-            //Create new list item string
-            e.Value = string.Format("{0} - {1}", gameDate, opponentName);
-        }
-
+        /// <summary>
+        /// Method to return opponents name based on the provided id
+        /// </summary>
+        /// <param name="opponentID">the id for searching</param>
+        /// <returns>string containing opponents name</returns>
         private string GetOpponentNameByID(int opponentID)
         {
             string opponentName = "";
@@ -242,6 +309,9 @@ namespace Analyser
             uploadLineupLstBox.DataSource = lineup;
         }
 
+        /// <summary>
+        /// Event handler to format the lineup string when data changes
+        /// </summary>
         private void FormatLineupString(object sender, ListControlConvertEventArgs e)
         { 
             //list box can contain Lineup objects if uploading game data or Player objects if training 
@@ -255,7 +325,7 @@ namespace Analyser
                 int playerID = Convert.ToInt16(((Lineup)e.ListItem).PlayerID.ToString());
                 int positionID = Convert.ToInt16(((Lineup)e.ListItem).PositionID.ToString());
 
-                //select players details from players table
+                //select player details from players table
                 using (DataClassesDataContext dbContext = new DataClassesDataContext())
                 {
                     forename = (dbContext.Players.Where(p => p.PlayerID == playerID)).Single().Forename;

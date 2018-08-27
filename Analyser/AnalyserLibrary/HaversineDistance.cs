@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AnalyserLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class HaversineDistance
     {
         public double Lat1 { get; set; }
@@ -40,24 +43,6 @@ namespace AnalyserLibrary
             return output;
         }
 
-        private double ToMeter(double b)
-        {
-            double earthRadius = 6371e3; //in metres
-
-            double distance = earthRadius * b / 1.5;
-
-            return distance;
-        }
-
-        private double ToKilometer(double b)
-        {
-            double earthRadius = 6371; //in Kilometres
-
-            double distance = earthRadius * b;
-
-            return distance;
-        }
-
         private double HaversineCalc()
         {
             double lat1Rad = ToRadians(Lat1);
@@ -80,11 +65,9 @@ namespace AnalyserLibrary
         /// <returns>double</returns>
         public double DistanceInMtrRnd()
         {
-            double distance = HaversineCalc();
+            double distance = DistanceInMtr();
 
-            double distanceInMtr = ToMeter(distance);
-
-            return Math.Round(distanceInMtr, 2);
+            return Math.Round(distance, 2);
         }
 
         /// <summary>
@@ -93,11 +76,11 @@ namespace AnalyserLibrary
         /// <returns>double</returns>
         public double DistanceInMtr()
         {
-            double distance = HaversineCalc();
+            double earthRadius = 6371e3; //in metres
 
-            double distanceInMtr = ToMeter(distance);
+            double distance = earthRadius * HaversineCalc() / 1.5;
 
-            return Math.Round(distanceInMtr, 8);
+            return Math.Round(distance, 8);
         }
 
         public double DistanceInKmRnd()
@@ -109,11 +92,11 @@ namespace AnalyserLibrary
 
         public double DistanceInKm()
         {
-            double distance = HaversineCalc();
+            double earthRadius = 6371; //in Kilometres
 
-            double distanceInKm = ToKilometer(distance);
+            double distance = earthRadius * HaversineCalc();
 
-            return Math.Round(distanceInKm, 8);
+            return Math.Round(distance, 8);
         }
     }
 }

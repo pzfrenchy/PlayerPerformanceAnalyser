@@ -9,12 +9,12 @@ namespace Analyser
 {
     public partial class AdminForm : Form
     {
-        int matchGameType = 1; //references the match game type in database
+        int matchGameType = 1; //references the "match" game type in database
 
         public AdminForm()
         {
             InitializeComponent();
-            DataClassesDataContext dbContext = new DataClassesDataContext();
+
             //Pre-populate all list and combo boxes with db data.
             PopulatePlayersLstBox();
             PopulatePitchLstBox();
@@ -407,7 +407,7 @@ namespace Analyser
             }
         }
 
-        //Methods to populate form elements with DB data
+        //Methods to populate form elements with database data
 
         private void PopulatePlayersLstBox()
         {

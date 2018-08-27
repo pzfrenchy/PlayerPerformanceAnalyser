@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace Analyser
 {
     public partial class PlayerStatsForm : Form
     {
+        Bitmap printImage; //used for printing the page
+
         Series series = new Series("series");
         int XYCount = 0; //variable to hold the total count of XYCoordinates in a series
         int XYCountdown = 0; //variable to track which coord to display as graphics timer runs
@@ -25,7 +28,7 @@ namespace Analyser
             PopulatePlayerCombo();
             breakdownChart.Series.Add(series);
             breakdownChart.Series["series"].YValueMembers = "Percent";
-            PopulateData();
+            PopulateActivityStats();
             timeLbl.Text = "0:00";
         }
 
@@ -56,8 +59,6 @@ namespace Analyser
         /// <summary>
         /// Method find all activities associated to a selected player and display
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void PlayerComboIndexChanged(object sender, EventArgs e)
         {
             //Get ID of selected player
@@ -72,18 +73,16 @@ namespace Analyser
             //If no activities clear all data.
             if (gameList.Count <= 0)
             {
-                series.Points.Clear();
-                breakdownChart.DataSource = null;
-                breakdownChart.DataBind();
-
-                distanceLbl.Text = "no data";
-                paceLbl.Text = "no data";
+                ClearData();
             }
         }
 
+        /// <summary>
+        /// Method to populate all activities statistics on selection of activity
+        /// </summary>
         private void DateComboIndexChanged(object sender, EventArgs e)
         {
-            PopulateData();
+            PopulateActivityStats();
         }
 
         /// <summary>
@@ -101,7 +100,7 @@ namespace Analyser
 
             SolidBrush brush = new SolidBrush(Color.Black);
 
-            //Alternate method to draw whole movement trace in one go
+            //Alternate method to draw whole movement trace in one go, leaving here as may need at a later point
             //iterate through coordinates list and draw points
             //for (int i = 0; i < xy.Count; i++)
             //{
@@ -134,7 +133,7 @@ namespace Analyser
         /// <summary>
         /// Method to populate form elements with activity statistics
         /// </summary>
-        private void PopulateData()
+        private void PopulateActivityStats()
         {
             int playerID = Convert.ToInt16(playerCombo.SelectedValue.ToString());
             int gameID = Convert.ToInt16(dateCombo.SelectedValue.ToString());
@@ -153,7 +152,9 @@ namespace Analyser
                 paceLbl.Text = string.Format("{0} m/s", v);
 
                 //calculate sprints and display
-                double sprints = Calculations.Instance.CalcSprints(matchedTimeLineRecords);
+                double minSpeed = 6.4; //the minimum threshold for classifying movement in m/s
+                double maxSpeed = 12.0; //the maximum threshold for classifying movement in m/s
+                double sprints = Calculations.Instance.CalcSprints(matchedTimeLineRecords, minSpeed, maxSpeed);
                 sprintsLbl.Text = string.Format("{0}", sprints);
             }
             else
@@ -202,6 +203,9 @@ namespace Analyser
             paceLbl.Text = "no data";
         }
 
+        /// <summary>
+        /// Timer tick method, draws graphics point per tick and stops at zero
+        /// </summary>
         private void movementTimer_Tick(object sender, EventArgs e)
         {
             if (XYCountdown != 0)
@@ -223,20 +227,31 @@ namespace Analyser
             }
         }
 
+        /// <summary>
+        /// Event handler to start timer on playBtn click
+        /// </summary>
         private void playBtn_Click(object sender, EventArgs e)
         {
             movementTimer.Start();
         }
 
+        /// <summary>
+        /// Event handler to stop timer on pauseBtn click
+        /// </summary>
         private void pauseBtn_Click(object sender, EventArgs e)
         {
             movementTimer.Stop();
         }
 
+        /// <summary>
+        /// Event handler to decrease timer interval on fastForwardBtn click
+        /// </summary>
         private void fastForwardBtn_Click(object sender, EventArgs e)
         {
+            //check timer is enabled
             if (movementTimer.Enabled)
             {
+                //check value of interval and adjust accordingly
                 if (movementTimer.Interval == 100)
                 {
                     movementTimer.Interval = 50;
@@ -250,10 +265,15 @@ namespace Analyser
             }
         }
 
+        /// <summary>
+        /// Event handler to increase timer interval on rewindBtn click
+        /// </summary>
         private void rewindBtn_Click(object sender, EventArgs e)
         {
+            //check timer is enabled
             if (movementTimer.Enabled)
             {
+                //check value of interval and adjust accordingly
                 if (movementTimer.Interval == 50)
                 {
                     movementTimer.Interval = 100;
@@ -265,6 +285,44 @@ namespace Analyser
                     speedLbl.Text = "X2";
                 }
             }
+        }
+
+        /// <summary>
+        /// Method for capturing a form, saving to an image and opening in print preview
+        /// </summary>
+        private void CaptureScreen()
+        {
+            Graphics g = CreateGraphics();
+            Size s = Size;
+            printImage = new Bitmap(s.Width, s.Height, g);
+            Graphics printGraphics = Graphics.FromImage(printImage);
+            printGraphics.CopyFromScreen(Location.X, Location.Y, 0, 0, s);
+            printPreviewDialog.Document = printDocument;
+            printPreviewDialog.ShowDialog();
+        }
+
+        /// <summary>
+        /// Method to print a document based on an image
+        /// </summary>
+        private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            e.Graphics.DrawImage(printImage, 0,0);
+        }
+
+        /// <summary>
+        /// Event handler to run capturescreen on print menu item click
+        /// </summary>
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CaptureScreen();
+        }
+
+        /// <summary>
+        /// Event handler to close currect form
+        /// </summary>
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

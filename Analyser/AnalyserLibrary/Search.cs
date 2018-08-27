@@ -23,7 +23,7 @@ namespace AnalyserLibrary
                 return instance;
             }
         }
-        private void addGameToGameList(List<Game> gameList, Game game)
+        private void AddGameToGameList(List<Game> gameList, Game game)
         {
             if (game.GetType().Equals(typeof(Game)))
             {
@@ -35,7 +35,7 @@ namespace AnalyserLibrary
             }
         }
 
-        private void findGameByDate(string searchString, List<Game> gameList)
+        private void FindGameByDate(string searchString, List<Game> gameList)
         {
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
             {
@@ -43,28 +43,28 @@ namespace AnalyserLibrary
                 {
                     if (game.GameDate.ToString().Contains(searchString) && searchString != "")
                     {
-                        addGameToGameList(gameList, game);
+                        AddGameToGameList(gameList, game);
                     }
                 }
             }
         }
 
-        private void findGameByOpponent(string searchString, List<Game> gameList)
+        private void FindGameByOpponent(string searchString, List<Game> gameList)
         {
             using (DataClassesDataContext dbContext = new DataClassesDataContext())
             {
                 foreach (var game in dbContext.Games)
                 {
-                    string oppName = getOpponentName(game);
+                    string oppName = GetOpponentName(game);
                     if (oppName.Contains(searchString.ToUpper()) && searchString != "")
                     {
-                        addGameToGameList(gameList, game);
+                        AddGameToGameList(gameList, game);
                     }
                 }
             }
         }
 
-        private string getOpponentName(Game game)
+        private string GetOpponentName(Game game)
         {
             string opponentName = game.Opponent.OpponentName.ToUpper();
             return opponentName;
@@ -80,11 +80,11 @@ namespace AnalyserLibrary
             List<Game> gameList = new List<Game>();
             if (searchType == "Date")
             {
-                findGameByDate(searchString, gameList);
+                FindGameByDate(searchString, gameList);
             }
             else if (searchType == "Opposition")
             {
-                findGameByOpponent(searchString, gameList);
+                FindGameByOpponent(searchString, gameList);
             }
             return gameList;
         }

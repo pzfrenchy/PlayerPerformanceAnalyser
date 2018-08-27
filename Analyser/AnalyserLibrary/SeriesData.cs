@@ -12,6 +12,7 @@ namespace AnalyserLibrary
         /// Method to generate series data for an activity
         /// </summary>
         /// <param name="t">List of activity waypoints</param>
+        /// <param name="i">Series interval</param>
         /// <returns>List of values</returns>
         public List<double> GenerateSeriesData(List<TimeLine> t, double i)
         {

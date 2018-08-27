@@ -140,8 +140,7 @@
             this.uploadSearchResultsLstBox.Name = "uploadSearchResultsLstBox";
             this.uploadSearchResultsLstBox.Size = new System.Drawing.Size(618, 204);
             this.uploadSearchResultsLstBox.TabIndex = 3;
-            this.uploadSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.uploadSeachIndexChanged);
-            this.uploadSearchResultsLstBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatResultsString);
+            this.uploadSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.uploadSearchIndexChanged);
             // 
             // panel1
             // 

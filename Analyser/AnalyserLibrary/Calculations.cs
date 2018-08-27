@@ -53,12 +53,13 @@ namespace AnalyserLibrary
         /// Method to calculate the number of sprints in a given set of timeline events
         /// </summary>
         /// <param name="t">List of timeline events</param>
-        /// <returns>the number of spring - integer</returns>
-        public int CalcSprints(List<TimeLine> t)
+        /// <returns>the number of sprints - integer</returns>
+        public int CalcSprints(List<TimeLine> t, double minSpeed, double maxSpeed)
         {
             int sprints = 0;
-            double sprintThreshold = 6.4; //speed for sprint in m/s
-            for (int i = 0; i < t.Count()-1; i++)
+            //sprintTracker used to hold the first timeline object within sprint threshold
+            List<TimeLine> sprintTracker = new List<TimeLine>();
+            for (int i = 0; i < t.Count - 1; i++)
             {
                 //calc distance between the points
                 List<TimeLine> tempTimeline = new List<TimeLine>();
@@ -69,9 +70,18 @@ namespace AnalyserLibrary
                 //calc speed
                 Speed speed = new Speed(d, t[i].ReadingTime, t[i+1].ReadingTime);
                 double s = speed.AvgMtrPerSecondRnd();
-                if (s >= sprintThreshold)
+                if (s >= minSpeed && s <= maxSpeed)
+                {
+                    if (!sprintTracker.Any()) //only add timeline object if none already exist
+                    {
+                        sprintTracker.Add(t[i]);
+                    }
+                }
+                //Once below threshold again or at the end of the series check for object in list
+                else if (((s < minSpeed || s > maxSpeed) && sprintTracker.Any()) || (sprintTracker.Any() && i == t.Count - 1))
                 {
                     sprints++;
+                    sprintTracker.Clear();
                 }
             }
             return sprints;
@@ -138,21 +148,21 @@ namespace AnalyserLibrary
         /// <summary>
         /// Method to normalise a list of XY coordinates
         /// </summary>
-        /// <param name="XYCoords">List of XY coordinates</param>
+        /// <param name="xyCoords">List of XY coordinates</param>
         /// <returns>List of XY coordinates</returns>
-        public List<XY> NormaliseXYCoords(List<XY> XYCoords)
+        public List<XY> NormaliseXYCoords(List<XY> xyCoords)
         {
-            List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(XYCoords); //Find the min and max XY
+            List<XY> minMax = CalcMinMaxCoords(xyCoords); //Find the min and max XY
             int padding = 10; //Stop points occuring on edge, improves readability
 
             //XY normalised to 0-1 range and multiplied out to fit picturebox
-            int multiplier = 200;
-            foreach (var item in XYCoords)
+            int multiplier = 400;
+            foreach (var item in xyCoords)
             {
                 item.X = ((item.X - minMax[0].X) / (minMax[1].X - minMax[0].X)) * multiplier + padding;
                 item.Y = ((item.Y - minMax[0].Y) / (minMax[1].Y - minMax[0].Y)) * multiplier + padding;
             }
-            return XYCoords;
+            return xyCoords;
         }
     }
 }

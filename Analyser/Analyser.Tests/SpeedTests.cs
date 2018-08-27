@@ -20,8 +20,6 @@ namespace Analyser.Tests
         [Theory, MemberData(nameof(AvgMtrPerSecondtestData))]
         public void AvgMtrPerSecond_ShouldCalculate(double distance, DateTime startTime, DateTime endTime, double expected)
         {
-            //Arrange
-
             //Act
             Speed speed = new Speed(distance, startTime, endTime);
             double actual = speed.AvgMtrPerSecond();
@@ -39,8 +37,6 @@ namespace Analyser.Tests
         [Theory, MemberData(nameof(AvgMtrPerSecondRndtestData))]
         public void AvgMtrPerSecondRnd_ShouldCalculate(double distance, DateTime startTime, DateTime endTime, double expected)
         {
-            //Arrange
-
             //Act
             Speed speed = new Speed(distance, startTime, endTime);
             double actual = speed.AvgMtrPerSecondRnd();

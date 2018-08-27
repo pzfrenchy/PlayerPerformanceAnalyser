@@ -26,6 +26,9 @@ namespace Analyser
             adminScreen.Show();
         }
 
+        /// <summary>
+        /// Event handler to exit application on menu item click
+        /// </summary>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
@@ -49,12 +52,18 @@ namespace Analyser
             optionsForm.Show();
         }
 
+        /// <summary>
+        /// Event handler to create new player stats form on player stats button click
+        /// </summary>
         private void playerStatsBtn_Click(object sender, EventArgs e)
         {
             PlayerStatsForm form = new PlayerStatsForm();
             form.Show();
         }
 
+        /// <summary>
+        /// Event handler to create new team stats form on team stats button click
+        /// </summary>
         private void teamStatsBtn_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Team stats coming soon!");
@@ -77,10 +86,15 @@ namespace Analyser
                     AdminForm adminForm = new AdminForm();
                     adminForm.Show();
                 }
-                else if (e.KeyCode == Keys.S)
+                else if (e.KeyCode == Keys.O)
                 {
                     OptionsForm optionsForm = new OptionsForm();
                     optionsForm.Show();
+                }
+                else if (e.KeyCode == Keys.S)
+                {
+                    PlayerStatsForm playerStatsForm = new PlayerStatsForm();
+                    playerStatsForm.Show();
                 }
             }
         }
