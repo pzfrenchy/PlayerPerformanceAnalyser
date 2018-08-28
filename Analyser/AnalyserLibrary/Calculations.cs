@@ -27,26 +27,41 @@ namespace AnalyserLibrary
         /// <summary>
         /// Method to calculate the sum of distances for an activity
         /// </summary>
-        public double CalcTotalDistance(List<TimeLine> timeLines)
+        /// <param name="t">List of Timelines</param>
+        /// <returns>double, total distance</returns>
+        public double CalcTotalDistance(List<TimeLine> t)
         {
-            double totalDistance = 0.0;
-
+            double td = 0.0;
             //calculate sum of distance covered
-            for (int i = 0; i < timeLines.Count() - 1; i++)
+            for (int i = 0; i < t.Count() - 1; i++)
             {
-                double p1Lat = timeLines[i].Latitude;
-                double p1Lon = timeLines[i].Longitude;
-                double p2Lat = timeLines[i + 1].Latitude;
-                double p2Lon = timeLines[i + 1].Longitude;
+                double p1Lat = t[i].Latitude;
+                double p1Lon = t[i].Longitude;
+                double p2Lat = t[i + 1].Latitude;
+                double p2Lon = t[i + 1].Longitude;
+                HaversineDistance hd = new HaversineDistance(p1Lat, p1Lon, p2Lat, p2Lon);
 
-                HaversineDistance d = new HaversineDistance(p1Lat, p1Lon, p2Lat, p2Lon);
-
-                double distance = d.DistanceInMtr();
-
-                totalDistance = totalDistance + distance;
+                double d = hd.DistanceInMtr();
+                td = td + d;
             }
+            return td;
+        }
 
-            return totalDistance;
+        /// <summary>
+        /// Method to calculate the distance between two points using timeline objects
+        /// </summary>
+        /// <param name="t1">Timeline 1</param>
+        /// <param name="t2">Timeline 2</param>
+        /// <returns>double, distance</returns>
+        public double CalcDistanceBetweenTwoPoints(TimeLine t1, TimeLine t2)
+        {
+            List<TimeLine> t = new List<TimeLine>();
+            t.Add(t1);
+            t.Add(t2);
+
+            double d = CalcTotalDistance(t);
+
+            return d;
         }
 
         /// <summary>
@@ -62,10 +77,7 @@ namespace AnalyserLibrary
             for (int i = 0; i < t.Count - 1; i++)
             {
                 //calc distance between the points
-                List<TimeLine> tempTimeline = new List<TimeLine>();
-                tempTimeline.Add(t[i]);
-                tempTimeline.Add(t[i + 1]);
-                double d = CalcTotalDistance(tempTimeline);
+                double d = CalcDistanceBetweenTwoPoints(t[i], t[i + 1]);
 
                 //calc speed
                 Speed speed = new Speed(d, t[i].ReadingTime, t[i+1].ReadingTime);

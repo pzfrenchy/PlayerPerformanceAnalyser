@@ -53,9 +53,14 @@ namespace AnalyserLibrary
                             totalDistance = 0;
                             startTime = timeLines[y].ReadingTime;
                         }
+                        //if end of list reached before end of interval
+                        if (ts.TotalMinutes <= interval && y == timeLines.Count - 2)
+                        {
+                            seriesData.Add(totalDistance);
+                        }
                     }
                 }
-            }
+            }           
             return seriesData;
         }
     }

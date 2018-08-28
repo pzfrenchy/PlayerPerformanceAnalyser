@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using AnalyserLibrary;
@@ -31,9 +32,27 @@ namespace Analyser
         /// </summary>
         private void createPlayerBtn_Click(object sender, EventArgs e)
         {
-            if (forenameTxt.Text == "" || surnameTxt.Text == "")
+            string fname = forenameTxt.Text;
+            string sname = surnameTxt.Text;
+            DateTime dt = dobDtp.Value;
+
+            DateTime checkDate = DateTime.Now.AddYears(-3); //minimum age considered 3
+
+            if (string.IsNullOrEmpty(fname) || string.IsNullOrEmpty(sname))
             {
                 MessageBox.Show("Please enter the correct details");
+            }
+            else if (!fname.All(Char.IsLetter) || !sname.All(Char.IsLetter))
+            {
+                MessageBox.Show("Only a-z can be used in names");
+            }
+            else if (dt > DateTime.Now) 
+            {
+                MessageBox.Show("DOB cannot be in the future");
+            }
+            else if (dt > checkDate)
+            {
+                MessageBox.Show("Invalid DOB selected");
             }
             else
             {
@@ -41,8 +60,8 @@ namespace Analyser
                 {
                     Player player = new Player
                     {
-                        Forename = forenameTxt.Text,
-                        Surname = surnameTxt.Text,
+                        Forename = fname,
+                        Surname = sname,
                         Dob = dobDtp.Value
                     };
                     dbContext.Players.InsertOnSubmit(player);
@@ -57,19 +76,44 @@ namespace Analyser
         /// </summary>
         private void updatePlayerBtn_Click(object sender, EventArgs e)
         {
-            int selectedPlayerID = Convert.ToInt32(playersLstBox.SelectedValue.ToString());
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            string fname = forenameTxt.Text;
+            string sname = surnameTxt.Text;
+            DateTime dt = dobDtp.Value;
+
+            DateTime checkDate = DateTime.Now.AddYears(-3); //minimum age considered 3
+
+            if (string.IsNullOrEmpty(fname) || string.IsNullOrEmpty(sname))
             {
-                //find player in players table
-                Player player = dbContext.Players.Where(p => p.PlayerID.Equals(selectedPlayerID)).SingleOrDefault();
-                //write values
-                player.Forename = forenameTxt.Text;
-                player.Surname = surnameTxt.Text;
-                player.Dob = dobDtp.Value;
-                //update database
-                dbContext.SubmitChanges();
+                MessageBox.Show("Please enter the correct details");
             }
-            PopulatePlayersLstBox();
+            else if (!fname.All(Char.IsLetter) || !sname.All(Char.IsLetter))
+            {
+                MessageBox.Show("Only a-z can be used in names");
+            }
+            else if (dt > DateTime.Now)
+            {
+                MessageBox.Show("DOB cannot be in the future");
+            }
+            else if (dt > checkDate)
+            {
+                MessageBox.Show("Invalid DOB selected");
+            }
+            else
+            {
+                int selectedPlayerID = Convert.ToInt32(playersLstBox.SelectedValue.ToString());
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                {
+                    //find player in players table
+                    Player player = dbContext.Players.Where(p => p.PlayerID.Equals(selectedPlayerID)).SingleOrDefault();
+                    //write values
+                    player.Forename = forenameTxt.Text;
+                    player.Surname = surnameTxt.Text;
+                    player.Dob = dobDtp.Value;
+                    //update database
+                    dbContext.SubmitChanges();
+                }
+                PopulatePlayersLstBox();
+            }
         }
 
         /// <summary>
@@ -94,7 +138,6 @@ namespace Analyser
         /// </summary>
         private void createPitchBtn_Click(object sender, EventArgs e)
         {
-            //Data entry validation carried out in separate method.
             if (string.IsNullOrEmpty(pitchNameTxt.Text))
             {
                 MessageBox.Show("Please enter the pitch name");
@@ -119,17 +162,24 @@ namespace Analyser
         /// </summary>
         private void updatePitchBtn_Click(object sender, EventArgs e)
         {
-            int selectedPitchID = Convert.ToInt32(pitchLstBox.SelectedValue.ToString());
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            if (string.IsNullOrEmpty(pitchNameTxt.Text))
             {
-                //find pitch in pitches table
-                Pitch pitch = dbContext.Pitches.Where(p => p.PitchID.Equals(selectedPitchID)).SingleOrDefault();
-                //write values
-                pitch.PitchName = pitchNameTxt.Text;
-                //update database
-                dbContext.SubmitChanges();
+                MessageBox.Show("Please enter the pitch name");
             }
-            PopulatePitchLstBox();
+            else
+            {
+                int selectedPitchID = Convert.ToInt32(pitchLstBox.SelectedValue.ToString());
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                {
+                    //find pitch in pitches table
+                    Pitch pitch = dbContext.Pitches.Where(p => p.PitchID.Equals(selectedPitchID)).SingleOrDefault();
+                    //write values
+                    pitch.PitchName = pitchNameTxt.Text;
+                    //update database
+                    dbContext.SubmitChanges();
+                }
+                PopulatePitchLstBox();
+            }
         }
 
         /// <summary>
@@ -176,17 +226,24 @@ namespace Analyser
         /// </summary>
         private void updateOppBtn_Click(object sender, EventArgs e)
         {
-            int selectedOpponentID = Convert.ToInt32(oppLstBox.SelectedValue.ToString());
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            if (string.IsNullOrEmpty(oppNameTxt.Text))
             {
-                //find opponent in opponents table
-                Opponent opponent = dbContext.Opponents.Where(o => o.OpponentID.Equals(selectedOpponentID)).SingleOrDefault();
-                //write values
-                opponent.OpponentName = oppNameTxt.Text;
-                //update database
-                dbContext.SubmitChanges();
+                MessageBox.Show("Please enter the correct details");
             }
-            PopulateOppLstBox();
+            else
+            {
+                int selectedOpponentID = Convert.ToInt32(oppLstBox.SelectedValue.ToString());
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                {
+                    //find opponent in opponents table
+                    Opponent opponent = dbContext.Opponents.Where(o => o.OpponentID.Equals(selectedOpponentID)).SingleOrDefault();
+                    //write values
+                    opponent.OpponentName = oppNameTxt.Text;
+                    //update database
+                    dbContext.SubmitChanges();
+                }
+                PopulateOppLstBox();
+            }
         }
 
         /// <summary>
@@ -225,32 +282,25 @@ namespace Analyser
         /// </summary>
         private void createGameBtn_Click(object sender, EventArgs e)
         {
-            if (gameOppCombo.Text == "" || gamePitchCombo.Text == "")
-            {
-                MessageBox.Show("Please enter the correct details");
-            }
-            else
-            {
-                //Get pitch ID from pitch combo box.
-                int pitchID = Convert.ToInt16(gamePitchCombo.GetItemText(gamePitchCombo.SelectedValue));
+            //Get pitch ID from pitch combo box.
+            int pitchID = Convert.ToInt16(gamePitchCombo.GetItemText(gamePitchCombo.SelectedValue));
 
-                //Get opponent ID from opponent combo box.
-                int opponentID = Convert.ToInt16(gameOppCombo.GetItemText(gameOppCombo.SelectedValue));
+            //Get opponent ID from opponent combo box.
+            int opponentID = Convert.ToInt16(gameOppCombo.GetItemText(gameOppCombo.SelectedValue));
 
-                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                Game game = new Game()
                 {
-                    Game game = new Game()
-                    {
-                        GameDate = gameDtp.Value,
-                        PitchID = pitchID,
-                        OpponentID = opponentID,
-                        GameTypeID = matchGameType //global variable delared at start of file
-                    };
-                    dbContext.Games.InsertOnSubmit(game);
-                    dbContext.SubmitChanges();
-                }
-                PopulateGameLstBox();
+                    GameDate = gameDtp.Value,
+                    PitchID = pitchID,
+                    OpponentID = opponentID,
+                    GameTypeID = matchGameType //global variable delared at start of file
+                };
+                dbContext.Games.InsertOnSubmit(game);
+                dbContext.SubmitChanges();
             }
+            PopulateGameLstBox();
         }
 
         /// <summary>
@@ -461,11 +511,24 @@ namespace Analyser
 
         private void PopulateGameLstBox()
         {
-            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            if (string.IsNullOrEmpty(gameFilterTxt.Text))
             {
-                gameLstBox.DisplayMember = "GameDetails";
-                gameLstBox.ValueMember = "GameID";
-                gameLstBox.DataSource = dbContext.GameDetailsProc();
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                {
+                    gameLstBox.DisplayMember = "GameDetails";
+                    gameLstBox.ValueMember = "GameID";
+                    gameLstBox.DataSource = dbContext.GameDetailsProc();
+                }
+            }
+            else
+            {
+                string searchString = gameFilterTxt.Text;
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
+                {
+                    gameLstBox.DisplayMember = "GameDetails";
+                    gameLstBox.ValueMember = "GameID";
+                    gameLstBox.DataSource = dbContext.GameDetailsByOppProc(searchString);
+                }
             }
         }
 
@@ -527,6 +590,11 @@ namespace Analyser
                 lineupPlayersLstBox.ValueMember = "LineupID";
                 lineupPlayersLstBox.DataSource = dbContext.PlayerLineupDetailsProc(gameID);
             }
+        }
+
+        private void gameFilterTxt_TextChanged(object sender, EventArgs e)
+        {
+            PopulateGameLstBox();
         }
     }
 }

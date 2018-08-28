@@ -124,8 +124,8 @@ namespace Analyser
 
                     TimeLine timeLines = new TimeLine
                     {
-                        Longitude = Convert.ToDouble(elements[1]),
-                        Latitude = Convert.ToDouble(elements[2]),
+                        Latitude = Convert.ToDouble(elements[1]),
+                        Longitude = Convert.ToDouble(elements[2]),
                         ReadingTime = Convert.ToDateTime(elements[3]),
                         LineupID = lineupID,
                         GPSDeviceID = gpsDeviceID

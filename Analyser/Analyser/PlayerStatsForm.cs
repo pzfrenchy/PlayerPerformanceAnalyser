@@ -156,25 +156,22 @@ namespace Analyser
                 double maxSpeed = 12.0; //the maximum threshold for classifying movement in m/s
                 double sprints = Calculations.Instance.CalcSprints(matchedTimeLineRecords, minSpeed, maxSpeed);
                 sprintsLbl.Text = string.Format("{0}", sprints);
+
+                SeriesData seriesData = new SeriesData();
+                double seriesInterval = 5.0; //interval for series, set here, could be dynamically set in future
+                PopulateChartWithDistance(seriesData.GenerateSeriesData(matchedTimeLineRecords, seriesInterval));
+
+                //Create list of xy coordinates from timeline events for the graphical display
+                xy = Calculations.Instance.CalcXYFromGeolocationCoords(matchedTimeLineRecords, Width, Height);
+                List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(xy);
+
+                XYCount = xy.Count();
+                XYCountdown = xy.Count();
             }
             else
             {
-                //no data exists, clear text fields
-                distanceLbl.Text = "no data";
-                paceLbl.Text = "no data";
-                sprintsLbl.Text = "no data";
+                ClearData();
             }
-
-            SeriesData seriesData = new SeriesData();
-            double seriesInterval = 5.0; //interval for series, set here, could be dynamically set in future
-            PopulateChartWithDistance(seriesData.GenerateSeriesData(matchedTimeLineRecords, seriesInterval));
-
-            //Create list of xy coordinates from timeline events for the graphical display
-            xy = Calculations.Instance.CalcXYFromGeolocationCoords(matchedTimeLineRecords, Width, Height);
-            List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(xy);
-
-            XYCount = xy.Count();
-            XYCountdown = xy.Count();
         }
 
         /// <summary>
@@ -195,8 +192,15 @@ namespace Analyser
         /// </summary>
         private void ClearData()
         {
+            //Create a blank list
+            List<double> clearList = new List<double>();
+            for (int i = 0; i < 6; i++)
+            {
+                clearList.Add(0);
+            }
+            //populate chart with blank list as null clears all axis
             series.Points.Clear();
-            breakdownChart.DataSource = null;
+            breakdownChart.DataSource = clearList;
             breakdownChart.DataBind();
 
             distanceLbl.Text = "no data";

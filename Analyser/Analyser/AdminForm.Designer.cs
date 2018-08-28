@@ -54,7 +54,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.matchTab = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.gameFilterTxt = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.updateGameBtn = new System.Windows.Forms.Button();
             this.createGameBtn = new System.Windows.Forms.Button();
@@ -96,10 +96,10 @@
             this.tabControl1.Controls.Add(this.playerTab);
             this.tabControl1.Controls.Add(this.matchTab);
             this.tabControl1.Controls.Add(this.lineupTab);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(11, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1030, 875);
+            this.tabControl1.Size = new System.Drawing.Size(944, 840);
             this.tabControl1.TabIndex = 9;
             // 
             // playerTab
@@ -108,10 +108,10 @@
             this.playerTab.Controls.Add(this.groupBox3);
             this.playerTab.Controls.Add(this.groupBox5);
             this.playerTab.Controls.Add(this.groupBox4);
-            this.playerTab.Location = new System.Drawing.Point(8, 39);
+            this.playerTab.Location = new System.Drawing.Point(4, 33);
             this.playerTab.Name = "playerTab";
             this.playerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.playerTab.Size = new System.Drawing.Size(1014, 828);
+            this.playerTab.Size = new System.Drawing.Size(936, 803);
             this.playerTab.TabIndex = 0;
             this.playerTab.Text = "Admin";
             // 
@@ -122,18 +122,18 @@
             this.groupBox3.Controls.Add(this.oppNameTxt);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.createOppBtn);
-            this.groupBox3.Location = new System.Drawing.Point(22, 552);
+            this.groupBox3.Location = new System.Drawing.Point(20, 530);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(975, 261);
+            this.groupBox3.Size = new System.Drawing.Size(894, 251);
             this.groupBox3.TabIndex = 25;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Opponent Details";
             // 
             // updateOppBtn
             // 
-            this.updateOppBtn.Location = new System.Drawing.Point(219, 186);
+            this.updateOppBtn.Location = new System.Drawing.Point(201, 179);
             this.updateOppBtn.Name = "updateOppBtn";
-            this.updateOppBtn.Size = new System.Drawing.Size(115, 48);
+            this.updateOppBtn.Size = new System.Drawing.Size(105, 46);
             this.updateOppBtn.TabIndex = 8;
             this.updateOppBtn.Text = "Update";
             this.updateOppBtn.UseVisualStyleBackColor = true;
@@ -142,34 +142,34 @@
             // oppLstBox
             // 
             this.oppLstBox.FormattingEnabled = true;
-            this.oppLstBox.ItemHeight = 25;
-            this.oppLstBox.Location = new System.Drawing.Point(496, 30);
+            this.oppLstBox.ItemHeight = 24;
+            this.oppLstBox.Location = new System.Drawing.Point(455, 29);
             this.oppLstBox.Name = "oppLstBox";
-            this.oppLstBox.Size = new System.Drawing.Size(457, 204);
+            this.oppLstBox.Size = new System.Drawing.Size(419, 196);
             this.oppLstBox.TabIndex = 7;
             this.oppLstBox.SelectedIndexChanged += new System.EventHandler(this.oppLstBox_SelectedIndexChanged);
             // 
             // oppNameTxt
             // 
-            this.oppNameTxt.Location = new System.Drawing.Point(151, 44);
+            this.oppNameTxt.Location = new System.Drawing.Point(138, 42);
             this.oppNameTxt.Name = "oppNameTxt";
-            this.oppNameTxt.Size = new System.Drawing.Size(240, 31);
+            this.oppNameTxt.Size = new System.Drawing.Size(220, 29);
             this.oppNameTxt.TabIndex = 6;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(23, 50);
+            this.label14.Location = new System.Drawing.Point(21, 48);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(68, 25);
+            this.label14.Size = new System.Drawing.Size(64, 25);
             this.label14.TabIndex = 5;
             this.label14.Text = "Name";
             // 
             // createOppBtn
             // 
-            this.createOppBtn.Location = new System.Drawing.Point(75, 189);
+            this.createOppBtn.Location = new System.Drawing.Point(69, 181);
             this.createOppBtn.Name = "createOppBtn";
-            this.createOppBtn.Size = new System.Drawing.Size(115, 48);
+            this.createOppBtn.Size = new System.Drawing.Size(105, 46);
             this.createOppBtn.TabIndex = 4;
             this.createOppBtn.Text = "Create";
             this.createOppBtn.UseVisualStyleBackColor = true;
@@ -181,18 +181,18 @@
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.pitchNameTxt);
             this.groupBox5.Controls.Add(this.createPitchBtn);
-            this.groupBox5.Location = new System.Drawing.Point(22, 280);
+            this.groupBox5.Location = new System.Drawing.Point(20, 269);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(975, 261);
+            this.groupBox5.Size = new System.Drawing.Size(894, 251);
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Pitch Details";
             // 
             // updatePitchBtn
             // 
-            this.updatePitchBtn.Location = new System.Drawing.Point(219, 189);
+            this.updatePitchBtn.Location = new System.Drawing.Point(201, 181);
             this.updatePitchBtn.Name = "updatePitchBtn";
-            this.updatePitchBtn.Size = new System.Drawing.Size(115, 48);
+            this.updatePitchBtn.Size = new System.Drawing.Size(105, 46);
             this.updatePitchBtn.TabIndex = 24;
             this.updatePitchBtn.Text = "Update";
             this.updatePitchBtn.UseVisualStyleBackColor = true;
@@ -201,34 +201,34 @@
             // pitchLstBox
             // 
             this.pitchLstBox.FormattingEnabled = true;
-            this.pitchLstBox.ItemHeight = 25;
-            this.pitchLstBox.Location = new System.Drawing.Point(496, 30);
+            this.pitchLstBox.ItemHeight = 24;
+            this.pitchLstBox.Location = new System.Drawing.Point(455, 29);
             this.pitchLstBox.Name = "pitchLstBox";
-            this.pitchLstBox.Size = new System.Drawing.Size(457, 204);
+            this.pitchLstBox.Size = new System.Drawing.Size(419, 196);
             this.pitchLstBox.TabIndex = 11;
             this.pitchLstBox.SelectedIndexChanged += new System.EventHandler(this.pitchLstBox_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 50);
+            this.label1.Location = new System.Drawing.Point(21, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 25);
+            this.label1.Size = new System.Drawing.Size(64, 25);
             this.label1.TabIndex = 23;
             this.label1.Text = "Name";
             // 
             // pitchNameTxt
             // 
-            this.pitchNameTxt.Location = new System.Drawing.Point(151, 44);
+            this.pitchNameTxt.Location = new System.Drawing.Point(138, 42);
             this.pitchNameTxt.Name = "pitchNameTxt";
-            this.pitchNameTxt.Size = new System.Drawing.Size(240, 31);
+            this.pitchNameTxt.Size = new System.Drawing.Size(220, 29);
             this.pitchNameTxt.TabIndex = 22;
             // 
             // createPitchBtn
             // 
-            this.createPitchBtn.Location = new System.Drawing.Point(75, 189);
+            this.createPitchBtn.Location = new System.Drawing.Point(69, 181);
             this.createPitchBtn.Name = "createPitchBtn";
-            this.createPitchBtn.Size = new System.Drawing.Size(115, 48);
+            this.createPitchBtn.Size = new System.Drawing.Size(105, 46);
             this.createPitchBtn.TabIndex = 21;
             this.createPitchBtn.Text = "Create";
             this.createPitchBtn.UseVisualStyleBackColor = true;
@@ -245,9 +245,9 @@
             this.groupBox4.Controls.Add(this.dobDtp);
             this.groupBox4.Controls.Add(this.surnameTxt);
             this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Location = new System.Drawing.Point(22, 16);
+            this.groupBox4.Location = new System.Drawing.Point(20, 15);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(975, 261);
+            this.groupBox4.Size = new System.Drawing.Size(894, 251);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Player Details";
@@ -255,18 +255,18 @@
             // playersLstBox
             // 
             this.playersLstBox.FormattingEnabled = true;
-            this.playersLstBox.ItemHeight = 25;
-            this.playersLstBox.Location = new System.Drawing.Point(496, 30);
+            this.playersLstBox.ItemHeight = 24;
+            this.playersLstBox.Location = new System.Drawing.Point(455, 29);
             this.playersLstBox.Name = "playersLstBox";
-            this.playersLstBox.Size = new System.Drawing.Size(457, 204);
+            this.playersLstBox.Size = new System.Drawing.Size(419, 196);
             this.playersLstBox.TabIndex = 7;
             this.playersLstBox.SelectedIndexChanged += new System.EventHandler(this.playersLstBox_SelectedIndexChanged);
             // 
             // updatePlayerBtn
             // 
-            this.updatePlayerBtn.Location = new System.Drawing.Point(219, 189);
+            this.updatePlayerBtn.Location = new System.Drawing.Point(201, 181);
             this.updatePlayerBtn.Name = "updatePlayerBtn";
-            this.updatePlayerBtn.Size = new System.Drawing.Size(115, 48);
+            this.updatePlayerBtn.Size = new System.Drawing.Size(105, 46);
             this.updatePlayerBtn.TabIndex = 10;
             this.updatePlayerBtn.Text = "Update";
             this.updatePlayerBtn.UseVisualStyleBackColor = true;
@@ -274,25 +274,25 @@
             // 
             // forenameTxt
             // 
-            this.forenameTxt.Location = new System.Drawing.Point(151, 44);
+            this.forenameTxt.Location = new System.Drawing.Point(138, 42);
             this.forenameTxt.Name = "forenameTxt";
-            this.forenameTxt.Size = new System.Drawing.Size(240, 31);
+            this.forenameTxt.Size = new System.Drawing.Size(220, 29);
             this.forenameTxt.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 50);
+            this.label3.Location = new System.Drawing.Point(21, 48);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 25);
+            this.label3.Size = new System.Drawing.Size(101, 25);
             this.label3.TabIndex = 1;
             this.label3.Text = "Forename";
             // 
             // registerPlayerBtn
             // 
-            this.registerPlayerBtn.Location = new System.Drawing.Point(75, 189);
+            this.registerPlayerBtn.Location = new System.Drawing.Point(69, 181);
             this.registerPlayerBtn.Name = "registerPlayerBtn";
-            this.registerPlayerBtn.Size = new System.Drawing.Size(115, 48);
+            this.registerPlayerBtn.Size = new System.Drawing.Size(105, 46);
             this.registerPlayerBtn.TabIndex = 9;
             this.registerPlayerBtn.Text = "Create";
             this.registerPlayerBtn.UseVisualStyleBackColor = true;
@@ -301,32 +301,32 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 95);
+            this.label4.Location = new System.Drawing.Point(21, 91);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 25);
+            this.label4.Size = new System.Drawing.Size(92, 25);
             this.label4.TabIndex = 3;
             this.label4.Text = "Surname";
             // 
             // dobDtp
             // 
-            this.dobDtp.Location = new System.Drawing.Point(151, 134);
+            this.dobDtp.Location = new System.Drawing.Point(138, 129);
             this.dobDtp.Name = "dobDtp";
-            this.dobDtp.Size = new System.Drawing.Size(240, 31);
+            this.dobDtp.Size = new System.Drawing.Size(220, 29);
             this.dobDtp.TabIndex = 6;
             // 
             // surnameTxt
             // 
-            this.surnameTxt.Location = new System.Drawing.Point(151, 89);
+            this.surnameTxt.Location = new System.Drawing.Point(138, 85);
             this.surnameTxt.Name = "surnameTxt";
-            this.surnameTxt.Size = new System.Drawing.Size(240, 31);
+            this.surnameTxt.Size = new System.Drawing.Size(220, 29);
             this.surnameTxt.TabIndex = 4;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 139);
+            this.label5.Location = new System.Drawing.Point(21, 133);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 25);
+            this.label5.Size = new System.Drawing.Size(55, 25);
             this.label5.TabIndex = 5;
             this.label5.Text = "DOB";
             // 
@@ -334,15 +334,15 @@
             // 
             this.matchTab.BackColor = System.Drawing.Color.White;
             this.matchTab.Controls.Add(this.groupBox6);
-            this.matchTab.Location = new System.Drawing.Point(8, 39);
+            this.matchTab.Location = new System.Drawing.Point(4, 33);
             this.matchTab.Name = "matchTab";
-            this.matchTab.Size = new System.Drawing.Size(1014, 828);
+            this.matchTab.Size = new System.Drawing.Size(936, 803);
             this.matchTab.TabIndex = 3;
             this.matchTab.Text = "Create Match";
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Controls.Add(this.gameFilterTxt);
             this.groupBox6.Controls.Add(this.label2);
             this.groupBox6.Controls.Add(this.updateGameBtn);
             this.groupBox6.Controls.Add(this.createGameBtn);
@@ -353,34 +353,35 @@
             this.groupBox6.Controls.Add(this.label16);
             this.groupBox6.Controls.Add(this.gameOppCombo);
             this.groupBox6.Controls.Add(this.label17);
-            this.groupBox6.Location = new System.Drawing.Point(22, 16);
+            this.groupBox6.Location = new System.Drawing.Point(20, 15);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(968, 787);
+            this.groupBox6.Size = new System.Drawing.Size(887, 756);
             this.groupBox6.TabIndex = 8;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Match Details";
             // 
-            // textBox1
+            // gameFilterTxt
             // 
-            this.textBox1.Location = new System.Drawing.Point(521, 37);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(429, 31);
-            this.textBox1.TabIndex = 10;
+            this.gameFilterTxt.Location = new System.Drawing.Point(478, 36);
+            this.gameFilterTxt.Name = "gameFilterTxt";
+            this.gameFilterTxt.Size = new System.Drawing.Size(394, 29);
+            this.gameFilterTxt.TabIndex = 10;
+            this.gameFilterTxt.TextChanged += new System.EventHandler(this.gameFilterTxt_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(448, 44);
+            this.label2.Location = new System.Drawing.Point(411, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 25);
+            this.label2.Size = new System.Drawing.Size(60, 25);
             this.label2.TabIndex = 9;
             this.label2.Text = "Filter:";
             // 
             // updateGameBtn
             // 
-            this.updateGameBtn.Location = new System.Drawing.Point(219, 254);
+            this.updateGameBtn.Location = new System.Drawing.Point(201, 244);
             this.updateGameBtn.Name = "updateGameBtn";
-            this.updateGameBtn.Size = new System.Drawing.Size(115, 48);
+            this.updateGameBtn.Size = new System.Drawing.Size(105, 46);
             this.updateGameBtn.TabIndex = 8;
             this.updateGameBtn.Text = "Update";
             this.updateGameBtn.UseVisualStyleBackColor = true;
@@ -388,9 +389,9 @@
             // 
             // createGameBtn
             // 
-            this.createGameBtn.Location = new System.Drawing.Point(75, 254);
+            this.createGameBtn.Location = new System.Drawing.Point(69, 244);
             this.createGameBtn.Name = "createGameBtn";
-            this.createGameBtn.Size = new System.Drawing.Size(115, 48);
+            this.createGameBtn.Size = new System.Drawing.Size(105, 46);
             this.createGameBtn.TabIndex = 6;
             this.createGameBtn.Text = "Create";
             this.createGameBtn.UseVisualStyleBackColor = true;
@@ -399,62 +400,62 @@
             // gameLstBox
             // 
             this.gameLstBox.FormattingEnabled = true;
-            this.gameLstBox.ItemHeight = 25;
-            this.gameLstBox.Location = new System.Drawing.Point(448, 80);
+            this.gameLstBox.ItemHeight = 24;
+            this.gameLstBox.Location = new System.Drawing.Point(411, 77);
             this.gameLstBox.Name = "gameLstBox";
-            this.gameLstBox.Size = new System.Drawing.Size(502, 679);
+            this.gameLstBox.Size = new System.Drawing.Size(461, 652);
             this.gameLstBox.TabIndex = 7;
             this.gameLstBox.SelectedIndexChanged += new System.EventHandler(this.gameLstBox_SelectedIndexChanged);
             // 
             // gameDtp
             // 
-            this.gameDtp.Location = new System.Drawing.Point(208, 44);
+            this.gameDtp.Location = new System.Drawing.Point(191, 42);
             this.gameDtp.Name = "gameDtp";
-            this.gameDtp.Size = new System.Drawing.Size(200, 31);
+            this.gameDtp.Size = new System.Drawing.Size(184, 29);
             this.gameDtp.TabIndex = 0;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(23, 50);
+            this.label15.Location = new System.Drawing.Point(21, 48);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(123, 25);
+            this.label15.Size = new System.Drawing.Size(113, 25);
             this.label15.TabIndex = 1;
             this.label15.Text = "Select Date";
             // 
             // gamePitchCombo
             // 
             this.gamePitchCombo.FormattingEnabled = true;
-            this.gamePitchCombo.Location = new System.Drawing.Point(208, 158);
+            this.gamePitchCombo.Location = new System.Drawing.Point(191, 152);
             this.gamePitchCombo.Name = "gamePitchCombo";
-            this.gamePitchCombo.Size = new System.Drawing.Size(200, 33);
+            this.gamePitchCombo.Size = new System.Drawing.Size(184, 32);
             this.gamePitchCombo.TabIndex = 5;
             this.gamePitchCombo.Click += new System.EventHandler(this.selectPitchComboClick);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(23, 108);
+            this.label16.Location = new System.Drawing.Point(21, 104);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(172, 25);
+            this.label16.Size = new System.Drawing.Size(159, 25);
             this.label16.TabIndex = 2;
             this.label16.Text = "Select Opponent";
             // 
             // gameOppCombo
             // 
             this.gameOppCombo.FormattingEnabled = true;
-            this.gameOppCombo.Location = new System.Drawing.Point(208, 100);
+            this.gameOppCombo.Location = new System.Drawing.Point(191, 96);
             this.gameOppCombo.Name = "gameOppCombo";
-            this.gameOppCombo.Size = new System.Drawing.Size(200, 33);
+            this.gameOppCombo.Size = new System.Drawing.Size(184, 32);
             this.gameOppCombo.TabIndex = 4;
             this.gameOppCombo.Click += new System.EventHandler(this.selectOppComboClick);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(23, 166);
+            this.label17.Location = new System.Drawing.Point(21, 159);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(126, 25);
+            this.label17.Size = new System.Drawing.Size(115, 25);
             this.label17.TabIndex = 3;
             this.label17.Text = "Select Pitch";
             // 
@@ -463,9 +464,9 @@
             this.lineupTab.BackColor = System.Drawing.Color.White;
             this.lineupTab.Controls.Add(this.groupBox2);
             this.lineupTab.Controls.Add(this.groupBox1);
-            this.lineupTab.Location = new System.Drawing.Point(8, 39);
+            this.lineupTab.Location = new System.Drawing.Point(4, 33);
             this.lineupTab.Name = "lineupTab";
-            this.lineupTab.Size = new System.Drawing.Size(1014, 828);
+            this.lineupTab.Size = new System.Drawing.Size(936, 803);
             this.lineupTab.TabIndex = 5;
             this.lineupTab.Text = "Create Lineup";
             // 
@@ -478,18 +479,18 @@
             this.groupBox2.Controls.Add(this.addPlayerToLineupBtn);
             this.groupBox2.Controls.Add(this.label22);
             this.groupBox2.Controls.Add(this.label21);
-            this.groupBox2.Location = new System.Drawing.Point(15, 266);
+            this.groupBox2.Location = new System.Drawing.Point(14, 255);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(983, 559);
+            this.groupBox2.Size = new System.Drawing.Size(901, 537);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Add Players";
             // 
             // removeLineupItemBtn
             // 
-            this.removeLineupItemBtn.Location = new System.Drawing.Point(175, 213);
+            this.removeLineupItemBtn.Location = new System.Drawing.Point(160, 204);
             this.removeLineupItemBtn.Name = "removeLineupItemBtn";
-            this.removeLineupItemBtn.Size = new System.Drawing.Size(115, 48);
+            this.removeLineupItemBtn.Size = new System.Drawing.Size(105, 46);
             this.removeLineupItemBtn.TabIndex = 6;
             this.removeLineupItemBtn.Text = "Remove";
             this.removeLineupItemBtn.UseVisualStyleBackColor = true;
@@ -498,35 +499,35 @@
             // lineupPlayersLstBox
             // 
             this.lineupPlayersLstBox.FormattingEnabled = true;
-            this.lineupPlayersLstBox.ItemHeight = 25;
-            this.lineupPlayersLstBox.Location = new System.Drawing.Point(315, 31);
+            this.lineupPlayersLstBox.ItemHeight = 24;
+            this.lineupPlayersLstBox.Location = new System.Drawing.Point(289, 30);
             this.lineupPlayersLstBox.Name = "lineupPlayersLstBox";
-            this.lineupPlayersLstBox.Size = new System.Drawing.Size(652, 379);
+            this.lineupPlayersLstBox.Size = new System.Drawing.Size(598, 364);
             this.lineupPlayersLstBox.TabIndex = 5;
             // 
             // lineupPositionCombo
             // 
             this.lineupPositionCombo.FormattingEnabled = true;
-            this.lineupPositionCombo.Location = new System.Drawing.Point(23, 162);
+            this.lineupPositionCombo.Location = new System.Drawing.Point(21, 156);
             this.lineupPositionCombo.Name = "lineupPositionCombo";
-            this.lineupPositionCombo.Size = new System.Drawing.Size(267, 33);
+            this.lineupPositionCombo.Size = new System.Drawing.Size(245, 32);
             this.lineupPositionCombo.TabIndex = 4;
             this.lineupPositionCombo.Click += new System.EventHandler(this.selectPositionComboClick);
             // 
             // lineupPlayerCombo
             // 
             this.lineupPlayerCombo.FormattingEnabled = true;
-            this.lineupPlayerCombo.Location = new System.Drawing.Point(23, 79);
+            this.lineupPlayerCombo.Location = new System.Drawing.Point(21, 76);
             this.lineupPlayerCombo.Name = "lineupPlayerCombo";
-            this.lineupPlayerCombo.Size = new System.Drawing.Size(267, 33);
+            this.lineupPlayerCombo.Size = new System.Drawing.Size(245, 32);
             this.lineupPlayerCombo.TabIndex = 3;
             this.lineupPlayerCombo.Click += new System.EventHandler(this.selectPlayerComboClick);
             // 
             // addPlayerToLineupBtn
             // 
-            this.addPlayerToLineupBtn.Location = new System.Drawing.Point(23, 213);
+            this.addPlayerToLineupBtn.Location = new System.Drawing.Point(21, 204);
             this.addPlayerToLineupBtn.Name = "addPlayerToLineupBtn";
-            this.addPlayerToLineupBtn.Size = new System.Drawing.Size(115, 48);
+            this.addPlayerToLineupBtn.Size = new System.Drawing.Size(105, 46);
             this.addPlayerToLineupBtn.TabIndex = 2;
             this.addPlayerToLineupBtn.Text = "Add";
             this.addPlayerToLineupBtn.UseVisualStyleBackColor = true;
@@ -535,18 +536,18 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(18, 134);
+            this.label22.Location = new System.Drawing.Point(17, 129);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(89, 25);
+            this.label22.Size = new System.Drawing.Size(81, 25);
             this.label22.TabIndex = 1;
             this.label22.Text = "Position";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(18, 50);
+            this.label21.Location = new System.Drawing.Point(17, 48);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(73, 25);
+            this.label21.Size = new System.Drawing.Size(67, 25);
             this.label21.TabIndex = 0;
             this.label21.Text = "Player";
             // 
@@ -556,9 +557,9 @@
             this.groupBox1.Controls.Add(this.lineupGameSearchCombo);
             this.groupBox1.Controls.Add(this.lineupGameSearchTxt);
             this.groupBox1.Controls.Add(this.lineupSearchResultsLstBox);
-            this.groupBox1.Location = new System.Drawing.Point(15, 20);
+            this.groupBox1.Location = new System.Drawing.Point(14, 19);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(983, 240);
+            this.groupBox1.Size = new System.Drawing.Size(901, 230);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Match Search";
@@ -566,9 +567,9 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(24, 44);
+            this.label20.Location = new System.Drawing.Point(22, 42);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(155, 25);
+            this.label20.Size = new System.Drawing.Size(142, 25);
             this.label20.TabIndex = 3;
             this.label20.Text = "Search Criteria";
             // 
@@ -578,37 +579,37 @@
             this.lineupGameSearchCombo.Items.AddRange(new object[] {
             "Date",
             "Opposition"});
-            this.lineupGameSearchCombo.Location = new System.Drawing.Point(23, 84);
+            this.lineupGameSearchCombo.Location = new System.Drawing.Point(21, 81);
             this.lineupGameSearchCombo.Name = "lineupGameSearchCombo";
-            this.lineupGameSearchCombo.Size = new System.Drawing.Size(267, 33);
+            this.lineupGameSearchCombo.Size = new System.Drawing.Size(245, 32);
             this.lineupGameSearchCombo.TabIndex = 2;
             this.lineupGameSearchCombo.Text = "Date";
             // 
             // lineupGameSearchTxt
             // 
-            this.lineupGameSearchTxt.Location = new System.Drawing.Point(23, 123);
+            this.lineupGameSearchTxt.Location = new System.Drawing.Point(21, 118);
             this.lineupGameSearchTxt.Name = "lineupGameSearchTxt";
-            this.lineupGameSearchTxt.Size = new System.Drawing.Size(267, 31);
+            this.lineupGameSearchTxt.Size = new System.Drawing.Size(245, 29);
             this.lineupGameSearchTxt.TabIndex = 1;
             this.lineupGameSearchTxt.TextChanged += new System.EventHandler(this.lineupSearchTxtChanged);
             // 
             // lineupSearchResultsLstBox
             // 
             this.lineupSearchResultsLstBox.FormattingEnabled = true;
-            this.lineupSearchResultsLstBox.ItemHeight = 25;
-            this.lineupSearchResultsLstBox.Location = new System.Drawing.Point(315, 44);
+            this.lineupSearchResultsLstBox.ItemHeight = 24;
+            this.lineupSearchResultsLstBox.Location = new System.Drawing.Point(289, 42);
             this.lineupSearchResultsLstBox.Name = "lineupSearchResultsLstBox";
-            this.lineupSearchResultsLstBox.Size = new System.Drawing.Size(652, 179);
+            this.lineupSearchResultsLstBox.Size = new System.Drawing.Size(598, 172);
             this.lineupSearchResultsLstBox.TabIndex = 0;
             this.lineupSearchResultsLstBox.SelectedIndexChanged += new System.EventHandler(this.gameSearchLstBoxIndexChanged);
             // 
             // AdminForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1055, 901);
+            this.ClientSize = new System.Drawing.Size(967, 865);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -685,7 +686,7 @@
         private System.Windows.Forms.Button updatePitchBtn;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button updateGameBtn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox gameFilterTxt;
         private System.Windows.Forms.Label label2;
     }
 }

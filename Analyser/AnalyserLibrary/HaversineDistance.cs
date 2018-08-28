@@ -78,7 +78,7 @@ namespace AnalyserLibrary
         {
             double earthRadius = 6371e3; //in metres
 
-            double distance = earthRadius * HaversineCalc() / 1.5;
+            double distance = earthRadius * HaversineCalc();
 
             return Math.Round(distance, 8);
         }
