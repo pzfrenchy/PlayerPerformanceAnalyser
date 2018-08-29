@@ -18,6 +18,7 @@ namespace Analyser
         Bitmap printImage; //used for printing the page
 
         Series series = new Series("series");
+        Series eFseries = new Series("eFseries");
         int XYCount = 0; //variable to hold the total count of XYCoordinates in a series
         int XYCountdown = 0; //variable to track which coord to display as graphics timer runs
         List<XY> xy = new List<XY>();
@@ -28,8 +29,31 @@ namespace Analyser
             PopulatePlayerCombo();
             breakdownChart.Series.Add(series);
             breakdownChart.Series["series"].YValueMembers = "Percent";
+            effortZonesChart.Series.Add(eFseries);
+            effortZonesChart.Series["eFseries"].YValueMembers = "Percent";
             PopulateActivityStats();
             timeLbl.Text = "0:00";
+            EffortZoneToolTip();
+        }
+
+        private void EffortZoneToolTip()
+        {
+            ToolTip zoneToolTip = new ToolTip();
+            zoneToolTip.ToolTipTitle = "Zone Info";
+            zoneToolTip.UseFading = true;
+            zoneToolTip.UseAnimation = true;
+            zoneToolTip.IsBalloon = true;
+            zoneToolTip.ShowAlways = true;
+            zoneToolTip.AutoPopDelay = 10000;
+            zoneToolTip.InitialDelay = 1000;
+            zoneToolTip.ReshowDelay = 500;
+            zoneToolTip.SetToolTip(effortZonesChart, 
+                "1 - stand/walk - 0-1.6m/s \n" +
+                "2 - walk/jog 1.7 - 3.3m/s \n" +
+                "3 - jogging 3.4 - 3.9m/s \n" +
+                "4 - running 4 - 5m/s \n" +
+                "5 - fast running 5 - 6.3m/s \n" +
+                "6 - sprinting > 6.4m/s");
         }
 
         /// <summary>
@@ -167,6 +191,24 @@ namespace Analyser
 
                 XYCount = xy.Count();
                 XYCountdown = xy.Count();
+
+                //populate effortzone chart
+                List<EffortZones> effortZones = new List<EffortZones>();
+                effortZones.Add(new EffortZones("Zone 1", 0, 1.6));
+                effortZones.Add(new EffortZones("Zone 2", 1.7, 3.3));
+                effortZones.Add(new EffortZones("Zone 3", 3.4, 3.9));
+                effortZones.Add(new EffortZones("Zone 4", 4, 5));
+                effortZones.Add(new EffortZones("Zone 5", 5.1, 6.3));
+                effortZones.Add(new EffortZones("Zone 6", 6.4, 12));
+                List<double> effortResults = new List<double>();
+                foreach (var zone in effortZones)
+                {
+                    double s = Calculations.Instance.CalcSprints(matchedTimeLineRecords, zone.Min, zone.Max);
+                    effortResults.Add(s);
+                    Console.WriteLine(s);
+                }
+                effortZonesChart.DataSource = effortResults;
+                effortZonesChart.DataBind();
             }
             else
             {
@@ -327,6 +369,11 @@ namespace Analyser
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
         }
     }
 }

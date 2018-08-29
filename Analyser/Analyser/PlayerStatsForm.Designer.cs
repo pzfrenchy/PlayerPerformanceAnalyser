@@ -30,8 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerStatsForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.effortZonesChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.speedLbl = new System.Windows.Forms.Label();
             this.timeLbl = new System.Windows.Forms.Label();
@@ -42,6 +44,8 @@
             this.playBtn = new System.Windows.Forms.Button();
             this.rewindBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.sprintsLbl = new System.Windows.Forms.Label();
             this.paceLbl = new System.Windows.Forms.Label();
             this.distanceLbl = new System.Windows.Forms.Label();
@@ -65,7 +69,11 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.printDocument = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
+            this.zoneToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.effortZonesChart)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pitchPictureBox)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -79,13 +87,29 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.effortZonesChart);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(12, 52);
+            this.panel1.Location = new System.Drawing.Point(11, 50);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1132, 731);
+            this.panel1.Size = new System.Drawing.Size(1038, 1014);
             this.panel1.TabIndex = 4;
+            // 
+            // effortZonesChart
+            // 
+            this.effortZonesChart.BackColor = System.Drawing.Color.Transparent;
+            this.effortZonesChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.effortZonesChart.BackImageTransparentColor = System.Drawing.SystemColors.ControlLight;
+            this.effortZonesChart.BackSecondaryColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.effortZonesChart.ChartAreas.Add(chartArea1);
+            this.effortZonesChart.Location = new System.Drawing.Point(511, 709);
+            this.effortZonesChart.Name = "effortZonesChart";
+            this.effortZonesChart.Size = new System.Drawing.Size(498, 230);
+            this.effortZonesChart.TabIndex = 9;
             // 
             // groupBox3
             // 
@@ -93,9 +117,9 @@
             this.groupBox3.Controls.Add(this.timeLbl);
             this.groupBox3.Controls.Add(this.pitchPictureBox);
             this.groupBox3.Controls.Add(this.groupBox4);
-            this.groupBox3.Location = new System.Drawing.Point(23, 28);
+            this.groupBox3.Location = new System.Drawing.Point(21, 27);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(504, 679);
+            this.groupBox3.Size = new System.Drawing.Size(462, 652);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Position";
@@ -103,9 +127,9 @@
             // speedLbl
             // 
             this.speedLbl.AutoSize = true;
-            this.speedLbl.Location = new System.Drawing.Point(397, 624);
+            this.speedLbl.Location = new System.Drawing.Point(364, 599);
             this.speedLbl.Name = "speedLbl";
-            this.speedLbl.Size = new System.Drawing.Size(80, 25);
+            this.speedLbl.Size = new System.Drawing.Size(74, 25);
             this.speedLbl.TabIndex = 6;
             this.speedLbl.Text = "Normal";
             this.speedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -114,18 +138,18 @@
             // 
             this.timeLbl.AutoSize = true;
             this.timeLbl.BackColor = System.Drawing.Color.LimeGreen;
-            this.timeLbl.Location = new System.Drawing.Point(23, 561);
+            this.timeLbl.Location = new System.Drawing.Point(21, 539);
             this.timeLbl.Name = "timeLbl";
-            this.timeLbl.Size = new System.Drawing.Size(54, 25);
+            this.timeLbl.Size = new System.Drawing.Size(51, 25);
             this.timeLbl.TabIndex = 5;
             this.timeLbl.Text = "0:00";
             // 
             // pitchPictureBox
             // 
             this.pitchPictureBox.BackColor = System.Drawing.Color.LimeGreen;
-            this.pitchPictureBox.Location = new System.Drawing.Point(16, 41);
+            this.pitchPictureBox.Location = new System.Drawing.Point(15, 39);
             this.pitchPictureBox.Name = "pitchPictureBox";
-            this.pitchPictureBox.Size = new System.Drawing.Size(470, 550);
+            this.pitchPictureBox.Size = new System.Drawing.Size(431, 528);
             this.pitchPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pitchPictureBox.TabIndex = 3;
             this.pitchPictureBox.TabStop = false;
@@ -136,17 +160,17 @@
             this.groupBox4.Controls.Add(this.pauseBtn);
             this.groupBox4.Controls.Add(this.playBtn);
             this.groupBox4.Controls.Add(this.rewindBtn);
-            this.groupBox4.Location = new System.Drawing.Point(98, 589);
+            this.groupBox4.Location = new System.Drawing.Point(90, 565);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(281, 82);
+            this.groupBox4.Size = new System.Drawing.Size(258, 79);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             // 
             // fastForwardBtn
             // 
-            this.fastForwardBtn.Location = new System.Drawing.Point(200, 22);
+            this.fastForwardBtn.Location = new System.Drawing.Point(183, 21);
             this.fastForwardBtn.Name = "fastForwardBtn";
-            this.fastForwardBtn.Size = new System.Drawing.Size(55, 50);
+            this.fastForwardBtn.Size = new System.Drawing.Size(50, 48);
             this.fastForwardBtn.TabIndex = 4;
             this.fastForwardBtn.Text = ">>";
             this.fastForwardBtn.UseVisualStyleBackColor = true;
@@ -154,9 +178,9 @@
             // 
             // pauseBtn
             // 
-            this.pauseBtn.Location = new System.Drawing.Point(88, 22);
+            this.pauseBtn.Location = new System.Drawing.Point(81, 21);
             this.pauseBtn.Name = "pauseBtn";
-            this.pauseBtn.Size = new System.Drawing.Size(50, 50);
+            this.pauseBtn.Size = new System.Drawing.Size(46, 48);
             this.pauseBtn.TabIndex = 3;
             this.pauseBtn.Text = "II";
             this.pauseBtn.UseVisualStyleBackColor = true;
@@ -164,9 +188,9 @@
             // 
             // playBtn
             // 
-            this.playBtn.Location = new System.Drawing.Point(144, 22);
+            this.playBtn.Location = new System.Drawing.Point(132, 21);
             this.playBtn.Name = "playBtn";
-            this.playBtn.Size = new System.Drawing.Size(50, 50);
+            this.playBtn.Size = new System.Drawing.Size(46, 48);
             this.playBtn.TabIndex = 4;
             this.playBtn.Text = ">";
             this.playBtn.UseVisualStyleBackColor = true;
@@ -174,9 +198,9 @@
             // 
             // rewindBtn
             // 
-            this.rewindBtn.Location = new System.Drawing.Point(27, 22);
+            this.rewindBtn.Location = new System.Drawing.Point(25, 21);
             this.rewindBtn.Name = "rewindBtn";
-            this.rewindBtn.Size = new System.Drawing.Size(55, 50);
+            this.rewindBtn.Size = new System.Drawing.Size(50, 48);
             this.rewindBtn.TabIndex = 3;
             this.rewindBtn.Text = "<<";
             this.rewindBtn.UseVisualStyleBackColor = true;
@@ -184,6 +208,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.sprintsLbl);
             this.groupBox2.Controls.Add(this.paceLbl);
             this.groupBox2.Controls.Add(this.distanceLbl);
@@ -193,17 +219,37 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(551, 188);
+            this.groupBox2.Location = new System.Drawing.Point(505, 180);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(556, 519);
+            this.groupBox2.Size = new System.Drawing.Size(510, 806);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Stats";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(217, 757);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(67, 25);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Zones";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(194, 502);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(123, 24);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Effort Zones";
+            // 
             // sprintsLbl
             // 
             this.sprintsLbl.AutoSize = true;
-            this.sprintsLbl.Location = new System.Drawing.Point(169, 174);
+            this.sprintsLbl.Location = new System.Drawing.Point(155, 167);
             this.sprintsLbl.Name = "sprintsLbl";
             this.sprintsLbl.Size = new System.Drawing.Size(19, 25);
             this.sprintsLbl.TabIndex = 8;
@@ -212,7 +258,7 @@
             // paceLbl
             // 
             this.paceLbl.AutoSize = true;
-            this.paceLbl.Location = new System.Drawing.Point(169, 128);
+            this.paceLbl.Location = new System.Drawing.Point(155, 123);
             this.paceLbl.Name = "paceLbl";
             this.paceLbl.Size = new System.Drawing.Size(19, 25);
             this.paceLbl.TabIndex = 7;
@@ -221,7 +267,7 @@
             // distanceLbl
             // 
             this.distanceLbl.AutoSize = true;
-            this.distanceLbl.Location = new System.Drawing.Point(169, 79);
+            this.distanceLbl.Location = new System.Drawing.Point(155, 76);
             this.distanceLbl.Name = "distanceLbl";
             this.distanceLbl.Size = new System.Drawing.Size(19, 25);
             this.distanceLbl.TabIndex = 6;
@@ -233,47 +279,47 @@
             this.breakdownChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.breakdownChart.BackImageTransparentColor = System.Drawing.SystemColors.ControlLight;
             this.breakdownChart.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.breakdownChart.ChartAreas.Add(chartArea1);
-            this.breakdownChart.Location = new System.Drawing.Point(0, 271);
+            chartArea2.Name = "ChartArea1";
+            this.breakdownChart.ChartAreas.Add(chartArea2);
+            this.breakdownChart.Location = new System.Drawing.Point(6, 260);
             this.breakdownChart.Name = "breakdownChart";
-            this.breakdownChart.Size = new System.Drawing.Size(556, 240);
+            this.breakdownChart.Size = new System.Drawing.Size(498, 230);
             this.breakdownChart.TabIndex = 5;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(159, 231);
+            this.label7.Location = new System.Drawing.Point(158, 226);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(226, 25);
+            this.label7.Size = new System.Drawing.Size(200, 24);
             this.label7.TabIndex = 4;
             this.label7.Text = "5 Minute Breakdown";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 174);
+            this.label6.Location = new System.Drawing.Point(22, 167);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(79, 25);
+            this.label6.Size = new System.Drawing.Size(73, 25);
             this.label6.TabIndex = 3;
             this.label6.Text = "Sprints";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 128);
+            this.label5.Location = new System.Drawing.Point(22, 123);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(110, 25);
+            this.label5.Size = new System.Drawing.Size(102, 25);
             this.label5.TabIndex = 2;
             this.label5.Text = "Avg. Pace";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 79);
+            this.label4.Location = new System.Drawing.Point(22, 76);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 25);
+            this.label4.Size = new System.Drawing.Size(88, 25);
             this.label4.TabIndex = 1;
             this.label4.Text = "Distance";
             // 
@@ -281,9 +327,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(205, 27);
+            this.label3.Location = new System.Drawing.Point(209, 26);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 25);
+            this.label3.Size = new System.Drawing.Size(97, 24);
             this.label3.TabIndex = 0;
             this.label3.Text = "Overview";
             // 
@@ -293,9 +339,9 @@
             this.groupBox1.Controls.Add(this.playerCombo);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dateCombo);
-            this.groupBox1.Location = new System.Drawing.Point(551, 28);
+            this.groupBox1.Location = new System.Drawing.Point(505, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(556, 153);
+            this.groupBox1.Size = new System.Drawing.Size(510, 147);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selection";
@@ -303,36 +349,36 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 49);
+            this.label2.Location = new System.Drawing.Point(22, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(139, 25);
+            this.label2.Size = new System.Drawing.Size(127, 25);
             this.label2.TabIndex = 5;
             this.label2.Text = "Select Player";
             // 
             // playerCombo
             // 
             this.playerCombo.FormattingEnabled = true;
-            this.playerCombo.Location = new System.Drawing.Point(169, 41);
+            this.playerCombo.Location = new System.Drawing.Point(155, 39);
             this.playerCombo.Name = "playerCombo";
-            this.playerCombo.Size = new System.Drawing.Size(245, 33);
+            this.playerCombo.Size = new System.Drawing.Size(225, 32);
             this.playerCombo.TabIndex = 1;
             this.playerCombo.SelectedIndexChanged += new System.EventHandler(this.PlayerComboIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 103);
+            this.label1.Location = new System.Drawing.Point(22, 99);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 25);
+            this.label1.Size = new System.Drawing.Size(113, 25);
             this.label1.TabIndex = 3;
             this.label1.Text = "Select Date";
             // 
             // dateCombo
             // 
             this.dateCombo.FormattingEnabled = true;
-            this.dateCombo.Location = new System.Drawing.Point(169, 95);
+            this.dateCombo.Location = new System.Drawing.Point(155, 91);
             this.dateCombo.Name = "dateCombo";
-            this.dateCombo.Size = new System.Drawing.Size(245, 33);
+            this.dateCombo.Size = new System.Drawing.Size(225, 32);
             this.dateCombo.TabIndex = 2;
             this.dateCombo.SelectedIndexChanged += new System.EventHandler(this.DateComboIndexChanged);
             // 
@@ -347,7 +393,7 @@
             this.fileToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1157, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(1061, 38);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -357,27 +403,27 @@
             this.printToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(64, 36);
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(56, 34);
             this.fileToolStripMenuItem1.Text = "File";
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(172, 38);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(154, 34);
             this.printToolStripMenuItem.Text = "Print";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(172, 38);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(154, 34);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(127, 36);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(117, 34);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // contextMenuStrip1
@@ -386,7 +432,7 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 40);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 38);
             // 
             // printDocument
             // 
@@ -403,12 +449,36 @@
             this.printPreviewDialog.Name = "printPreviewDialog1";
             this.printPreviewDialog.Visible = false;
             // 
+            // zoneToolTip
+            // 
+            this.zoneToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Freestyle Script", 27.85714F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(17, 826);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(469, 78);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Great work, keep it up!";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Bauhaus 93", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(79, 714);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(343, 96);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "TrackFit";
+            // 
             // PlayerStatsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1157, 801);
+            this.ClientSize = new System.Drawing.Size(1061, 1076);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -416,6 +486,8 @@
             this.Name = "PlayerStatsForm";
             this.Text = "TrackFit - Player Statistics";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.effortZonesChart)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pitchPictureBox)).EndInit();
@@ -469,5 +541,11 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Drawing.Printing.PrintDocument printDocument;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog;
+        private System.Windows.Forms.DataVisualization.Charting.Chart effortZonesChart;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ToolTip zoneToolTip;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
     }
 }

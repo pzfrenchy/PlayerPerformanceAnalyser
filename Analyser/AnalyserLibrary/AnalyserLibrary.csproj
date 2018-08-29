@@ -50,6 +50,7 @@
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
     <Compile Include="DirSearch.cs" />
+    <Compile Include="EffortZones.cs" />
     <Compile Include="FileHandling.cs" />
     <Compile Include="GpxData.cs" />
     <Compile Include="HaversineDistance.cs" />
