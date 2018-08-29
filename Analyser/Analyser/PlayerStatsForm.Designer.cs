@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerStatsForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.effortZonesChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.speedLbl = new System.Windows.Forms.Label();
@@ -50,7 +52,7 @@
             this.paceLbl = new System.Windows.Forms.Label();
             this.distanceLbl = new System.Windows.Forms.Label();
             this.breakdownChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label7 = new System.Windows.Forms.Label();
+            this.breakdownLbl = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -70,8 +72,6 @@
             this.printDocument = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
             this.zoneToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.effortZonesChart)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -98,14 +98,34 @@
             this.panel1.Size = new System.Drawing.Size(1038, 1014);
             this.panel1.TabIndex = 4;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Bauhaus 93", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(79, 714);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(343, 96);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "TrackFit";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Freestyle Script", 27.85714F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(17, 826);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(460, 76);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Great work, keep it up!";
+            // 
             // effortZonesChart
             // 
             this.effortZonesChart.BackColor = System.Drawing.Color.Transparent;
             this.effortZonesChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.effortZonesChart.BackImageTransparentColor = System.Drawing.SystemColors.ControlLight;
             this.effortZonesChart.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.effortZonesChart.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.effortZonesChart.ChartAreas.Add(chartArea3);
             this.effortZonesChart.Location = new System.Drawing.Point(511, 709);
             this.effortZonesChart.Name = "effortZonesChart";
             this.effortZonesChart.Size = new System.Drawing.Size(498, 230);
@@ -214,7 +234,7 @@
             this.groupBox2.Controls.Add(this.paceLbl);
             this.groupBox2.Controls.Add(this.distanceLbl);
             this.groupBox2.Controls.Add(this.breakdownChart);
-            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.breakdownLbl);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
@@ -279,31 +299,31 @@
             this.breakdownChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.breakdownChart.BackImageTransparentColor = System.Drawing.SystemColors.ControlLight;
             this.breakdownChart.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.breakdownChart.ChartAreas.Add(chartArea2);
+            chartArea4.Name = "ChartArea1";
+            this.breakdownChart.ChartAreas.Add(chartArea4);
             this.breakdownChart.Location = new System.Drawing.Point(6, 260);
             this.breakdownChart.Name = "breakdownChart";
             this.breakdownChart.Size = new System.Drawing.Size(498, 230);
             this.breakdownChart.TabIndex = 5;
             // 
-            // label7
+            // breakdownLbl
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(158, 226);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(200, 24);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "5 Minute Breakdown";
+            this.breakdownLbl.AutoSize = true;
+            this.breakdownLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.breakdownLbl.Location = new System.Drawing.Point(158, 226);
+            this.breakdownLbl.Name = "breakdownLbl";
+            this.breakdownLbl.Size = new System.Drawing.Size(200, 24);
+            this.breakdownLbl.TabIndex = 4;
+            this.breakdownLbl.Text = "5 Minute Breakdown";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(22, 167);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 25);
+            this.label6.Size = new System.Drawing.Size(116, 25);
             this.label6.TabIndex = 3;
-            this.label6.Text = "Sprints";
+            this.label6.Text = "Max Sprints";
             // 
             // label5
             // 
@@ -453,26 +473,6 @@
             // 
             this.zoneToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Freestyle Script", 27.85714F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(17, 826);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(469, 78);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Great work, keep it up!";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Bauhaus 93", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(79, 714);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(343, 96);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "TrackFit";
-            // 
             // PlayerStatsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -516,7 +516,7 @@
         private System.Windows.Forms.Label paceLbl;
         private System.Windows.Forms.Label distanceLbl;
         private System.Windows.Forms.DataVisualization.Charting.Chart breakdownChart;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label breakdownLbl;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

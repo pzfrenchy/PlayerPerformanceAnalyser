@@ -34,6 +34,11 @@ namespace Analyser
             PopulateActivityStats();
             timeLbl.Text = "0:00";
             EffortZoneToolTip();
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                Option options = dbContext.Options.Where(o => o.Id.Equals(4)).SingleOrDefault();
+                breakdownLbl.Text = string.Format("{0} Minute Breakdown", options.BreakdownInterval);
+            }
         }
 
         private void EffortZoneToolTip()
@@ -47,13 +52,23 @@ namespace Analyser
             zoneToolTip.AutoPopDelay = 10000;
             zoneToolTip.InitialDelay = 1000;
             zoneToolTip.ReshowDelay = 500;
-            zoneToolTip.SetToolTip(effortZonesChart, 
-                "1 - stand/walk - 0-1.6m/s \n" +
-                "2 - walk/jog 1.7 - 3.3m/s \n" +
-                "3 - jogging 3.4 - 3.9m/s \n" +
-                "4 - running 4 - 5m/s \n" +
-                "5 - fast running 5 - 6.3m/s \n" +
-                "6 - sprinting > 6.4m/s");
+            using (DataClassesDataContext dbContext = new DataClassesDataContext())
+            {
+                Option options = dbContext.Options.Where(o => o.Id.Equals(4)).SingleOrDefault();
+                zoneToolTip.SetToolTip(effortZonesChart, string.Format(
+                    "1 - stand/walk - {0}-{1}m/s \n" +
+                    "2 - walk/jog {2} - {3}m/s \n" +
+                    "3 - jogging {4} - {5}m/s \n" +
+                    "4 - running {6} - {7}m/s \n" +
+                    "5 - fast running {8} - {9}m/s \n" +
+                    "6 - sprinting > {10}m/s", 
+                    options.EffortZone1Min, options.EffortZone1Max,
+                    options.EffortZone2Min, options.EffortZone2Max,
+                    options.EffortZone3Min, options.EffortZone3Max,
+                    options.EffortZone4Min, options.EffortZone4Max,
+                    options.EffortZone5Min, options.EffortZone5Max,
+                    options.EffortZone6Min));
+            }
         }
 
         /// <summary>
@@ -166,49 +181,53 @@ namespace Analyser
 
             if (matchedTimeLineRecords.Count() != 0)
             {
-                //calculate total distance and display
-                double totalDistance = Calculations.Instance.CalcTotalDistance(matchedTimeLineRecords);
-                distanceLbl.Text = string.Format("{0} m", Math.Round(totalDistance, 2));
-
-                //calculate velocity and display
-                Speed speed = new Speed(totalDistance, matchedTimeLineRecords[0].ReadingTime, matchedTimeLineRecords[matchedTimeLineRecords.Count - 1].ReadingTime);
-                double v = speed.AvgMtrPerSecondRnd();
-                paceLbl.Text = string.Format("{0} m/s", v);
-
-                //calculate sprints and display
-                double minSpeed = 6.4; //the minimum threshold for classifying movement in m/s
-                double maxSpeed = 12.0; //the maximum threshold for classifying movement in m/s
-                double sprints = Calculations.Instance.CalcSprints(matchedTimeLineRecords, minSpeed, maxSpeed);
-                sprintsLbl.Text = string.Format("{0}", sprints);
-
-                SeriesData seriesData = new SeriesData();
-                double seriesInterval = 5.0; //interval for series, set here, could be dynamically set in future
-                PopulateChartWithDistance(seriesData.GenerateSeriesData(matchedTimeLineRecords, seriesInterval));
-
-                //Create list of xy coordinates from timeline events for the graphical display
-                xy = Calculations.Instance.CalcXYFromGeolocationCoords(matchedTimeLineRecords, Width, Height);
-                List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(xy);
-
-                XYCount = xy.Count();
-                XYCountdown = xy.Count();
-
-                //populate effortzone chart
-                List<EffortZones> effortZones = new List<EffortZones>();
-                effortZones.Add(new EffortZones("Zone 1", 0, 1.6));
-                effortZones.Add(new EffortZones("Zone 2", 1.7, 3.3));
-                effortZones.Add(new EffortZones("Zone 3", 3.4, 3.9));
-                effortZones.Add(new EffortZones("Zone 4", 4, 5));
-                effortZones.Add(new EffortZones("Zone 5", 5.1, 6.3));
-                effortZones.Add(new EffortZones("Zone 6", 6.4, 12));
-                List<double> effortResults = new List<double>();
-                foreach (var zone in effortZones)
+                using (DataClassesDataContext dbContext = new DataClassesDataContext())
                 {
-                    double s = Calculations.Instance.CalcSprints(matchedTimeLineRecords, zone.Min, zone.Max);
-                    effortResults.Add(s);
-                    Console.WriteLine(s);
+                    Option options = dbContext.Options.Where(o => o.Id.Equals(4)).SingleOrDefault();
+
+                    //calculate total distance and display
+                    double totalDistance = Calculations.Instance.CalcTotalDistance(matchedTimeLineRecords);
+                    distanceLbl.Text = string.Format("{0} m", Math.Round(totalDistance, 2));
+
+                    //calculate velocity and display
+                    Speed speed = new Speed(totalDistance, matchedTimeLineRecords[0].ReadingTime, matchedTimeLineRecords[matchedTimeLineRecords.Count - 1].ReadingTime);
+                    double v = speed.AvgMtrPerSecondRnd();
+                    paceLbl.Text = string.Format("{0} m/s", v);
+
+                    //calculate sprints and display
+                    double minSpeed = options.EffortZone6Min; //the minimum threshold for classifying movement in m/s
+                    double maxSpeed = options.EffortZone6Max; //the maximum threshold for classifying movement in m/s
+                    double sprints = Calculations.Instance.CalcSprints(matchedTimeLineRecords, minSpeed, maxSpeed);
+                    sprintsLbl.Text = string.Format("{0}", sprints);
+
+                    SeriesData seriesData = new SeriesData();
+                    double seriesInterval = options.BreakdownInterval; //interval for series, set here, could be dynamically set in future
+                    PopulateChartWithDistance(seriesData.GenerateSeriesData(matchedTimeLineRecords, seriesInterval));
+
+                    //Create list of xy coordinates from timeline events for the graphical display
+                    xy = Calculations.Instance.CalcXYFromGeolocationCoords(matchedTimeLineRecords, Width, Height);
+                    List<XY> minMax = Calculations.Instance.CalcMinMaxCoords(xy);
+
+                    XYCount = xy.Count();
+                    XYCountdown = xy.Count();
+
+                    //populate effortzone chart
+                    List<EffortZones> effortZones = new List<EffortZones>();
+                    effortZones.Add(new EffortZones("Zone 1", options.EffortZone1Min, options.EffortZone1Max));
+                    effortZones.Add(new EffortZones("Zone 2", options.EffortZone2Min, options.EffortZone2Max));
+                    effortZones.Add(new EffortZones("Zone 3", options.EffortZone3Min, options.EffortZone3Max));
+                    effortZones.Add(new EffortZones("Zone 4", options.EffortZone4Min, options.EffortZone4Max));
+                    effortZones.Add(new EffortZones("Zone 5", options.EffortZone5Min, options.EffortZone5Max));
+                    effortZones.Add(new EffortZones("Zone 6", options.EffortZone6Min, options.EffortZone6Max));
+                    List<double> effortResults = new List<double>();
+                    foreach (var zone in effortZones)
+                    {
+                        double s = Calculations.Instance.CalcSprints(matchedTimeLineRecords, zone.Min, zone.Max);
+                        effortResults.Add(s);
+                    }
+                    effortZonesChart.DataSource = effortResults;
+                    effortZonesChart.DataBind();
                 }
-                effortZonesChart.DataSource = effortResults;
-                effortZonesChart.DataBind();
             }
             else
             {

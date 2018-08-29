@@ -57,6 +57,9 @@ namespace AnalyserLibrary
     partial void InsertPosition(Position instance);
     partial void UpdatePosition(Position instance);
     partial void DeletePosition(Position instance);
+    partial void InsertOption(Option instance);
+    partial void UpdateOption(Option instance);
+    partial void DeleteOption(Option instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -158,6 +161,14 @@ namespace AnalyserLibrary
 			get
 			{
 				return this.GetTable<Position>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Option> Options
+		{
+			get
+			{
+				return this.GetTable<Option>();
 			}
 		}
 		
@@ -1822,6 +1833,404 @@ namespace AnalyserLibrary
 		{
 			this.SendPropertyChanging();
 			entity.Position = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Options")]
+	public partial class Option : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _UploadDir;
+		
+		private double _BreakdownInterval;
+		
+		private double _EffortZone1Min;
+		
+		private double _EffortZone1Max;
+		
+		private double _EffortZone2Min;
+		
+		private double _EffortZone2Max;
+		
+		private double _EffortZone3Min;
+		
+		private double _EffortZone3Max;
+		
+		private double _EffortZone4Min;
+		
+		private double _EffortZone4Max;
+		
+		private double _EffortZone5Min;
+		
+		private double _EffortZone5Max;
+		
+		private double _EffortZone6Min;
+		
+		private double _EffortZone6Max;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnUploadDirChanging(string value);
+    partial void OnUploadDirChanged();
+    partial void OnBreakdownIntervalChanging(double value);
+    partial void OnBreakdownIntervalChanged();
+    partial void OnEffortZone1MinChanging(double value);
+    partial void OnEffortZone1MinChanged();
+    partial void OnEffortZone1MaxChanging(double value);
+    partial void OnEffortZone1MaxChanged();
+    partial void OnEffortZone2MinChanging(double value);
+    partial void OnEffortZone2MinChanged();
+    partial void OnEffortZone2MaxChanging(double value);
+    partial void OnEffortZone2MaxChanged();
+    partial void OnEffortZone3MinChanging(double value);
+    partial void OnEffortZone3MinChanged();
+    partial void OnEffortZone3MaxChanging(double value);
+    partial void OnEffortZone3MaxChanged();
+    partial void OnEffortZone4MinChanging(double value);
+    partial void OnEffortZone4MinChanged();
+    partial void OnEffortZone4MaxChanging(double value);
+    partial void OnEffortZone4MaxChanged();
+    partial void OnEffortZone5MinChanging(double value);
+    partial void OnEffortZone5MinChanged();
+    partial void OnEffortZone5MaxChanging(double value);
+    partial void OnEffortZone5MaxChanged();
+    partial void OnEffortZone6MinChanging(double value);
+    partial void OnEffortZone6MinChanged();
+    partial void OnEffortZone6MaxChanging(double value);
+    partial void OnEffortZone6MaxChanged();
+    #endregion
+		
+		public Option()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UploadDir", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string UploadDir
+		{
+			get
+			{
+				return this._UploadDir;
+			}
+			set
+			{
+				if ((this._UploadDir != value))
+				{
+					this.OnUploadDirChanging(value);
+					this.SendPropertyChanging();
+					this._UploadDir = value;
+					this.SendPropertyChanged("UploadDir");
+					this.OnUploadDirChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BreakdownInterval", DbType="Float NOT NULL")]
+		public double BreakdownInterval
+		{
+			get
+			{
+				return this._BreakdownInterval;
+			}
+			set
+			{
+				if ((this._BreakdownInterval != value))
+				{
+					this.OnBreakdownIntervalChanging(value);
+					this.SendPropertyChanging();
+					this._BreakdownInterval = value;
+					this.SendPropertyChanged("BreakdownInterval");
+					this.OnBreakdownIntervalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone1Min", DbType="Float NOT NULL")]
+		public double EffortZone1Min
+		{
+			get
+			{
+				return this._EffortZone1Min;
+			}
+			set
+			{
+				if ((this._EffortZone1Min != value))
+				{
+					this.OnEffortZone1MinChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone1Min = value;
+					this.SendPropertyChanged("EffortZone1Min");
+					this.OnEffortZone1MinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone1Max", DbType="Float NOT NULL")]
+		public double EffortZone1Max
+		{
+			get
+			{
+				return this._EffortZone1Max;
+			}
+			set
+			{
+				if ((this._EffortZone1Max != value))
+				{
+					this.OnEffortZone1MaxChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone1Max = value;
+					this.SendPropertyChanged("EffortZone1Max");
+					this.OnEffortZone1MaxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone2Min", DbType="Float NOT NULL")]
+		public double EffortZone2Min
+		{
+			get
+			{
+				return this._EffortZone2Min;
+			}
+			set
+			{
+				if ((this._EffortZone2Min != value))
+				{
+					this.OnEffortZone2MinChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone2Min = value;
+					this.SendPropertyChanged("EffortZone2Min");
+					this.OnEffortZone2MinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone2Max", DbType="Float NOT NULL")]
+		public double EffortZone2Max
+		{
+			get
+			{
+				return this._EffortZone2Max;
+			}
+			set
+			{
+				if ((this._EffortZone2Max != value))
+				{
+					this.OnEffortZone2MaxChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone2Max = value;
+					this.SendPropertyChanged("EffortZone2Max");
+					this.OnEffortZone2MaxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone3Min", DbType="Float NOT NULL")]
+		public double EffortZone3Min
+		{
+			get
+			{
+				return this._EffortZone3Min;
+			}
+			set
+			{
+				if ((this._EffortZone3Min != value))
+				{
+					this.OnEffortZone3MinChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone3Min = value;
+					this.SendPropertyChanged("EffortZone3Min");
+					this.OnEffortZone3MinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone3Max", DbType="Float NOT NULL")]
+		public double EffortZone3Max
+		{
+			get
+			{
+				return this._EffortZone3Max;
+			}
+			set
+			{
+				if ((this._EffortZone3Max != value))
+				{
+					this.OnEffortZone3MaxChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone3Max = value;
+					this.SendPropertyChanged("EffortZone3Max");
+					this.OnEffortZone3MaxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone4Min", DbType="Float NOT NULL")]
+		public double EffortZone4Min
+		{
+			get
+			{
+				return this._EffortZone4Min;
+			}
+			set
+			{
+				if ((this._EffortZone4Min != value))
+				{
+					this.OnEffortZone4MinChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone4Min = value;
+					this.SendPropertyChanged("EffortZone4Min");
+					this.OnEffortZone4MinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone4Max", DbType="Float NOT NULL")]
+		public double EffortZone4Max
+		{
+			get
+			{
+				return this._EffortZone4Max;
+			}
+			set
+			{
+				if ((this._EffortZone4Max != value))
+				{
+					this.OnEffortZone4MaxChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone4Max = value;
+					this.SendPropertyChanged("EffortZone4Max");
+					this.OnEffortZone4MaxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone5Min", DbType="Float NOT NULL")]
+		public double EffortZone5Min
+		{
+			get
+			{
+				return this._EffortZone5Min;
+			}
+			set
+			{
+				if ((this._EffortZone5Min != value))
+				{
+					this.OnEffortZone5MinChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone5Min = value;
+					this.SendPropertyChanged("EffortZone5Min");
+					this.OnEffortZone5MinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone5Max", DbType="Float NOT NULL")]
+		public double EffortZone5Max
+		{
+			get
+			{
+				return this._EffortZone5Max;
+			}
+			set
+			{
+				if ((this._EffortZone5Max != value))
+				{
+					this.OnEffortZone5MaxChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone5Max = value;
+					this.SendPropertyChanged("EffortZone5Max");
+					this.OnEffortZone5MaxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone6Min", DbType="Float NOT NULL")]
+		public double EffortZone6Min
+		{
+			get
+			{
+				return this._EffortZone6Min;
+			}
+			set
+			{
+				if ((this._EffortZone6Min != value))
+				{
+					this.OnEffortZone6MinChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone6Min = value;
+					this.SendPropertyChanged("EffortZone6Min");
+					this.OnEffortZone6MinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffortZone6Max", DbType="Float NOT NULL")]
+		public double EffortZone6Max
+		{
+			get
+			{
+				return this._EffortZone6Max;
+			}
+			set
+			{
+				if ((this._EffortZone6Max != value))
+				{
+					this.OnEffortZone6MaxChanging(value);
+					this.SendPropertyChanging();
+					this._EffortZone6Max = value;
+					this.SendPropertyChanged("EffortZone6Max");
+					this.OnEffortZone6MaxChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	

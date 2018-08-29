@@ -82,6 +82,25 @@
       <Association Name="Position_Lineup" Member="Lineups" ThisKey="PositionID" OtherKey="PositionID" Type="Lineup" />
     </Type>
   </Table>
+  <Table Name="dbo.Options" Member="Options">
+    <Type Name="Option">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UploadDir" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="BreakdownInterval" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone1Min" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone1Max" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone2Min" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone2Max" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone3Min" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone3Max" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone4Min" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone4Max" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone5Min" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone5Max" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone6Min" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EffortZone6Max" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.PlayerFullNameProc" Method="PlayerFullNameProc">
     <ElementType Name="PlayerFullNameProcResult">
       <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
